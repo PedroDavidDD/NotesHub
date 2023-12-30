@@ -2,4 +2,75 @@
   padding: 0 0;
   margin: 0 0;
   box-sizing: border-box;
+  font-size: 16px;
+}
+
+.container {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  background: #bbb url('./images/00011.jpeg') no-repeat center/cover;
+}
+
+.head .title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  background-image: linear-gradient(-45deg, rgba(0, 0, 0, 0.5)  50%, transparent 50%);
+}
+
+.head .title h2 {
+  padding: 0;
+  margin: 0;
+}
+
+.body {
+  display: grid;
+  gap: 15px; 
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); 
+  background-color: rebeccapurple;
+  
+  /* place-content: center; */
+}
+
+.body .notes {
+  width: 310px;
+  height: 310px;
+  color: #000;
+  background-color:#E5E2D1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: start;
+  border-radius: 10px;
+}
+
+.body .notes .notes__date h3, 
+.body .notes .notes__title h2,
+.body .notes .notes__datetime h3 {
+  font-family: 'Cormorant', serif;
+  font-size: 35px;
+  padding-left: 20px;
+  margin: 0;
+  font-weight: bold;
+}
+
+.body .notes .notes__title h2 {  
+  font-family: 'Forum', serif;
+  font-size: 30px;
+  padding-left: 0px;
+  font-weight: 300;
+  text-align: center;
+}
+
+.head .title h2, 
+.head .title span {
+  font-family: 'Forum', serif;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+.head .title h2:first-child,
+.head .title span {
+  color: #392200;
 }
