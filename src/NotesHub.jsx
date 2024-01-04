@@ -4,13 +4,13 @@ import { listNotes } from './Scripts/listNotes'
 
 import './NotesHub.css'
 import './Scripts/listNotes'
+import { Notes } from "./components/Notes";
 
 function NotesHub() {
 
   return (
     <>
       <div className="background">
-
 
         <div className="box">
 
@@ -23,14 +23,9 @@ function NotesHub() {
 
             <div className="calendar__notes">
               {
-                listNotes.map( ({ id, date, title, time }) => {
-                  
+                listNotes.map( (data) => {
                   return (
-                    <div className="note grid-item" key={ id }>
-                      <span className="note__date"><h3>{ date }</h3></span>
-                      <span className="note__title"><h2>{ title }</h2></span>
-                      <span className="note__datetime"><h3>{ time }</h3></span>
-                    </div>
+                    <Notes key={data.id}  { ...data } />
                     )
                 })
               }
