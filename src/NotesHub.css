@@ -1,18 +1,19 @@
 #root {
-  padding: 0 0;
-  margin: 0 0;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
   font-size: 16px;
 }
 
-.container {
-  display: block;
+.background {
   width: 100vw;
   height: 100vh;
   background: #bbb url('./images/00011.jpeg') no-repeat center/cover;
+  
+  overflow: auto;
 }
 
-.head .title {
+.calendar__title {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -20,21 +21,38 @@
   background-image: linear-gradient(-45deg, rgba(0, 0, 0, 0.5)  50%, transparent 50%);
 }
 
-.head .title h2 {
+.calendar__title h2 {
   padding: 0;
   margin: 0;
 }
 
-.body {
-  display: grid;
-  gap: 15px; 
-  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr)); 
-  background-color: rebeccapurple;
-  
-  /* place-content: center; */
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
 }
 
-.body .notes {
+.box__calendar {
+  display: block;
+  width: auto;
+  max-width: 1285px;
+  padding-top: 200px;
+}
+
+.calendar__notes {
+  width: 100%; 
+  /* display: grid; */
+  gap: 15px 10px; 
+  /* grid-template-columns: repeat(auto-fit, minmax(min(310px, 60%), 1fr));  */
+  /* max-width: 1666px;  */
+  /* place-items: center; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  
+}
+
+.calendar__notes .note {
   width: 310px;
   height: 310px;
   color: #000;
@@ -44,11 +62,12 @@
   justify-content: space-around;
   align-items: start;
   border-radius: 10px;
+  
 }
 
-.body .notes .notes__date h3, 
-.body .notes .notes__title h2,
-.body .notes .notes__datetime h3 {
+.calendar__notes .note .note__date h3, 
+.calendar__notes .note .note__title h2,
+.calendar__notes .note .note__datetime h3 {
   font-family: 'Cormorant', serif;
   font-size: 35px;
   padding-left: 20px;
@@ -56,7 +75,7 @@
   font-weight: bold;
 }
 
-.body .notes .notes__title h2 {  
+.calendar__notes .note .note__title h2 {  
   font-family: 'Forum', serif;
   font-size: 30px;
   padding-left: 0px;
@@ -64,13 +83,13 @@
   text-align: center;
 }
 
-.head .title h2, 
-.head .title span {
+.calendar__title h2, 
+.calendar__title span {
   font-family: 'Forum', serif;
   font-size: 40px;
   text-transform: uppercase;
 }
-.head .title h2:first-child,
-.head .title span {
+.calendar__title h2:first-child,
+.calendar__title span {
   color: #392200;
 }
