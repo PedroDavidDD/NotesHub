@@ -72,6 +72,13 @@
 
 .calendar__title {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.calendar__title__text {
+  display: flex;
   align-items: center;
   justify-content: start;
   position: relative;
@@ -80,23 +87,23 @@
   margin-bottom: 20px;
 }
 
-.calendar__title h2 {
+.calendar__title .calendar__title__text h2 {
   padding: 0;
   margin: 0;  
 }
 
-.calendar__title h2 {
+.calendar__title .calendar__title__text h2 {
   font-family: Haettenschweiler, serif;
   font-size: 50px;
   text-transform: uppercase;
 }
 
-.calendar__title h2:first-child {
+.calendar__title .calendar__title__text h2:first-child {
   color: #392200;
   margin-right: 50px;
 }
 
-.calendar__title h2:last-child {
+.calendar__title .calendar__title__text h2:last-child {
   color: #ffffff;
 }
 
