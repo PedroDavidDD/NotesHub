@@ -13,22 +13,10 @@
   overflow: auto;
 }
 
-.calendar__title {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: relative;
-  background-image: linear-gradient(-45deg, rgba(0, 0, 0, 0.5)  50%, transparent 50%);
-}
-
-.calendar__title h2 {
-  padding: 0;
-  margin: 0;
-}
-
 .box {
   display: flex;
   flex-direction: column;
+
   align-items: center;  
 }
 
@@ -36,16 +24,12 @@
   display: block;
   width: auto;
   max-width: 1285px;
-  padding-top: 200px;
+  /* padding-top: 200px; */
 }
 
 .calendar__notes {
   width: 100%; 
-  /* display: grid; */
   gap: 15px 10px; 
-  /* grid-template-columns: repeat(auto-fit, minmax(min(310px, 60%), 1fr));  */
-  /* max-width: 1666px;  */
-  /* place-items: center; */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -83,13 +67,51 @@
   text-align: center;
 }
 
-.calendar__title h2, 
-.calendar__title span {
-  font-family: 'Forum', serif;
-  font-size: 40px;
+.calendar__title {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  position: relative;
+  background-image: linear-gradient(-70deg, rgba(0, 0, 0, 0.5)  70%, transparent 50%);
+  padding: 0 20px;  
+  margin-bottom: 20px;
+}
+
+.calendar__title h2 {
+  padding: 0;
+  margin: 0;  
+}
+
+.calendar__title h2 {
+  font-family: Haettenschweiler, serif;
+  font-size: 50px;
   text-transform: uppercase;
 }
-.calendar__title h2:first-child,
-.calendar__title span {
+
+.calendar__title h2:first-child {
   color: #392200;
+  margin-right: 50px;
+}
+
+.calendar__title h2:last-child {
+  color: #ffffff;
+}
+
+.calendar__title,
+.calendar__notes .note {
+  border-radius: 10px;
+}
+
+
+
+@media screen and (max-width: 900px) {
+	
+}
+
+@media screen and (max-width: 700px) {
+	
+}
+
+@media screen and (max-width: 600px) {
+
 }

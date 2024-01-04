@@ -16,11 +16,10 @@ function NotesHub() {
 
           <div className="box__calendar"> 
 
-            <span className="calendar__title">
-              <h2>horarios de stream</h2>
-              <span>//</span>
-              <h2>Semana del 17/12/2023 al 23/12/2023</h2>
-            </span>
+            <div className="calendar__title">
+              <h2>horarios de stream</h2> 
+              <h2>semana del 17/12/2023 al 23/12/2023</h2>
+            </div>
 
             <div className="calendar__notes">
               {

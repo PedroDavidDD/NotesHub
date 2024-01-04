@@ -47,10 +47,4 @@ export const listNotes = [
         title: 'Detroi: Become Human Primera Vez :0',
         time: 'Diciembre 07',
     },
-    {
-        id: 8,
-        date: 'Viernes-8',
-        title: 'Detroi: Become Human Primera Vez :0',
-        time: 'Diciembre 07',
-    },
 ]
