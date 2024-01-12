@@ -10,8 +10,8 @@ function NotesHub() {
 
   const stateNotes = {
     box: 'typeBox',
-    large: 'typeDescompressed',
-    compressed: 'typeCompressed',
+    large: 'typeLarge',
+    compressed: 'typeShort',
   }
 
   const [boxStyle, setBoxStyle] = useState(stateNotes.box); 
@@ -69,11 +69,11 @@ function NotesHub() {
                 </div>
             </div>
 
-            <div className={`calendar__notes ${boxStyle}`}>
+            <div className={`calendar__notes`}>
               {
                 listNotes.map( (data) => {
                   return (
-                    <Notes key={data.id}  { ...data } />
+                    <Notes key={data.id}  { ...data } boxStyle={boxStyle} />
                     )
                 })
               }

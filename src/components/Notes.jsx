@@ -1,11 +1,12 @@
 import React from 'react'
 
-export const Notes = ({ id, date, title, time }) => {
+export const Notes = ({ id, date, title, time, boxStyle}) => {
+
   return (
-    <div className="note grid-item" key={ id }>
-        <span className="note__date"><h3>{ date }</h3></span>
-        <span className="note__title"><h2>{ title }</h2></span>
-        <span className="note__datetime"><h3>{ time }</h3></span>
+    <div className={`note grid-item ${boxStyle}`} key={ id }>
+        <span className={`note__date ${boxStyle}`}><h3>{ date }</h3></span>
+        <span className={`note__title ${boxStyle}`}><h2>{ title }</h2></span>
+        <span className={`note__datetime ${boxStyle}`}><h3>{ time }</h3></span>
     </div>
   )
 }
