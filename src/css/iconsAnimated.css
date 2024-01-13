@@ -1,0 +1,27 @@
+
+.calendar__notes .note:first-child .plus.icon {
+    color: #000;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+}
+
+.calendar__notes .note:first-child .plus.icon::before {
+    content: '';
+    position: absolute;
+    width: 2em;
+    height: 0.3em;
+    background-color: #fff;
+}
+
+.calendar__notes .note:first-child .plus.icon::after {
+    content: '';
+    position: absolute;
+    width: 2em;
+    height: 0.3em;
+    background-color: #fff;
+    -webkit-transform: rotate(90deg);
+            transform: rotate(90deg);
+}

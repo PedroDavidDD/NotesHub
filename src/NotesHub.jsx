@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import {DndContext, closestCenter} from '@dnd-kit/core'
 import { listNotes } from './Scripts/listNotes'
 
 import './NotesHub.css'
+import './css/iconsAnimated.css'
+
 import './Scripts/listNotes'
 import { Notes } from "./components/Notes";
 

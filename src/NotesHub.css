@@ -43,9 +43,10 @@
   width: 310px;
   height: 310px;
   color: #000;
-  background:#E5E2D1;
 
-  background: #bbb url('./images/00004.jpeg') no-repeat center/cover;
+  background: #E5E2D1 url('./images/00004.jpeg') no-repeat center/cover;
+  background: #E5E2D1 url('./images/00011.jpeg') no-repeat center/cover;
+  background:#E5E2D1;
   /* background: #FE5CFF; */
   /* object-fit: contain;
   mix-blend-mode: color-burn; */
@@ -56,10 +57,6 @@
   border-radius: 10px 0px 0px 10px;
   z-index: 2;
   filter: saturate(120%);
-}
-
-.calendar__notes .note:nth-child(2n+1) {
-  background: #bbb url('./images/00011.jpeg') no-repeat center/cover;
 }
 
 .calendar__notes .note::before,
@@ -166,6 +163,41 @@
   z-index: -1;
 }
 
+/* [ADD][BOX] FIRST-CHILD  */
+.calendar__notes .note:first-child {
+  width: 305px;
+  height: 305px;
+  background: #ff5cff00;
+  border: 5px solid #ffffff;
+  border-radius: 10px;
+}
+
+.calendar__notes .note:first-child::before,
+.calendar__notes .note:first-child::after {
+  display: none;
+}
+
+.calendar__notes .note.typeShort:first-child::before,
+.calendar__notes .note.typeShort:first-child::after {
+  display: block;
+}
+
+.calendar__notes .note:first-child .note__date,
+.calendar__notes .note:first-child .note__title,
+.calendar__notes .note:first-child .note__datetime {
+  display: none;
+}
+
+.calendar__notes .note:first-child:before,
+.calendar__notes .note:first-child:after {
+  display: block;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  border: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
 /* TIPO LARGO */
 .calendar__notes .note.typeLarge {
   width: 405px;
@@ -214,8 +246,11 @@
 .note__date.typeShort::before,
 .note__title.typeShort::before,
 .note__datetime.typeShort::before {
-  background-color: rgba(255, 255, 255, 0);
+  background-color: transparent;
 }
+
+
+
 
 @media screen and (max-width: 1458px) {
 	
