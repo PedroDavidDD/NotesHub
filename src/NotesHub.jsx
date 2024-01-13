@@ -22,7 +22,7 @@ function NotesHub() {
 
         <div className="box">
 
-          <div className="box__calendar"> 
+          <div className={`box__calendar`}> 
 
             <div className="calendar__title" >
                 <div className="calendar__title__text">

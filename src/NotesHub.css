@@ -46,6 +46,7 @@
   background:#E5E2D1;
 
   background: #bbb url('./images/00004.jpeg') no-repeat center/cover;
+  /* background: #FE5CFF; */
   /* object-fit: contain;
   mix-blend-mode: color-burn; */
   
@@ -54,6 +55,7 @@
   align-items: start;
   border-radius: 10px 0px 0px 10px;
   z-index: 2;
+  filter: saturate(120%);
 }
 
 .calendar__notes .note:nth-child(2n+1) {
@@ -164,36 +166,16 @@
   z-index: -1;
 }
 
-@media screen and (max-width: 1458px) {
-	
-  .box__calendar {
-    width: auto;
-  }
-
-}
-
-@media screen and (max-width: 900px) {
-
-}
-
-@media screen and (max-width: 700px) {
-    
-}
-
-@media screen and (max-width: 600px) {
-
-}
-
 /* TIPO LARGO */
 .calendar__notes .note.typeLarge {
-  width: 305px;
-  height: 455px;
+  width: 405px;
+  height: 655px;
 }
 
 .calendar__notes .note.typeLarge::before,
 .calendar__notes .note.typeLarge::after {
-  width: 300px;
-  height: 450px;
+  width: 400px;
+  height: 650px;
 }
 
 /* TIPO CORTO */
@@ -202,7 +184,6 @@
   height: 160px;
   border-radius: 10px;
   position: relative;
-
 }
 
 .calendar__notes .note.typeShort::before,
@@ -234,4 +215,44 @@
 .note__title.typeShort::before,
 .note__datetime.typeShort::before {
   background-color: rgba(255, 255, 255, 0);
+}
+
+@media screen and (max-width: 1458px) {
+	
+  /* TIPO BOX */
+  .box__calendar {
+    width: auto;
+  }
+
+  /* TIPO CORTO */
+
+}
+
+@media screen and (max-width: 900px) {
+
+}
+
+@media screen and (max-width: 700px) {
+    
+}
+
+@media screen and (max-width: 600px) {
+
+  /* TIPO CORTO */
+  .calendar__notes .note.typeShort {
+    width: 300px;
+  }
+  
+  /* TIPO LARGO */
+  .calendar__notes .note.typeLarge {
+    width: 355px;
+    height: 605px;
+  }
+
+  .calendar__notes .note.typeLarge::before,
+  .calendar__notes .note.typeLarge::after {
+    width: 350px;
+    height: 600px;
+  }
+
 }
