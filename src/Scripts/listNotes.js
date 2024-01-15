@@ -2,8 +2,8 @@ export const listNotes = [
     {
         id: 0,
         date: 'Lunes',
-        title: 'Detroi: Become Human Primera Vez :0',
-        time: '4 AM - Perú',
+        title: '[ADD]',
+        time: '14/01/2024',
     },
     {
         id: 1,
