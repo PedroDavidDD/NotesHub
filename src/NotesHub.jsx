@@ -6,6 +6,7 @@ import './css/iconsAnimated.css'
 
 import './Scripts/listNotes'
 import { Notes } from "./components/Notes";
+import { CardModal } from "./components/CardModal";
 
 function NotesHub() {
 
@@ -15,10 +16,33 @@ function NotesHub() {
     compressed: 'typeShort',
   }
 
+  // ---------------------------------------------------
+  // -----------TIPOS DE ESTILO DE LAS CAJAS------------
+  // ---------------------------------------------------
   const [boxStyle, setBoxStyle] = useState(stateNotes.box); 
 
+  // ---------------------------------------------------
+  // -----------MODAL: condicionar la logica------------
+  // ---------------------------------------------------
+  const [open, setOpen] = React.useState(false);
+  const [dataSelected, setDataSelected] = React.useState(0);
   
+  const handleOpen = ( copyId ) => {
+    const idOrigen = listNotes.find((it) => it.id === copyId)
+    const TODO_CURRENT = "[add]".toLocaleLowerCase()
+    
+    if ( copyId === idOrigen.id && idOrigen.title.toLocaleLowerCase().includes(TODO_CURRENT) ) {
+      console.log("Se abrio el formulario para crear una nueva CARD");
+  
+    } else if (copyId === idOrigen.id) {
+      console.log("Se abre un panel para ver la info completa");
+      setOpen(true);
+      setDataSelected(idOrigen)
+    }
+  }
 
+  const handleClose = () => setOpen(false);
+  
   return (
     <>
       <div className="background">
@@ -76,11 +100,22 @@ function NotesHub() {
               {
                 listNotes.map( (data) => {
                   return (
-                    <Notes key={data.id}  { ...data } boxStyle={boxStyle} />
+                    <Notes 
+                      key={data.id}  { ...data } 
+                      boxStyle={boxStyle} 
+                      handleOpen={handleOpen}
+                    />
                     )
                 })
               }
             </div>
+
+            <CardModal 
+              open={open} 
+              handleClose={handleClose}
+              { ...dataSelected }
+              stateNotes = {stateNotes.box}
+            />
             
           </div>
 
