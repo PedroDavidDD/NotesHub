@@ -6,36 +6,42 @@ import React from 'react'
         top: '50%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        width: 935.85,
-        height: 'auto',
-        height: 755.81,
+        with: 500,
+        height: 500,
         bgcolor: '#FE5CFF',
+        bgcolor: '#222',
         border: '2px solid #000',
         boxShadow: 24,
-        p: 8,
+        p: 4,
+        display: 'flex',
+        flexDirection: 'column',
+        alignContext: 'center',
+        justifyContent: 'space-between',
+        
     };
 
     const cardDate = {
         display: 'flex',
         justifyContent: 'flex-start',
-        pb: 4,
         color: '#fff',
     };
     const cardTitle = {
-        display: 'flex',
-        justifyContent: 'flex-center',
+        display: "block",
         textAlign: 'center',
+        color: '#000',
+        bgcolor: '#fff',
     };
     const cardContet = {
-        display: 'flex',
-        justifyContent: 'flex-center',
+        width: '450px',
+        height: '350px',
         textAlign: 'justify',
         color: '#fff',
+        px: 2,
+        overflow: 'auto',
     };
     const cardTime = {
         display: 'flex',
         justifyContent: 'flex-end',
-        pt: 4,
     };
   
 export const CardModal =({ open, handleClose, id, date, title, time, content, stateNotes })=> {
@@ -54,10 +60,12 @@ export const CardModal =({ open, handleClose, id, date, title, time, content, st
                 className={`note grid-item ${stateNotes}`} 
                 key={ id } 
             >
-                <Typography variant="h4" component="div" sx={cardDate} ><h3>{ date }</h3></Typography>
-                <Typography  variant="h3" component="div" sx={cardTitle} ><h2>{ title }</h2></Typography>
-                <Typography paragraph variant="h5" sx={cardContet} ><h2>{ content }</h2></Typography>
-                <Typography variant="h4" component="div" sx={cardTime} ><h3>{ time }</h3></Typography>
+                <Typography variant="h6" component="div" sx={cardDate} >{ date }</Typography>
+                <span>
+                    <Typography  variant="h5" component="div" sx={cardTitle} >{ title }</Typography>
+                    <Typography paragraph variant="h6" sx={cardContet} >{ content }</Typography>
+                </span>
+                <Typography variant="h6" component="div" sx={cardTime} >{ time }</Typography>
             </Box>
             </Modal>
         </>
