@@ -51,7 +51,7 @@ import { theme } from '../css/theme';
         color: theme.colors.common.black, 
     };
   
-export const CardModal =({ open, handleClose, id, date, title, time, content, stateNotes })=> {
+export const CardModal =({ open, handleClose, id, date, title, time, description, stateNotes })=> {
  
 
     return (
@@ -71,7 +71,7 @@ export const CardModal =({ open, handleClose, id, date, title, time, content, st
                     <Typography className={`note__date`} variant="h6" component="div" sx={cardDate} >{ date }</Typography>
                     <span>
                         <Typography className={`note__title`} variant="h5" component="div" sx={cardTitle} >{ title }</Typography>
-                        <Typography paragraph variant="h6" sx={cardContet} >{ content }</Typography>
+                        <Typography paragraph variant="h6" sx={cardContet} >{ description }</Typography>
                     </span>
                     <Typography className={`note__datetime`} variant="h6" component="div" sx={cardTime} >{ time }</Typography>                    
                 </Box>

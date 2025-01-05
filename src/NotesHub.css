@@ -82,9 +82,9 @@
   border-right: 10px solid #ffffff;
 }
 
-.calendar__notes .note .note__date h3, 
-.calendar__notes .note .note__title h2,
-.calendar__notes .note .note__datetime h3 {
+.calendar__notes .note .note__date, 
+.calendar__notes .note .note__title,
+.calendar__notes .note .note__datetime {
   font-family: 'Cormorant', serif;
   font-size: 35px;
   padding-left: 20px;
@@ -92,7 +92,7 @@
   font-weight: bold;
 }
 
-.calendar__notes .note .note__title h2 {  
+.calendar__notes .note .note__title {  
   font-family: 'Forum', serif;
   font-size: 30px;
   padding-left: 0px;
@@ -144,9 +144,9 @@
   margin: 0px 20px;
 }
 
-.note__date h3,
-.note__title h2,
-.note__datetime h3 {
+.note__date,
+.note__title,
+.note__datetime {
   text-align: center;
   color: #000;
 }
@@ -232,13 +232,13 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.calendar__notes .note.typeShort .note__date h3, 
-.calendar__notes .note.typeShort .note__title h2,
-.calendar__notes .note.typeShort .note__datetime h3 {
+.calendar__notes .note.typeShort .note__date, 
+.calendar__notes .note.typeShort .note__title,
+.calendar__notes .note.typeShort .note__datetime {
   font-size: 30px;
 }
 
-.calendar__notes .note.typeShort .note__title h2 {  
+.calendar__notes .note.typeShort .note__title {  
   font-size: 25px;
 }
 

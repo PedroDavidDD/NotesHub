@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { listNotes } from './Scripts/listNotes'
 
 import './NotesHub.css'
@@ -7,6 +7,11 @@ import './css/iconsAnimated.css'
 import './Scripts/listNotes'
 import { Notes } from "./components/Notes";
 import { CardModal } from "./components/CardModal";
+
+
+
+import type { ScheduleBox as ScheduleBoxType } from './types/schedule';
+import { storage } from "./utils/storage";
 
 function NotesHub() {
 
@@ -27,7 +32,7 @@ function NotesHub() {
   const [open, setOpen] = React.useState(false);
   const [dataSelected, setDataSelected] = React.useState(0);
   
-  const handleOpen = ( copyId ) => {
+  const handleOpen = ( copyId:any ) => {
     const idOrigen = listNotes.find((it) => it.id === copyId)
     const TODO_CURRENT = "[add]".toLocaleLowerCase()
     
@@ -43,6 +48,124 @@ function NotesHub() {
 
   const handleClose = () => setOpen(false);
   
+  // ---------------------------------------------------
+  // -----------CRUD: Caja------------
+  // ---------------------------------------------------
+  const [scheduleBoxes, setScheduleBoxes] = useState<ScheduleBoxType[]>([]);
+  const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
+  const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>({
+    date: "02-03-2023",
+    title: "3 Detroi: Become Human Primera Vez :0",
+    time: "Diciembre 07",
+    color: '#FF69B4',
+    image: ''
+  });
+  const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isConfigVisible, setIsConfigVisible] = useState(false);
+
+  useEffect(() => {
+    const savedBoxes = storage.load();
+    if (savedBoxes.length > 0) {
+      setScheduleBoxes(savedBoxes);
+    }
+  }, []);
+
+  const handleSubmit = () => {
+    if (editingBox) {
+      setScheduleBoxes(boxes => 
+        boxes.map(box => box.id === editingBox.id ? { ...editingBox } : box)
+      );
+      setEditingBox(null);
+    } else if (newBox.date && newBox.title && newBox.time) {
+      const newBoxWithId: ScheduleBoxType = {
+        ...newBox,
+        id: Date.now().toString(),
+        order: scheduleBoxes.length
+      };
+      const updatedBoxes = [...scheduleBoxes, newBoxWithId];
+      setScheduleBoxes(updatedBoxes);
+      storage.save(updatedBoxes);
+      setNewBox({ date: '', title: '', time: '', color: '#FF69B4', image: '' });
+    }
+    setIsFormVisible(false);
+  };
+
+  const handleChange = (field: string, value: string) => {
+    const processValue = (field: string, value: string) => {
+      if (field === 'tags') {
+        return value.split(',').map(tag => tag.trim());
+      }
+      return value;
+    };
+
+    const processed = processValue(field, value);
+
+    if (editingBox) {
+      setEditingBox({ ...editingBox, [field]: processed });
+    } else {
+      setNewBox({ ...newBox, [field]: processed });
+    }
+  };
+
+  const handleEdit = (box: ScheduleBoxType) => {
+    setEditingBox(box);
+    setNewBox({ 
+      date: box.date, 
+      title: box.title, 
+      time: box.time, 
+      color: box.color,
+      image: box.image || '',
+      description: box.description || '',
+      tags: box.tags || [],
+      icon: box.icon || '',
+
+      borderStyle: box.borderStyle || 'solid',
+      textAlign: box.textAlign || 'left'
+    });
+    setIsFormVisible(true);
+    setIsConfigVisible(false);
+  };
+
+  const handleDelete = (id: string) => {
+    const updatedBoxes = scheduleBoxes.filter(box => box.id !== id);
+    setScheduleBoxes(updatedBoxes);
+    storage.save(updatedBoxes);
+  };
+
+  // ---------------------------------------------------
+  // -----------DRAG AND DROP------------
+  // ---------------------------------------------------
+  const handleDragStart = (e: React.DragEvent, box: ScheduleBoxType) => {
+    setDraggedBox(box);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
+    e.preventDefault();
+    
+    if (!draggedBox || draggedBox.id === targetBox.id) return;
+
+    const newBoxes = [...scheduleBoxes];
+    const draggedIndex = newBoxes.findIndex(box => box.id === draggedBox.id);
+    const targetIndex = newBoxes.findIndex(box => box.id === targetBox.id);
+
+    newBoxes.splice(draggedIndex, 1);
+    newBoxes.splice(targetIndex, 0, draggedBox);
+
+    const updatedBoxes = newBoxes.map((box, index) => ({
+      ...box,
+      order: index
+    }));
+
+    setScheduleBoxes(updatedBoxes);
+    storage.save(updatedBoxes);
+    setDraggedBox(null);
+  };
+
   return (
     <>
       <div className="background">
@@ -50,7 +173,7 @@ function NotesHub() {
         <div className="box">
 
           <div className={`box__calendar`}> 
-
+{/* Titulo y navs */}
             <div className="calendar__title" >
                 <div className="calendar__title__text">
                   <h2>horarios de stream</h2> 
@@ -95,27 +218,36 @@ function NotesHub() {
                   </span>
                 </div>
             </div>
-
+{/* Cajas */}
             <div className={`calendar__notes`}>
               {
                 listNotes.map( (data) => {
                   return (
                     <Notes 
-                      key={data.id}  { ...data } 
+                      key={data.id}  
+                      box={data}
                       boxStyle={boxStyle} 
-                      handleOpen={handleOpen}
+                      handleOpen={handleOpen}                      
+                      // CRUD
+                      onEdit={handleEdit}
+                      onDelete={handleDelete}
+                      // DRAG AND DROP
+                      onDragStart={handleDragStart}
+                      onDragOver={handleDragOver}
+                      onDrop={handleDrop}
+                      isDragging={draggedBox?.id === data.id}
                     />
                     )
                 })
               }
             </div>
-
-            <CardModal 
+{/* Abrir Cajas */}
+            {/* <CardModal 
               open={open} 
               handleClose={handleClose}
               { ...dataSelected }
               stateNotes = {stateNotes.box}
-            />
+            /> */}
             
           </div>
 
