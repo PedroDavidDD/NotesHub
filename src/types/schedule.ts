@@ -3,9 +3,9 @@ export interface ScheduleBox {
   date: string;
   title: string;
   time: string;
+  description?: string;
   color: string;
   image?: string;
-  description?: string;
   tags?: string[];
   icon?: string;
   borderStyle?: string;

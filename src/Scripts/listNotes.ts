@@ -53,7 +53,7 @@ export const listNotes:ScheduleBoxType[] = [
     {
         id: "4",
         date: "Viernes-4",
-        title: "Detroi: Become Human Primera Vez :0",
+        title: "4 4Detroi: Become Human Primera Vez :0",
         time: "Diciembre 07",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis fermentum sapien non finibus suscipit. Ut rhoncus feugiat erat eu suscipit.",
         color: "",

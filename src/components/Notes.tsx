@@ -8,7 +8,7 @@ import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 interface ScheduleBoxProps {
   box: ScheduleBoxType;
   boxStyle: any;
-  handleOpen: any;
+  // handleOpen: any;
   onEdit: (box: ScheduleBoxType) => void;
   onDelete: (id: string) => void;
   onDragStart: (e: React.DragEvent, box: ScheduleBoxType) => void;
@@ -21,7 +21,7 @@ export const Notes = ({
   box, 
   
   boxStyle,   
-  handleOpen,
+  // handleOpen,
 
   onEdit, 
   onDelete, 
@@ -36,7 +36,7 @@ export const Notes = ({
     <div 
       className={`note grid-item ${boxStyle}`} 
       key={ box.id } 
-      onClick={ (e) => handleOpen( box.id ) }
+      // onClick={ (e) => handleOpen( box.id ) }
       
       draggable
       onDragStart={(e) => onDragStart(e, box)}

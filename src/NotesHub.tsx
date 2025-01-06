@@ -4,7 +4,6 @@ import { listNotes } from './Scripts/listNotes'
 import './NotesHub.css'
 import './css/iconsAnimated.css'
 
-import './Scripts/listNotes'
 import { Notes } from "./components/Notes";
 import { CardModal } from "./components/CardModal";
 
@@ -29,29 +28,29 @@ function NotesHub() {
   // ---------------------------------------------------
   // -----------MODAL: condicionar la logica------------
   // ---------------------------------------------------
-  const [open, setOpen] = React.useState(false);
-  const [dataSelected, setDataSelected] = React.useState(0);
+  // const [open, setOpen] = React.useState(false);
+  // const [dataSelected, setDataSelected] = React.useState(0);
   
-  const handleOpen = ( copyId:any ) => {
-    const idOrigen = listNotes.find((it) => it.id === copyId)
-    const TODO_CURRENT = "[add]".toLocaleLowerCase()
+  // const handleOpen = ( copyId:string ) => {
+  //   const idOrigen = listNotes.find((it) => it.id === copyId)
+  //   const TODO_CURRENT = "[add]".toLocaleLowerCase()
     
-    if ( copyId === idOrigen.id && idOrigen.title.toLocaleLowerCase().includes(TODO_CURRENT) ) {
-      console.log("Se abrio el formulario para crear una nueva CARD");
+  //   if ( copyId === idOrigen.id && idOrigen.title.toLocaleLowerCase().includes(TODO_CURRENT) ) {
+  //     console.log("Se abrio el formulario para crear una nueva CARD");
   
-    } else if (copyId === idOrigen.id) {
-      console.log("Se abre un panel para ver la info completa");
-      setOpen(true);
-      setDataSelected(idOrigen)
-    }
-  }
+  //   } else if (copyId === idOrigen.id) {
+  //     console.log("Se abre un panel para ver la info completa");
+  //     setOpen(true);
+  //     setDataSelected(idOrigen)
+  //   }
+  // }
 
-  const handleClose = () => setOpen(false);
+  // const handleClose = () => setOpen(false);
   
   // ---------------------------------------------------
   // -----------CRUD: Caja------------
   // ---------------------------------------------------
-  const [scheduleBoxes, setScheduleBoxes] = useState<ScheduleBoxType[]>([]);
+  const [scheduleBoxes, setScheduleBoxes] = useState<ScheduleBoxType[]>(listNotes);
   const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
   const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>({
     date: "02-03-2023",
@@ -60,7 +59,8 @@ function NotesHub() {
     color: '#FF69B4',
     image: ''
   });
-  const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
+  
+
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isConfigVisible, setIsConfigVisible] = useState(false);
 
@@ -136,6 +136,8 @@ function NotesHub() {
   // ---------------------------------------------------
   // -----------DRAG AND DROP------------
   // ---------------------------------------------------
+  const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
+
   const handleDragStart = (e: React.DragEvent, box: ScheduleBoxType) => {
     setDraggedBox(box);
   };
@@ -165,6 +167,8 @@ function NotesHub() {
     storage.save(updatedBoxes);
     setDraggedBox(null);
   };
+  
+  const sortedBoxes = [...scheduleBoxes].sort((a, b) => a.order - b.order);
 
   return (
     <>
@@ -221,13 +225,13 @@ function NotesHub() {
 {/* Cajas */}
             <div className={`calendar__notes`}>
               {
-                listNotes.map( (data) => {
+                sortedBoxes.map( (data) => {
                   return (
                     <Notes 
                       key={data.id}  
                       box={data}
                       boxStyle={boxStyle} 
-                      handleOpen={handleOpen}                      
+                      // handleOpen={handleOpen}                      
                       // CRUD
                       onEdit={handleEdit}
                       onDelete={handleDelete}
