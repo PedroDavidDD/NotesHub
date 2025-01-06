@@ -65,7 +65,7 @@ export const Notes = ({
         {box.time}
       </span>
 
-      <div className={`plus icon ${boxStyle}`}></div>
+      {/* <div className={`plus icon ${boxStyle}`}></div> */}
     </div>
   )
 }

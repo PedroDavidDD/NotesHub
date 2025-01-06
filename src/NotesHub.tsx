@@ -11,6 +11,9 @@ import { CardModal } from "./components/CardModal";
 
 import type { ScheduleBox as ScheduleBoxType } from './types/schedule';
 import { storage } from "./utils/storage";
+import { ScheduleForm } from "./components/ScheduleForm";
+import { ConfigMenu } from "./components/ConfigMenu";
+import { ConfigButton } from "./components/ConfigButton";
 
 function NotesHub() {
 
@@ -107,32 +110,35 @@ function NotesHub() {
       setNewBox({ ...newBox, [field]: processed });
     }
   };
-
+// Editar la carta
   const handleEdit = (box: ScheduleBoxType) => {
     setEditingBox(box);
     setNewBox({ 
       date: box.date, 
       title: box.title, 
       time: box.time, 
+      description: box.description || '',
       color: box.color,
       image: box.image || '',
-      description: box.description || '',
       tags: box.tags || [],
       icon: box.icon || '',
-
       borderStyle: box.borderStyle || 'solid',
       textAlign: box.textAlign || 'left'
     });
     setIsFormVisible(true);
     setIsConfigVisible(false);
   };
-
+// Borrar la caja
   const handleDelete = (id: string) => {
     const updatedBoxes = scheduleBoxes.filter(box => box.id !== id);
     setScheduleBoxes(updatedBoxes);
     storage.save(updatedBoxes);
   };
-
+  // Importar el .txt
+  const handleImport = (boxes: ScheduleBoxType[]) => {
+    setScheduleBoxes(boxes);
+    storage.save(boxes);
+  };
   // ---------------------------------------------------
   // -----------DRAG AND DROP------------
   // ---------------------------------------------------
@@ -245,6 +251,7 @@ function NotesHub() {
                 })
               }
             </div>
+
 {/* Abrir Cajas */}
             {/* <CardModal 
               open={open} 
@@ -252,9 +259,35 @@ function NotesHub() {
               { ...dataSelected }
               stateNotes = {stateNotes.box}
             /> */}
-            
-          </div>
 
+              {/* opciones de las configuraciones */}
+            <ScheduleForm
+              box={editingBox || newBox}
+              onSubmit={handleSubmit}
+              onChange={handleChange}
+              isEditing={!!editingBox}
+              isVisible={isFormVisible}
+              onClose={() => setIsFormVisible(false)}
+            />
+            {/* Abrir las configuraciones */}
+            <ConfigMenu
+              boxes={scheduleBoxes}
+              onImport={handleImport}
+              isVisible={isConfigVisible}
+              onClose={() => setIsConfigVisible(false)}
+              onShowForm={() => {
+                setIsFormVisible(true);
+                setIsConfigVisible(false);
+              }}
+            />
+            {/* El boton de configuraciones */}
+            <ConfigButton onClick={() => {
+              setIsConfigVisible(true);
+              setIsFormVisible(false);
+            }} />
+
+
+          </div>
         </div>
 
       </div>
