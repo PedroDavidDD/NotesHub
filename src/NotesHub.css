@@ -164,31 +164,31 @@
 }
 
 /* [ADD][BOX] FIRST-CHILD  */
-.calendar__notes .note:first-child {
+/* .calendar__notes .note:first-child {
   width: 305px;
   height: 305px;
   background: #ff5cff00;
   border: 5px solid #ffffff;
   border-radius: 10px;
-}
+} */
 
-.calendar__notes .note:first-child::before,
+/* .calendar__notes .note:first-child::before,
 .calendar__notes .note:first-child::after {
   display: none;
-}
+} */
 
-.calendar__notes .note.typeShort:first-child::before,
+/* .calendar__notes .note.typeShort:first-child::before,
 .calendar__notes .note.typeShort:first-child::after {
   display: block;
-}
+} */
 
-.calendar__notes .note:first-child .note__date,
+/* .calendar__notes .note:first-child .note__date,
 .calendar__notes .note:first-child .note__title,
 .calendar__notes .note:first-child .note__datetime {
   display: none;
-}
+} */
 
-.calendar__notes .note:first-child:before,
+/* .calendar__notes .note:first-child:before,
 .calendar__notes .note:first-child:after {
   display: block;
   width: 100%;
@@ -196,7 +196,7 @@
   inset: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0.2);
-}
+} */
 
 /* TIPO LARGO */
 .calendar__notes .note.typeLarge {
