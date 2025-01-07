@@ -1,14 +1,21 @@
+
 #root {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-size: 16px;
+  width: 100vw;
+  height: 100vh;
 }
 
 .background {
-  width: 100vw;
-  height: 100vh;
-  background: #bbb url('./images/00011.jpeg') no-repeat center/cover;
+  /* width: calc(100vw - 15px);  */
+  /* min-height: 100vh; */
+  background: #bbb url('./images/00011.jpeg') no-repeat center/cover;  
+  /* height: auto; */
+}
+.background:has(.calendar__notes .note.typeShort) {
+  /* width: 100vw; */
 }
 
 .box {
@@ -23,7 +30,8 @@
 .box__calendar {
   display: block;
   width: 70%;
-  height: 100%;
+  /* height: 100%; */
+  /* height: auto; */
   background-color: green;
 }
 
@@ -35,8 +43,7 @@
   grid-template-columns: repeat(3, minmax(250px, 1fr)); /* Controla las columnas */
   grid-template-rows: repeat(auto-fill, 300px); /* Opcional: fija un tamaño para las filas */
   
-  /* align-items: center; */
-  /* justify-items: center; */
+  padding: 32px;
 }
 
 .calendar__notes .note {
@@ -106,10 +113,19 @@
 }
 
 .calendar__title {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: wrap; */
+}
+
+.calendar__title .icons {
+  display: flex;
+  gap: 1rem;
+  background-color: red;
+  align-items: center;
+  justify-content: end;
+  padding: 1rem 0rem;
 }
 
 .calendar__title__text {

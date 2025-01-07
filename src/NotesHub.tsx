@@ -199,6 +199,7 @@ function NotesHub() {
                       <path d="M17 3a1 1 0 0 1 .993 .883l.007 .117v2h2a1 1 0 0 1 .117 1.993l-.117 .007h-2v2a1 1 0 0 1 -1.993 .117l-.007 -.117v-2h-2a1 1 0 0 1 -.117 -1.993l.117 -.007h2v-2a1 1 0 0 1 1 -1z" strokeWidth="0" fill="currentColor" />
                     </svg>
                   </span>
+                  
                   <span className="icon--second" onClick={() => setBoxStyle(stateNotes.large)}>
                     {/* <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-battery-4" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
@@ -213,6 +214,7 @@ function NotesHub() {
                       <path d="M3 3m0 1a1 1 0 0 1 1 -1h16a1 1 0 0 1 1 1v16a1 1 0 0 1 -1 1h-16a1 1 0 0 1 -1 -1zm6 -1v18m6 -18v18" />
                     </svg>
                   </span>
+
                   <span className="icon--third" onClick={() => setBoxStyle(stateNotes.compressed)}>
                     <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-columns" width="44" height="44" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ffffff" fill="none" strokeLinecap="round" strokeLinejoin="round">
                       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
