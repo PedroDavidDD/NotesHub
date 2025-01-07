@@ -47,7 +47,7 @@ export const Notes = ({
         hover:scale-102 hover:shadow-lg`}
       style={{ 
         backgroundColor: box.color + '33',
-        backgroundImage: box.image ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${box.image})` : 'none',
+        backgroundImage: box.image ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${box.image})` : 'none',
         backgroundRepeat: 'no-repeat', /* No repetir la imagen */
         backgroundPosition: 'center', /* Centrar la imagen */
         backgroundSize: 'cover', /* Ajustar la imagen para cubrir todo el contenedor */

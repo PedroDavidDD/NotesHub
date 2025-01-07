@@ -35,7 +35,8 @@
   grid-template-columns: repeat(3, minmax(250px, 1fr)); /* Controla las columnas */
   grid-template-rows: repeat(auto-fill, 300px); /* Opcional: fija un tamaño para las filas */
   
-  background-color: rgb(238, 255, 0);
+  /* align-items: center; */
+  /* justify-items: center; */
 }
 
 .calendar__notes .note {
@@ -147,7 +148,7 @@
   position: relative;
   margin: 0px 20px;
   text-align: center;
-  color: #000;
+  color: #ffffff;
 }
 
 /* .note__title span,
@@ -156,7 +157,7 @@
   margin-left: 1.25rem;
 } */
 
-.note__date::before,
+/* .note__date::before,
 .note__title::before,
 .note__datetime::before {
   content: '';
@@ -164,9 +165,8 @@
   width: 100%;
   height: 100%;
   background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 10px;  
   z-index: -1;   
-}
+} */
 
 /* [ADD][BOX] FIRST-CHILD  */
 /* .calendar__notes .note:first-child {
@@ -207,6 +207,8 @@
 .calendar__notes .note.typeLarge {
   width: 405px;
   height: 655px;
+  
+  width: 100%;
 }
 
 .calendar__notes .note.typeLarge::before,
@@ -220,36 +222,43 @@
   height: 100%;
 }
 
-/* TIPO CORTO */
-.calendar__notes .note.typeShort {
-  width: 500px;
-  height: 160px;
-  border-radius: 10px;
-  position: relative;
+.calendar__notes:has(.note.typeLarge) {
+  grid-template-columns: repeat(3, minmax(405px, 1fr)); /* Cambia las columnas */
+  grid-template-rows: repeat(auto-fill, 655px); /* Cambia las filas */
+  
 }
 
-.calendar__notes .note.typeShort::before,
+/* TIPO CORTO */
+.calendar__notes .note.typeShort {
+  width: 370px;
+  height: 112px;
+  
+  width: 100%;
+}
+
+.calendar__notes:has(.note.typeShort) {
+  grid-template-columns: repeat(3, minmax(370px, 1fr)); /* Cambia las columnas */
+  grid-template-rows: repeat(auto-fill, 112px); /* Cambia las filas */    
+}
+
+/* .calendar__notes .note.typeShort::before,
 .calendar__notes .note.typeShort::after {
   width: 100%;
   height: 100%;
   inset: 0;
   border: 0;
   background-color: rgba(0, 0, 0, 0.2);
-}
-
+} */
+ 
 .calendar__notes .note.typeShort .note__date, 
 .calendar__notes .note.typeShort .note__title,
 .calendar__notes .note.typeShort .note__datetime {
-  font-size: 30px;
-}
+  font-size: 16px;
+} 
 
-.calendar__notes .note.typeShort .note__title {  
-  font-size: 25px;
-}
-
-.note__date.typeShort h3,
-.note__title.typeShort h2,
-.note__datetime.typeShort h3 {
+.note__date.typeShort span,
+.note__title.typeShort span,
+.note__datetime.typeShort {
   color: #ffffff;
 }
 
@@ -258,6 +267,7 @@
 .note__datetime.typeShort::before {
   background-color: transparent;
 }
+
 /* 2XL */
 @media screen and (max-width: 1536px) {
 	
@@ -266,12 +276,23 @@
     width: auto;
   }
 
+  .calendar__notes {
+    background-color: rgb(238, 255, 0);
+  }
+   
 }
 /* XL */
 @media screen and (max-width: 1280px) {
 
   .calendar__notes {
     background-color: rgb(255, 38, 0);
+  }
+  
+  .calendar__notes:has(.note.typeShort) {
+    grid-template-columns: repeat(2, minmax(370px, 1fr)); /* Cambia las columnas */
+  }
+  .calendar__notes:has(.note.typeLarge) {
+    grid-template-columns: repeat(2, minmax(405px, 1fr)); /* Cambia las columnas */
   }
 }
 /* LG */
@@ -281,6 +302,7 @@
     grid-template-columns: repeat(2, minmax(250px, 1fr)); /* Controla las columnas */    
     background-color: rgb(0, 255, 34);
   }
+  
 }
 /* MD */
 @media screen and (max-width: 768px) {
@@ -303,10 +325,18 @@
   } */
   .calendar__notes {
     grid-template-columns: repeat(1, minmax(250px, 1fr)); /* Controla las columnas */
-    
     background-color: rgb(255, 0, 200);
+  }  
+  .calendar__notes:has(.note.typeShort) {
+    grid-template-columns: repeat(1, minmax(370px, 1fr)); /* Cambia las columnas */
+  }
+  .calendar__notes:has(.note.typeLarge) {
+    grid-template-columns: repeat(1, minmax(405px, 1fr)); /* Cambia las columnas */
   }
 }
 /* SM */
 @media screen and (max-width: 640px) {
+  .calendar__notes {    
+    background-color: rgb(119, 0, 255);
+  }
 }
