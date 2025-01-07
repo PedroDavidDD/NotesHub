@@ -7,7 +7,7 @@ import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
 interface ScheduleBoxProps {
   box: ScheduleBoxType;
-  boxStyle: any;
+  boxStyle: string;
   // handleOpen: any;
   onEdit: (box: ScheduleBoxType) => void;
   onDelete: (id: string) => void;
@@ -34,7 +34,6 @@ export const Notes = ({
 
   return (
     <div 
-      className={`note grid-item ${boxStyle}`} 
       key={ box.id } 
       // onClick={ (e) => handleOpen( box.id ) }
       
@@ -42,28 +41,40 @@ export const Notes = ({
       onDragStart={(e) => onDragStart(e, box)}
       onDragOver={onDragOver}
       onDrop={(e) => onDrop(e, box)}      
+
+      className={`note grid-item ${boxStyle} relative group rounded-lg p-6 cursor-move transition-all duration-300 ease-in-out
+        ${isDragging ? 'scale-105 opacity-50 rotate-2' : 'scale-100 opacity-100 rotate-0'}
+        hover:scale-102 hover:shadow-lg`}
+      style={{ 
+        backgroundColor: box.color + '33',
+        backgroundImage: box.image ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)), url(${box.image})` : 'none',
+        backgroundRepeat: 'no-repeat', /* No repetir la imagen */
+        backgroundPosition: 'center', /* Centrar la imagen */
+        backgroundSize: 'cover', /* Ajustar la imagen para cubrir todo el contenedor */
+        filter: 'saturate(120%)',
+      }}
     >
-      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
+      <div className="z-10 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
         <button
           onClick={() => onEdit(box)}
-          className="p-1 hover:bg-blue-500 rounded-full transition-colors"
+          className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
         >
           <Edit size={16} />
         </button>
         <button
           onClick={() => onDelete(box.id)}
-          className="p-1 hover:bg-red-500 rounded-full transition-colors"
+          className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
         >
           <Trash2 size={16} />
         </button>
       </div>
 
-      <span className={`note__date ${boxStyle}`}>{ box.date }</span>
-      <span className={`note__title ${boxStyle}`}>{ box.title }</span>
-      <span className={`note__datetime ${boxStyle}`}>
+      <div className={`note__date ${boxStyle}`}><span>{ box.date }</span></div>
+      <div className={`note__title ${boxStyle}`}><span>{ box.title }</span></div>
+      <div className={`note__datetime ${boxStyle}`}>
         <Clock size={14} className="mr-1" />
-        {box.time}
-      </span>
+        { box.time }
+      </div>
 
       {/* <div className={`plus icon ${boxStyle}`}></div> */}
     </div>

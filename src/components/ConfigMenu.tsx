@@ -52,7 +52,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
           <X size={20} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-pink-400">Configuración</h2>
+        <h2 className="text-2xl font-bold mb-6 text-pink-400">Gestión de Datos</h2>
 
         <div className="space-y-4">
           <button
