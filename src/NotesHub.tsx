@@ -17,12 +17,16 @@ import { ConfigButton } from "./components/ConfigButton";
 
 function NotesHub() {
 
-  const stateNotes = {
+  const stateNotes: StateNotesProps = {
     box: 'typeBox',
     large: 'typeLarge',
     compressed: 'typeShort',
   }
-
+  interface StateNotesProps {
+    box: string,
+    large: string,
+    compressed: string,
+  }
   // ---------------------------------------------------
   // -----------TIPOS DE ESTILO DE LAS CAJAS------------
   // ---------------------------------------------------
@@ -31,24 +35,37 @@ function NotesHub() {
   // ---------------------------------------------------
   // -----------MODAL: condicionar la logica------------
   // ---------------------------------------------------
-  // const [open, setOpen] = React.useState(false);
-  // const [dataSelected, setDataSelected] = React.useState(0);
+  const [open, setOpen] = useState(false);
+  const defaultScheduleBox: ScheduleBoxType = {
+    id: "",
+    date: "",
+    title: "",
+    time: "",
+    color: "",
+    order: 0,
+    description: "",
+    tags: [],
+    icon: "",
+    borderStyle: "solid",
+    textAlign: "left",
+    image: "",
+  };
+  const [dataSelected, setDataSelected] = useState<ScheduleBoxType>(defaultScheduleBox);
   
-  // const handleOpen = ( copyId:string ) => {
-  //   const idOrigen = listNotes.find((it) => it.id === copyId)
-  //   const TODO_CURRENT = "[add]".toLocaleLowerCase()
-    
-  //   if ( copyId === idOrigen.id && idOrigen.title.toLocaleLowerCase().includes(TODO_CURRENT) ) {
-  //     console.log("Se abrio el formulario para crear una nueva CARD");
+  const handleOpen = (copyId: string) => {
+    const idOrigen: ScheduleBoxType | undefined = sortedBoxes.find((it) => it.id === copyId);
   
-  //   } else if (copyId === idOrigen.id) {
-  //     console.log("Se abre un panel para ver la info completa");
-  //     setOpen(true);
-  //     setDataSelected(idOrigen)
-  //   }
-  // }
+    if (!idOrigen) {
+      alert(`No se encontró una caja con el ID: ${copyId}`);
+      return;
+    }
+  
+    // console.log("Se abre un panel para ver la info completa", idOrigen);
+    setOpen(true);
+    setDataSelected(idOrigen);
+  };
 
-  // const handleClose = () => setOpen(false);
+  const handleClose = () => setOpen(false);
   
   // ---------------------------------------------------
   // -----------CRUD: Caja------------
@@ -239,7 +256,7 @@ function NotesHub() {
                       key={data.id}  
                       box={data}
                       boxStyle={boxStyle} 
-                      // handleOpen={handleOpen}                      
+                      handleOpen={handleOpen}                      
                       // CRUD
                       onEdit={handleEdit}
                       onDelete={handleDelete}
@@ -255,12 +272,12 @@ function NotesHub() {
             </div>
 
 {/* Abrir Cajas */}
-            {/* <CardModal 
-              open={open} 
-              handleClose={handleClose}
-              { ...dataSelected }
-              stateNotes = {stateNotes.box}
-            /> */}
+            <CardModal 
+              open={ open } 
+              handleClose={ handleClose }
+              box = { dataSelected }
+              stateNotes = { stateNotes }
+            />
 
               {/* opciones de las configuraciones */}
             <ScheduleForm

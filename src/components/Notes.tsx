@@ -3,12 +3,10 @@ import { listNotes } from '../Scripts/listNotes'
 import { Clock, Edit, Trash2 } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
-
-
 interface ScheduleBoxProps {
   box: ScheduleBoxType;
   boxStyle: string;
-  // handleOpen: any;
+  handleOpen: any;
   onEdit: (box: ScheduleBoxType) => void;
   onDelete: (id: string) => void;
   onDragStart: (e: React.DragEvent, box: ScheduleBoxType) => void;
@@ -21,7 +19,7 @@ export const Notes = ({
   box, 
   
   boxStyle,   
-  // handleOpen,
+  handleOpen,
 
   onEdit, 
   onDelete, 
@@ -35,16 +33,16 @@ export const Notes = ({
   return (
     <div 
       key={ box.id } 
-      // onClick={ (e) => handleOpen( box.id ) }
+      onClick={ (e) => handleOpen( box.id ) }
       
       draggable
       onDragStart={(e) => onDragStart(e, box)}
       onDragOver={onDragOver}
       onDrop={(e) => onDrop(e, box)}      
 
-      className={`note grid-item ${boxStyle} relative group rounded-lg p-6 cursor-move transition-all duration-300 ease-in-out
+      className={`note grid-item ${boxStyle} relative group rounded-lg p-6 cursor-pointer transition-all duration-300 ease-in-out
         ${isDragging ? 'scale-105 opacity-50 rotate-2' : 'scale-100 opacity-100 rotate-0'}
-        hover:scale-102 hover:shadow-lg`}
+        hover:scale-[1.02]`}
       style={{ 
         backgroundColor: box.color + '33',
         backgroundImage: box.image ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${box.image})` : 'none',
