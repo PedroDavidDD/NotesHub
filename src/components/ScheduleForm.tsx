@@ -12,6 +12,9 @@ interface ScheduleFormProps {
 }
 
 export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, onClose }: ScheduleFormProps) {
+
+
+
   return (
     <div className={`text-white z-10 fixed bottom-0 left-0 right-0 bg-[#2a0136] transition-transform duration-300 ease-in-out ${
       isVisible ? 'translate-y-0' : 'translate-y-full'
@@ -30,16 +33,16 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
         
         <div className="space-y-4">
           <div>
-            <label className="block text-sm mb-1">Día</label>
+            <label className="block text-sm mb-1">Fecha</label>
             <input
-              type="text"
+              type="date"
               value={box.date}
-              onChange={(e) => onChange('day', e.target.value)}
+              onChange={(e) => onChange('date', e.target.value)}
               className="w-full bg-[#3a0146] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="LUN"
             />
           </div>
-          
+
           <div>
             <label className="block text-sm mb-1">Título</label>
             <input

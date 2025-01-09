@@ -1,24 +1,16 @@
-[open click]
+[open click]-[X]
 - crear floatingcard
 
-[fechas] 
+[fechas]-[x]
 - Poder cambiar la fecha con dinamicamente (el form DATE/calendario).
 - Que se pueda editar la fecha manualmente.
 
 Crear un boton para seleccionar las cajas y pueda realizar las siguientes opciones:
 - Mecanica de ordenar por fecha y hora: calendario
 
-[Floating FORM] 
+[Floating FORM]-[]
 - hacerlo transparente para poder ver las cajas. Ponerlo un fondo borroso.
 - Crear un apartado/seccion, donde se pueda ver la [30/01/2025/Lunes - Psudonimo - hora]. Hacerlo con grid, para responsive, ponerlo arriba
-
-[floatingcard]
--
-
-
-
-
-
 
 
 

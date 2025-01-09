@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { listNotes } from '../Scripts/listNotes'
-import { Clock, Edit, Trash2 } from 'lucide-react';
+import { BookOpenText, Clock, Edit, Trash2 } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
 interface ScheduleBoxProps {
@@ -34,7 +34,7 @@ export const Notes = ({
     <div 
       key={ box.id } 
       onClick={ (e) => handleOpen( box.id ) }
-      
+
       draggable
       onDragStart={(e) => onDragStart(e, box)}
       onDragOver={onDragOver}
@@ -52,15 +52,27 @@ export const Notes = ({
         filter: 'saturate(120%)',
       }}
     >
-      <div className="z-10 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
+      <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
         <button
-          onClick={() => onEdit(box)}
+          // onClick={ (e) => handleOpen( box.id ) }
+          className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
+        >
+          <BookOpenText size={16} />
+        </button>
+        <button
+          onClick={(e) => {
+            e.stopPropagation()
+            onEdit(box)
+          }}
           className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
         >
           <Edit size={16} />
         </button>
         <button
-          onClick={() => onDelete(box.id)}
+          onClick={(e) => {
+            e.stopPropagation()
+            onDelete(box.id)
+          }}
           className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
         >
           <Trash2 size={16} />
