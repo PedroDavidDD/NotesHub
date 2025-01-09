@@ -17,6 +17,16 @@ export function ParticleEffect({ color }: ParticleEffectProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particles = useRef<Particle[]>([]);
   const animationFrameId = useRef<number>();
+  const containerSize = useRef<{ width: number; height: number }>({ width: 0, height: 0 });
+
+  const createParticle = (canvas: HTMLCanvasElement): Particle => ({
+    x: Math.random() * canvas.width,
+    y: canvas.height + Math.random() * 20,
+    size: Math.random() * 2 + 1,
+    speedY: -(Math.random() * 2 + 1),
+    opacity: Math.random() * 0.5 + 0.2,
+    color,
+  });
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -30,31 +40,34 @@ export function ParticleEffect({ color }: ParticleEffectProps) {
       if (!parent) return;
       canvas.width = parent.clientWidth;
       canvas.height = parent.clientHeight;
+
+      // Guardar el tamaño actual del contenedor
+      containerSize.current = { width: canvas.width, height: canvas.height };
+
+      // Reiniciar las partículas para adaptarse al nuevo tamaño
+      particles.current = [];
     };
 
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    const createParticle = (): Particle => ({
-      x: Math.random() * canvas.width,
-      y: canvas.height + Math.random() * 20,
-      size: Math.random() * 2 + 1,
-      speedY: -(Math.random() * 2 + 1),
-      opacity: Math.random() * 0.5 + 0.2,
-      color
-    });
-
     const animate = () => {
       if (!ctx || !canvas) return;
 
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      // Add new particles
-      if (particles.current.length < 50) {
-        particles.current.push(createParticle());
+      // Verificar si el tamaño del contenedor cambió
+      const parent = canvas.parentElement;
+      if (parent && (parent.clientWidth !== containerSize.current.width || parent.clientHeight !== containerSize.current.height)) {
+        resizeCanvas();
       }
 
-      // Update and draw particles
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Agregar nuevas partículas
+      if (particles.current.length < 50) {
+        particles.current.push(createParticle(canvas));
+      }
+
+      // Actualizar y dibujar partículas
       particles.current = particles.current.filter(particle => {
         particle.y += particle.speedY;
         particle.opacity -= 0.003;
