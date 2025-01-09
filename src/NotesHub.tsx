@@ -73,14 +73,14 @@ function NotesHub() {
   const [scheduleBoxes, setScheduleBoxes] = useState<ScheduleBoxType[]>(listNotes);
   const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
   const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>({
-    date: "02-03-2023",
-    title: "3 Detroi: Become Human Primera Vez :0",
-    time: "Diciembre 07",
-    backgroundColor: '#FF69B4',
-    image: '',
-    textAlign:'',
-    particleColor: '',
-    accentColor: '',
+    date: "",
+    title: "Nuevo Evento",
+    time: "Hora no definida",
+    backgroundColor: '#50c8c8',
+    image: "",
+    textAlign: 'left',
+    particleColor: '#50c8c8',
+    accentColor: '#50c8c8',
   });
   
 
@@ -109,7 +109,17 @@ function NotesHub() {
       const updatedBoxes = [...scheduleBoxes, newBoxWithId];
       setScheduleBoxes(updatedBoxes);
       storage.save(updatedBoxes);
-      setNewBox({ date: '', title: '', time: '', backgroundColor: '#FF69B4', image: '', textAlign:'', particleColor:'', accentColor:'' });
+      // Resetea para el proximo default
+      setNewBox({    
+        date: "",
+        title: "Nuevo Evento",
+        time: "Hora no definida",
+        backgroundColor: '#50c8c8',
+        image: "",
+        textAlign: 'left',
+        particleColor: '#50c8c8',
+        accentColor: '#50c8c8',
+      });
     }
     setIsFormVisible(false);
   };
@@ -259,7 +269,9 @@ function NotesHub() {
                     <Notes 
                       key={data.id}  
                       box={data}
+                      // Estilo de la caja
                       boxStyle={boxStyle} 
+                      // Abrir CardModal
                       handleOpen={handleOpen}                      
                       // CRUD
                       onEdit={handleEdit}

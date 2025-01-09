@@ -33,7 +33,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
         
         <div className="space-y-4">
           <div>
-            <label className="block text-sm mb-1">Fecha</label>
+            <label className="block text-sm mb-1 text-red-500">Fecha</label>
             <input
               type="date"
               value={box.date}
@@ -44,7 +44,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Título</label>
+            <label className="block text-sm mb-1 text-red-500">Título</label>
             <input
               type="text"
               value={box.title}
@@ -77,7 +77,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           </div>
           
           <div>
-            <label className="block text-sm mb-1">Hora</label>
+            <label className="block text-sm mb-1 text-red-500">Hora</label>
             <input
               type="text"
               value={box.time}
@@ -88,15 +88,45 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           </div>
           
           <div>
-            <label className="block text-sm mb-1">Color</label>
+            <label className="block text-sm mb-1">Background color</label>
             <input
               type="color"
-              value={box.color}
-              onChange={(e) => onChange('color', e.target.value)}
+              value={box.backgroundColor}
+              onChange={(e) => onChange('backgroundColor', e.target.value)}
               className="w-full h-10 rounded cursor-pointer"
             />
           </div>
-          
+
+          <div>
+            <label className="block text-sm mb-1">Color del borde</label>
+            <input
+              type="color"
+              value={box.borderColor}
+              onChange={(e) => onChange('borderColor', e.target.value)}
+              className="w-full h-10 rounded cursor-pointer"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Color de marcas</label>
+            <input
+              type="color"
+              value={box.accentColor}
+              onChange={(e) => onChange('accentColor', e.target.value)}
+              className="w-full h-10 rounded cursor-pointer"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm mb-1">Color de partículas</label>
+            <input
+              type="color"
+              value={box.particleColor}
+              onChange={(e) => onChange('particleColor', e.target.value)}
+              className="w-full h-10 rounded cursor-pointer"
+            />
+          </div>
+
           <div>
             <label className="block text-sm mb-1">Imagen de Fondo (URL)</label>
             <input
@@ -109,32 +139,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Icono (emoji o texto)</label>
-            <input
-              type="text"
-              value={box.icon || ''}
-              onChange={(e) => onChange('icon', e.target.value)}
-              className="w-full bg-[#3a0146] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
-              placeholder="🎮"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm mb-1">Estilo de Borde</label>
-            <select
-              value={box.borderStyle || 'solid'}
-              onChange={(e) => onChange('borderStyle', e.target.value)}
-              className="w-full bg-[#3a0146] rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-pink-400"
-            >
-              <option value="solid">Sólido</option>
-              <option value="dashed">Punteado</option>
-              <option value="dotted">Puntos</option>
-              <option value="double">Doble</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm mb-1">Alineación del Texto</label>
+            <label className="block text-sm mb-1 text-red-500">Alineación del Texto</label>
             <select
               value={box.textAlign || 'left'}
               onChange={(e) => onChange('textAlign', e.target.value)}

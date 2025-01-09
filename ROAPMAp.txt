@@ -5,6 +5,7 @@
 - Poder cambiar la fecha con dinamicamente (el form DATE/calendario).
 - Que se pueda editar la fecha manualmente.
 
+
 Crear un boton para seleccionar las cajas y pueda realizar las siguientes opciones:
 - Mecanica de ordenar por fecha y hora: calendario
 
