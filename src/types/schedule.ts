@@ -4,13 +4,14 @@ export interface ScheduleBox {
   title: string;
   time: string;
   description?: string;
-  color: string;
+  backgroundColor: string;
   image?: string;
   tags?: string[];
-  icon?: string;
-  borderStyle?: string;
-  textAlign?: string;
-  order: number;     
 
-
+  borderColor?: string;
+  textAlign: string;
+  
+  order: number;
+  particleColor: string;
+  accentColor: string;
 }

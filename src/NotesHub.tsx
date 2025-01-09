@@ -7,8 +7,6 @@ import './css/iconsAnimated.css'
 import { Notes } from "./components/Notes";
 import { CardModal } from "./components/CardModal";
 
-
-
 import type { ScheduleBox as ScheduleBoxType } from './types/schedule';
 import { storage } from "./utils/storage";
 import { ScheduleForm } from "./components/ScheduleForm";
@@ -22,6 +20,7 @@ function NotesHub() {
     large: 'typeLarge',
     compressed: 'typeShort',
   }
+  
   interface StateNotesProps {
     box: string,
     large: string,
@@ -41,14 +40,15 @@ function NotesHub() {
     date: "",
     title: "",
     time: "",
-    color: "",
+    backgroundColor: "",
     order: 0,
     description: "",
     tags: [],
-    icon: "",
-    borderStyle: "solid",
+    borderColor: "",
     textAlign: "left",
     image: "",
+    particleColor: "",
+    accentColor: "",
   };
   const [dataSelected, setDataSelected] = useState<ScheduleBoxType>(defaultScheduleBox);
   
@@ -76,8 +76,11 @@ function NotesHub() {
     date: "02-03-2023",
     title: "3 Detroi: Become Human Primera Vez :0",
     time: "Diciembre 07",
-    color: '#FF69B4',
-    image: ''
+    backgroundColor: '#FF69B4',
+    image: '',
+    textAlign:'',
+    particleColor: '',
+    accentColor: '',
   });
   
 
@@ -106,7 +109,7 @@ function NotesHub() {
       const updatedBoxes = [...scheduleBoxes, newBoxWithId];
       setScheduleBoxes(updatedBoxes);
       storage.save(updatedBoxes);
-      setNewBox({ date: '', title: '', time: '', color: '#FF69B4', image: '' });
+      setNewBox({ date: '', title: '', time: '', backgroundColor: '#FF69B4', image: '', textAlign:'', particleColor:'', accentColor:'' });
     }
     setIsFormVisible(false);
   };
@@ -135,12 +138,13 @@ function NotesHub() {
       title: box.title, 
       time: box.time, 
       description: box.description || '',
-      color: box.color,
+      backgroundColor: box.backgroundColor,
       image: box.image || '',
       tags: box.tags || [],
-      icon: box.icon || '',
-      borderStyle: box.borderStyle || 'solid',
-      textAlign: box.textAlign || 'left'
+      borderColor: box.borderColor || '#5FF',
+      textAlign: box.textAlign || 'left',  
+      particleColor: box.particleColor || '#ff5',
+      accentColor: box.accentColor || '#ff5',
     });
     setIsFormVisible(true);
     setIsConfigVisible(false);

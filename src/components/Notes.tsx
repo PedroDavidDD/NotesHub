@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import { BookOpenText, Clock, Edit, Trash2 } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
-import { cardStyles } from '../utils/cardStyles';
 import { ParticleEffect } from './ParticleEffect';
 
 interface ScheduleBoxProps {
@@ -32,12 +31,6 @@ export const Notes = ({
   isDragging 
  }: ScheduleBoxProps) => {
 
-  const style = useMemo(() => {
-    // Use box.id to consistently select a style for each card
-    const styleIndex = parseInt(box.id.replace(/[^0-9]/g, ''), 10) % cardStyles.length;
-    return cardStyles[styleIndex];
-  }, [box.id]);
-
   return (
     <div 
       key={ box.id } 
@@ -52,7 +45,7 @@ export const Notes = ({
         ${isDragging ? 'scale-105 opacity-50 rotate-2' : 'scale-100 opacity-100 rotate-0'}
         hover:scale-[1.02]`}
       style={{ 
-        backgroundColor: box.color + '33',
+        backgroundColor: box.backgroundColor + '33',
         backgroundImage: box.image ? `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url(${box.image})` : 'none',
         backgroundRepeat: 'no-repeat', /* No repetir la imagen */
         backgroundPosition: 'center', /* Centrar la imagen */
@@ -87,25 +80,25 @@ export const Notes = ({
         </button>
       </div>
 
-      <div className={`note__date ${boxStyle}`}><span>{ box.date }</span></div>
-      <div className={`note__title ${boxStyle}`}><span>{ box.title }</span></div>
-      <div className={`note__datetime ${boxStyle}`}>
+      <div className={`note__date ${boxStyle} text-${box.textAlign}`}><span>{ box.date }</span></div>
+      <div className={`note__title ${boxStyle} text-center`}><span>{ box.title }</span></div>
+      <div className={`note__datetime ${boxStyle} text-${box.textAlign}`}>
         <Clock size={14} className="mr-1" />
         { box.time }
       </div>
 
       {/* <div className={`plus icon ${boxStyle}`}></div> */}
-      <ParticleEffect color={style.particleColor} />
+      <ParticleEffect color={box.particleColor} />
 
       {/* Decoracion de bordes */}
       <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 rounded-tl-lg opacity-80"
-      style={{ borderColor: style.accentColor }} />
+      style={{ borderColor: box.accentColor }} />
       <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 rounded-tr-lg opacity-80"
-      style={{ borderColor: style.accentColor }} />
+      style={{ borderColor: box.accentColor }} />
       <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 rounded-bl-lg opacity-80"
-      style={{ borderColor: style.accentColor }} />
+      style={{ borderColor: box.accentColor }} />
       <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 rounded-br-lg opacity-80"
-      style={{ borderColor: style.accentColor }} />   
+      style={{ borderColor: box.accentColor }} />   
     </div>
   )
 }
