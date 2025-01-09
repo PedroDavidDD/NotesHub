@@ -1,59 +1,8 @@
-import { Box, Modal, Typography } from '@mui/material'
 import React from 'react'
-import { theme } from '../css/theme';
 import { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
-import { X, Share2, Copy, RotateCcw, Tag, Calendar, Clock, Palette } from 'lucide-react';
-import { listNotes } from '../Scripts/listNotes';
-    const style = {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        // with: 500,
-        height: 'auto',
-        // bgcolor: '#FE5CFF',
-        // bgcolor: '#222',
-        // border: '2px solid #000',
-        boxShadow: 24,
-        p: 0,
-        display: 'flex',
-        flexDirection: 'column',
-        alignContext: 'center',
-        justifyContent: 'space-around',
-
-        background: `#E5E2D1 url('./images/00004.jpeg') no-repeat center/cover`,        
-        borderRadius: "0px",
-        filter: "saturate(120%)",
-    };
-
-    const cardDate = {
-        display: 'flex',
-        justifyContent: 'flex-start',
-        color: theme.colors.common.black,      
-    };
+import { X, Tag, Calendar, Clock } from 'lucide-react';
     
-    const cardTitle = {
-        display: "block",
-        // textAlign: 'center',
-        color: theme.colors.common.black,  
-    };
-
-    const cardContet = {
-        width: '450px',
-        height: '350px',
-        textAlign: 'justify',
-        px: 2,
-        overflow: 'auto',
-        color: theme.colors.common.black, 
-    };
-
-    const cardTime = {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        color: theme.colors.common.black, 
-    };
-
     interface CardModalBoxProps {
         open: boolean;
         box: ScheduleBoxType;
@@ -83,7 +32,6 @@ export const CardModal =({
           return false; // Si lanza un error, no es una URL válida
         }
       }
-      
       
     return (
         <>            

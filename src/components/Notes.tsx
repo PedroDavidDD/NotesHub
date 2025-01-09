@@ -1,7 +1,9 @@
-import React, { useRef } from 'react'
-import { listNotes } from '../Scripts/listNotes'
+import React, { useMemo } from 'react'
 import { BookOpenText, Clock, Edit, Trash2 } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
+
+import { cardStyles } from '../utils/cardStyles';
+import { ParticleEffect } from './ParticleEffect';
 
 interface ScheduleBoxProps {
   box: ScheduleBoxType;
@@ -29,6 +31,12 @@ export const Notes = ({
   onDrop,
   isDragging 
  }: ScheduleBoxProps) => {
+
+  const style = useMemo(() => {
+    // Use box.id to consistently select a style for each card
+    const styleIndex = parseInt(box.id.replace(/[^0-9]/g, ''), 10) % cardStyles.length;
+    return cardStyles[styleIndex];
+  }, [box.id]);
 
   return (
     <div 
@@ -87,6 +95,17 @@ export const Notes = ({
       </div>
 
       {/* <div className={`plus icon ${boxStyle}`}></div> */}
+      <ParticleEffect color={style.particleColor} />
+
+      {/* Decoracion de bordes */}
+      <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 rounded-tl-lg opacity-80"
+      style={{ borderColor: style.accentColor }} />
+      <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 rounded-tr-lg opacity-80"
+      style={{ borderColor: style.accentColor }} />
+      <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 rounded-bl-lg opacity-80"
+      style={{ borderColor: style.accentColor }} />
+      <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 rounded-br-lg opacity-80"
+      style={{ borderColor: style.accentColor }} />   
     </div>
   )
 }

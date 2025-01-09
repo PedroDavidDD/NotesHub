@@ -10,5 +10,7 @@ export interface ScheduleBox {
   icon?: string;
   borderStyle?: string;
   textAlign?: string;
-  order: number;
+  order: number;     
+
+
 }
