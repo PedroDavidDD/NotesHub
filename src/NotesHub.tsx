@@ -95,6 +95,7 @@ function NotesHub() {
   }, []);
 
   const handleSubmit = () => {
+
     if (editingBox) {
       setScheduleBoxes(boxes => 
         boxes.map(box => box.id === editingBox.id ? { ...editingBox } : box)
@@ -217,8 +218,8 @@ function NotesHub() {
 {/* Titulo y navs */}
             <div className="calendar__title" >
                 <div className="calendar__title__text">
-                  <h2>horarios de stream</h2> 
-                  <h2>semana del 17/12/2023 al 23/12/2023</h2>
+                  <h2>Notas de la semana</h2> 
+                  <h2>Semana del 17/12/2023 al 23/12/2023</h2>
                 </div>
                 <div className="icons">
                   <span className="icon--first" onClick={() => setBoxStyle(stateNotes.box)}>

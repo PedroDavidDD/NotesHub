@@ -30,6 +30,16 @@ export const theme = {
       900: "#212121",
     },
   },
+  form: {
+    input: "#212121",
+    button: "#d4af37",
+    text: "#f00"
+  },
+  transparent: {
+    50:"#0000007f",
+    80:"#000000cc",
+    90:"#000000e6",
+  },  
   size: {
     card: {
       width: "310px",

@@ -5,10 +5,13 @@ export interface ScheduleBox {
   time: string;
   description?: string;
   backgroundColor: string;
+  backgroundOpacity?: number;
   image?: string;
   tags?: string[];
 
   borderColor?: string;
+  borderStyle?: string;
+  borderWidth?: string;
   textAlign: string;
   
   order: number;

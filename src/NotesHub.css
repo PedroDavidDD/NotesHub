@@ -90,17 +90,22 @@
   border-right: 10px solid #ffffff;
 } */
 
-.calendar__notes .note .note__date, 
-.calendar__notes .note .note__title,
-.calendar__notes .note .note__datetime {
+.note__date, 
+.note__title,
+.note__datetime {
   font-family: 'Cormorant', serif;
   font-size: 24px;
   font-weight: bold;
+  position: relative;
+  margin: 0px 20px;
+  color: #ffffff;
+  
 }
 
-.calendar__notes .note .note__datetime {
+.note__datetime {
   display: flex;
   align-items: center;
+  justify-content: start;
   gap: 5px;
 }
 
@@ -152,14 +157,6 @@
 }
 
 .calendar__title .calendar__title__text h2:last-child {
-  color: #ffffff;
-}
-
-.note__date,
-.note__title,
-.note__datetime {
-  position: relative;
-  margin: 0px 20px;
   color: #ffffff;
 }
 
@@ -271,7 +268,7 @@
 .note__date.typeShort span,
 .note__title.typeShort span,
 .note__datetime.typeShort {
-  color: #ffffff;
+  color: #ffffff;  
 }
 
 .note__date.typeShort::before,

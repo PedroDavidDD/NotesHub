@@ -16,7 +16,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
 
   const handleSave = () => {
     storage.save(boxes);
-    alert('Horario guardado exitosamente');
+    alert('Nota guardado exitosamente');
   };
 
   const handleExport = () => {
@@ -30,7 +30,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
     try {
       const importedBoxes = await storage.importFromFile(file);
       onImport(importedBoxes);
-      alert('Horario importado exitosamente');
+      alert('Nota importado exitosamente');
     } catch (error) {
       alert('Error al importar el archivo');
     }
@@ -60,7 +60,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
             className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white p-3 rounded transition-colors"
           >
             <Settings size={20} />
-            Agregar/Editar Horario
+            Agregar/Editar Nota
           </button>
 
           <button
@@ -76,7 +76,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
             className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white p-3 rounded transition-colors"
           >
             <Download size={20} />
-            Descargar Horario
+            Descargar Nota
           </button>
 
           <div>
@@ -93,7 +93,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
               className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white p-3 rounded transition-colors"
             >
               <Upload size={20} />
-              Importar Horario
+              Importar Nota
             </button>
           </div>
         </div>
