@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { Save, Download, Upload, X, Settings } from 'lucide-react';
 import type { ScheduleBox } from '../types/schedule';
 import { storage } from '../utils/storage';
+import { theme } from '../css/theme';
 
 interface ConfigMenuProps {
   boxes: ScheduleBox[];
@@ -41,18 +42,26 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
   };
 
   return (
-    <div className={`z-10 fixed bottom-0 left-0 right-0 bg-[#2a0136] transition-transform duration-300 ease-in-out ${
+    <div className={`z-10 fixed bottom-0 left-0 right-0 transition-transform duration-300 ease-in-out ${
       isVisible ? 'translate-y-0' : 'translate-y-full'
-    }`}>
+    }`}
+    style={{
+      background: theme.colors.common.black,
+    }}
+    >
       <div className="max-w-md mx-auto p-6">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 hover:bg-[#3a0146] rounded-full transition-colors"
+          className="absolute top-4 right-4 p-2 rounded-full transition-colors hover:bg-red-500 hover:border-red-500"
         >
           <X size={20} />
         </button>
 
-        <h2 className="text-2xl font-bold mb-6 text-pink-400">Gestión de Datos</h2>
+        <h2 className="text-2xl font-bold mb-6"
+        style={{
+          color: theme.navbar.background,
+        }}
+        >Gestión de Datos</h2>
 
         <div className="space-y-4">
           <button

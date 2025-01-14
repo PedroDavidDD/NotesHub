@@ -31,11 +31,12 @@
 .calendar__notes {
   width: 100%;
   height: auto;
-  gap: 1rem; /* 16px */
+  gap: 1rem; 
   display: grid;
   grid-template-columns: repeat(3, minmax(15.625rem, 1fr)); /* 250px */
   grid-template-rows: repeat(auto-fill, 18.75rem); /* 300px */
-  padding: 2rem; /* 32px */
+  padding: 2rem; 
+  padding-top: 0rem; 
 }
 
 .calendar__notes .note {
@@ -48,7 +49,7 @@
   background: #E5E2D1 url('./images/00004.jpeg') no-repeat center/cover;
   border-radius: 0.5rem; /* 8px */
   filter: saturate(120%);
-  padding: 1rem; /* 16px */
+  padding: 1rem; 
 }
 
 .calendar__notes .note div {
@@ -78,15 +79,13 @@
   font-size: 1.75rem; /* 28px */
 }
 
-.calendar__title {
-}
-
 .calendar__title .icons {
   display: flex;
   gap: 1rem; /* 16px */
   align-items: center;
   justify-content: end;
-  padding: 1rem 0;
+  /* padding: 2rem 0 0 0; */
+  margin: 1rem;
 }
 
 .calendar__title__text {
@@ -95,11 +94,11 @@
   justify-content: start;
   position: relative;
   background-image: linear-gradient(-70deg, rgba(0, 0, 0, 0.5)  63%, transparent 50%);
-  padding: 0 1.25rem;  /* 20px */
-  margin-bottom: 1.25rem; /* 20px */
+  padding: 0 1.25rem; 
   
   flex-wrap: wrap;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, .5));  
+  margin-top: 2rem;
 }
 
 .calendar__title .calendar__title__text h2 {

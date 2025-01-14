@@ -14,8 +14,6 @@ interface ScheduleFormProps {
 
 export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, onClose }: ScheduleFormProps) {
 
-
-
   return (
     <div className={`w-full h-full z-10 fixed bottom-0 left-0 right-0 transition-transform duration-300 ease-in-out ${
       isVisible ? 'translate-y-0' : 'translate-y-full'
