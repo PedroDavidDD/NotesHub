@@ -1,10 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import NotesHub from './NotesHub'
+import { AppRouter } from './routes'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <NotesHub />
+    <AppRouter />
   </React.StrictMode>,
 )

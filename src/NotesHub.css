@@ -1,9 +1,8 @@
-
 #root {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 1rem; /* 16px */
   width: 100%;
   height: 100%;
 }
@@ -18,16 +17,13 @@
 .box {
   width: 100%;
   height: 100%;
-  
   display: flex;
   align-items: center;  
   justify-content: end;
 }
-/* EDITAR A UN LADO*/
+
 .box__calendar {
   width: 100%;
-  /* background-color: green; */
-  /* Para que se ponga de fondo y no se adapte el height de forma rara, de acuerdo a los tipos de cajas */
   min-height: 100vh;
   height: auto;
 }
@@ -35,99 +31,62 @@
 .calendar__notes {
   width: 100%;
   height: auto;
-  gap: 16px; 
+  gap: 1rem; /* 16px */
   display: grid;
-  grid-template-columns: repeat(3, minmax(250px, 1fr)); /* Controla las columnas */
-  grid-template-rows: repeat(auto-fill, 300px); /* Opcional: fija un tamaño para las filas */
-  
-  padding: 32px;
+  grid-template-columns: repeat(3, minmax(15.625rem, 1fr)); /* 250px */
+  grid-template-rows: repeat(auto-fill, 18.75rem); /* 300px */
+  padding: 2rem; /* 32px */
 }
 
 .calendar__notes .note {
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
   position: relative;
-  height: 300px;
-
+  width: 100%;
+  height: 18.75rem; /* 300px */
   background: #E5E2D1 url('./images/00004.jpeg') no-repeat center/cover;
-  /* background: #E5E2D1 url('./images/00011.jpeg') no-repeat center/cover; */
-  /* background:#E5E2D1; */
-  /* background: #FE5CFF; */
-  /* object-fit: contain; */
-  /* mix-blend-mode: color-burn; */   
-
-  /* border-radius: 10px 0px 0px 10px; */
-  border-radius: .5rem;
+  border-radius: 0.5rem; /* 8px */
   filter: saturate(120%);
-  padding: 16px;
+  padding: 1rem; /* 16px */
 }
+
 .calendar__notes .note div {
   text-align: start;  
 }
-
-/* .calendar__notes .note::before,
-.calendar__notes .note::after {
-  position: absolute;
-  content: '';
-  width: 305px;
-  height: 305px;
-  border-radius: 5px;
-  inset: 0;
-  left: 5px;
-  z-index: -1;
-}
-
-.calendar__notes .note::before {
-  top: 0px;
-  border-right: 10px solid #ffffff;
-}
-
-.calendar__notes .note::after {
-  top: 3px;
-  border-bottom: 10px solid #ffffff;
-  border-right: 10px solid #ffffff;
-} */
 
 .note__date, 
 .note__title,
 .note__datetime {
   font-family: 'Cormorant', serif;
-  font-size: 24px;
+  font-size: 1.5rem; /* 24px */
   font-weight: bold;
   position: relative;
-  margin: 0px 20px;
+  margin: 0 1.25rem; /* 20px */
   color: #ffffff;
-  
 }
 
 .note__datetime {
   display: flex;
   align-items: center;
   justify-content: start;
-  gap: 5px;
+  gap: 0.3125rem; /* 5px */
 }
 
 .calendar__notes .note .note__title {  
   font-family: 'Forum', serif;
-  font-size: 28px;
+  font-size: 1.75rem; /* 28px */
 }
 
 .calendar__title {
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap; */
 }
 
 .calendar__title .icons {
   display: flex;
-  gap: 1rem;
-  /* background-color: red; */
+  gap: 1rem; /* 16px */
   align-items: center;
   justify-content: end;
-  padding: 1rem 0rem;
+  padding: 1rem 0;
 }
 
 .calendar__title__text {
@@ -136,8 +95,8 @@
   justify-content: start;
   position: relative;
   background-image: linear-gradient(-70deg, rgba(0, 0, 0, 0.5)  63%, transparent 50%);
-  padding: 0 20px;  
-  margin-bottom: 20px;
+  padding: 0 1.25rem;  /* 20px */
+  margin-bottom: 1.25rem; /* 20px */
 }
 
 .calendar__title .calendar__title__text h2 {
@@ -147,122 +106,45 @@
 
 .calendar__title .calendar__title__text h2 {
   font-family: Haettenschweiler, serif;
-  font-size: 50px;
+  font-size: 3.125rem; /* 50px */
   text-transform: uppercase;
 }
 
 .calendar__title .calendar__title__text h2:first-child {
   color: #392200;
-  margin-right: 50px;
+  margin-right: 3.125rem; /* 50px */
 }
 
 .calendar__title .calendar__title__text h2:last-child {
   color: #ffffff;
 }
 
-/* .note__title span,
-.note__date span,
-.note__datetime svg {
-  margin-left: 1.25rem;
-} */
-
-/* .note__date::before,
-.note__title::before,
-.note__datetime::before {
-  content: '';
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.7);
-  z-index: -1;   
-} */
-
-/* [ADD][BOX] FIRST-CHILD  */
-/* .calendar__notes .note:first-child {
-  width: 305px;
-  height: 305px;
-  background: #ff5cff00;
-  border: 5px solid #ffffff;
-  border-radius: 10px;
-} */
-
-/* .calendar__notes .note:first-child::before,
-.calendar__notes .note:first-child::after {
-  display: none;
-} */
-
-/* .calendar__notes .note.typeShort:first-child::before,
-.calendar__notes .note.typeShort:first-child::after {
-  display: block;
-} */
-
-/* .calendar__notes .note:first-child .note__date,
-.calendar__notes .note:first-child .note__title,
-.calendar__notes .note:first-child .note__datetime {
-  display: none;
-} */
-
-/* .calendar__notes .note:first-child:before,
-.calendar__notes .note:first-child:after {
-  display: block;
-  width: 100%;
-  height: 100%;
-  inset: 0;
-  border: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-} */
-
-/* TIPO LARGO */
 .calendar__notes .note.typeLarge {
-  width: 405px;
-  height: 655px;
-  
+  width: 25.3125rem; /* 405px */
+  height: 40.9375rem; /* 655px */
   width: 100%;
-}
-
-.calendar__notes .note.typeLarge::before,
-.calendar__notes .note.typeLarge::after {
-  width: 400px;
-  height: 650px;
-}
-.calendar__notes .note.typeLarge:first-child:before,
-.calendar__notes .note.typeLarge:first-child:after {
-  width: 100%;
-  height: 100%;
 }
 
 .calendar__notes:has(.note.typeLarge) {
-  grid-template-columns: repeat(3, minmax(405px, 1fr)); /* Cambia las columnas */
-  grid-template-rows: repeat(auto-fill, 655px); /* Cambia las filas */
-  
+  grid-template-columns: repeat(3, minmax(18.75rem, 1fr)); /* 300px */
+  grid-template-rows: repeat(auto-fill, 40.9375rem); /* 655px */
 }
 
-/* TIPO CORTO */
 .calendar__notes .note.typeShort {
-  width: 370px;
-  height: 112px;
-  
+  width: 23.125rem; /* 370px */
+  height: 7rem; /* 112px */
   width: 100%;
 }
 
 .calendar__notes:has(.note.typeShort) {
-  grid-template-columns: repeat(3, minmax(370px, 1fr)); /* Cambia las columnas */
-  grid-template-rows: repeat(auto-fill, 112px); /* Cambia las filas */    
+  grid-template-columns: repeat(3, minmax(18.75rem, 1fr)); /* 300px */
+  grid-template-rows: repeat(auto-fill, 7rem); /* 112px */    
 }
 
-/* .calendar__notes .note.typeShort::before,
-.calendar__notes .note.typeShort::after {
-  width: 100%;
-  height: 100%;
-  inset: 0;
-  border: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-} */
- 
 .calendar__notes .note.typeShort .note__date, 
 .calendar__notes .note.typeShort .note__title,
 .calendar__notes .note.typeShort .note__datetime {
-  font-size: 16px;
+  font-size: 1rem; /* 16px */
 } 
 
 .note__date.typeShort span,
@@ -271,81 +153,41 @@
   color: #ffffff;  
 }
 
-.note__date.typeShort::before,
-.note__title.typeShort::before,
-.note__datetime.typeShort::before {
-  background-color: transparent;
-}
-
-/* 2XL */
 @media screen and (max-width: 1536px) {
-	
-  /* TIPO BOX */
   .box__calendar {
-    /* width: auto; */
   }
-
   .calendar__notes {
-    /* background-color: rgb(238, 255, 0); */
   }
-   
 }
-/* XL */
-@media screen and (max-width: 1280px) {
 
-  .calendar__notes {
-    /* background-color: rgb(255, 38, 0); */
-  }
-  
+@media screen and (max-width: 1280px) {
   .calendar__notes:has(.note.typeShort) {
-    grid-template-columns: repeat(2, minmax(370px, 1fr)); /* Cambia las columnas */
+    grid-template-columns: repeat(2, minmax(23.125rem, 1fr)); /* 370px */
   }
   .calendar__notes:has(.note.typeLarge) {
-    grid-template-columns: repeat(2, minmax(405px, 1fr)); /* Cambia las columnas */
+    grid-template-columns: repeat(2, minmax(25.3125rem, 1fr)); /* 405px */
   }
 }
-/* LG */
+
 @media screen and (max-width: 1024px) {
-    
   .calendar__notes {
-    grid-template-columns: repeat(2, minmax(250px, 1fr)); /* Controla las columnas */    
-    /* background-color: rgb(0, 255, 34); */
+    grid-template-columns: repeat(2, minmax(15.625rem, 1fr)); /* 250px */    
   }
-  
 }
-/* MD */
+
 @media screen and (max-width: 768px) {
-
-  /* TIPO CORTO */
-  /* .calendar__notes .note.typeShort {
-    width: 300px;
-  } */
-  
-  /* TIPO LARGO */
-  /* .calendar__notes .note.typeLarge {
-    width: 355px;
-    height: 605px;
-  } */
-
-  /* .calendar__notes .note.typeLarge::before,
-  .calendar__notes .note.typeLarge::after {
-    width: 350px;
-    height: 600px;
-  } */
   .calendar__notes {
-    grid-template-columns: repeat(1, minmax(250px, 1fr)); /* Controla las columnas */
-    /* background-color: rgb(255, 0, 200); */
+    grid-template-columns: repeat(1, minmax(15.625rem, 1fr)); /* 250px */
   }  
   .calendar__notes:has(.note.typeShort) {
-    grid-template-columns: repeat(1, minmax(370px, 1fr)); /* Cambia las columnas */
+    grid-template-columns: repeat(1, minmax(23.125rem, 1fr)); /* 370px */
   }
   .calendar__notes:has(.note.typeLarge) {
-    grid-template-columns: repeat(1, minmax(405px, 1fr)); /* Cambia las columnas */
+    grid-template-columns: repeat(1, minmax(25.3125rem, 1fr)); /* 405px */
   }
 }
-/* SM */
+
 @media screen and (max-width: 640px) {
   .calendar__notes {    
-    /* background-color: rgb(119, 0, 255); */
   }
 }
