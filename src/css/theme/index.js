@@ -6,8 +6,8 @@ export const theme = {
     info: "#0791e6",
     alert: "#FFCF00",
     common: {
-      black: "#000",
-      white: "#fff",
+      black: "#000000",
+      white: "#ffffff",
     },
     bg: {
       body: "#C1c5c5",
@@ -15,7 +15,7 @@ export const theme = {
     primary: {
       main: "#4D2BAA",
       hover: "#3E18A7",
-      contrast: "#000",
+      contrast: "#000000",
     },
     grey: {
       50: "#fafafa",
@@ -34,6 +34,9 @@ export const theme = {
     input: "#212121",
     button: "#d4af37",
     text: "#f00"
+  },
+  navbar:{
+    background: "#ed2553",   
   },
   transparent: {
     50:"#0000007f",
