@@ -204,6 +204,7 @@
 }
 
 @media screen and (max-width: 640px) {
-  .calendar__notes {    
+  .calendar__title {
+    justify-content: center;
   }
 }

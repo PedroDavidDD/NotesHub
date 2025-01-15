@@ -210,7 +210,7 @@ function NotesHub() {
       <div className="box">
         <div className={`box__calendar`}> 
         {/* Titulo y navs */}
-          <div className="calendar__title" >
+          <div className="calendar__title bg-black rounded-full m-4 p-7" >
               <div className="searcher">
                 <SearchBar />
               </div>
