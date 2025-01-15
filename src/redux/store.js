@@ -3,7 +3,7 @@ import notesReducer from "./notesSlice"
 
 const store = configureStore({
   reducer: {
-    note: notesReducer
+    notes: notesReducer
   },
 });
 

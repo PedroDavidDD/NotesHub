@@ -14,21 +14,25 @@ import { ConfigMenu } from "./components/ConfigMenu";
 import { ConfigButton } from "./components/ConfigButton";
 import { theme } from "./css/theme";
 import { Columns3, Grid3x3, Rows3 } from "lucide-react";
-import EditableTitle from "./components/EditableTitle";
 import SearchBar from "./components/SearchBar ";
 
-function NotesHub() {
+import { useSelector, useDispatch } from "react-redux";
+import { addNotes, deleteNotes, editNotes, selectFilteredNotes, setNotes, setSearchTerm } from "./redux/notesSlice";
 
-  const stateNotes: StateNotesProps = {
-    box: 'typeBox',
-    large: 'typeLarge',
-    compressed: 'typeShort',
-  }
+function NotesHub() {
+  const dispatch = useDispatch();
+  const scheduleBoxes = useSelector( selectFilteredNotes );
   
   interface StateNotesProps {
     box: string,
     large: string,
     compressed: string,
+  }
+
+  const stateNotes: StateNotesProps = {
+    box: 'typeBox',
+    large: 'typeLarge',
+    compressed: 'typeShort',
   }
   // ---------------------------------------------------
   // -----------TIPOS DE ESTILO DE LAS CAJAS------------
@@ -74,7 +78,6 @@ function NotesHub() {
   // ---------------------------------------------------
   // -----------CRUD: Caja------------
   // ---------------------------------------------------
-  const [scheduleBoxes, setScheduleBoxes] = useState<ScheduleBoxType[]>(listNotes);
   const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
   const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>({
     date: "",
@@ -94,16 +97,14 @@ function NotesHub() {
   useEffect(() => {
     const savedBoxes = storage.load();
     if (savedBoxes.length > 0) {
-      setScheduleBoxes(savedBoxes);
+      dispatch(setNotes(savedBoxes));
     }
   }, []);
 
   const handleSubmit = () => {
 
     if (editingBox) {
-      setScheduleBoxes(boxes => 
-        boxes.map(box => box.id === editingBox.id ? { ...editingBox } : box)
-      );
+      dispatch(editNotes(editingBox));
       setEditingBox(null);
     } else if (newBox.date && newBox.title && newBox.time) {
       const newBoxWithId: ScheduleBoxType = {
@@ -111,9 +112,7 @@ function NotesHub() {
         id: Date.now().toString(),
         order: scheduleBoxes.length
       };
-      const updatedBoxes = [...scheduleBoxes, newBoxWithId];
-      setScheduleBoxes(updatedBoxes);
-      storage.save(updatedBoxes);
+      dispatch(addNotes(newBoxWithId));
       // Resetea para el proximo default
       setNewBox({
         date: "",
@@ -166,14 +165,11 @@ function NotesHub() {
   };
 // Borrar la caja
   const handleDelete = (id: string) => {
-    const updatedBoxes = scheduleBoxes.filter(box => box.id !== id);
-    setScheduleBoxes(updatedBoxes);
-    storage.save(updatedBoxes);
+    dispatch(deleteNotes(id));
   };
   // Importar el .txt
   const handleImport = (boxes: ScheduleBoxType[]) => {
-    setScheduleBoxes(boxes);
-    storage.save(boxes);
+    dispatch(setNotes(boxes));
   };
   // ---------------------------------------------------
   // -----------DRAG AND DROP------------
@@ -205,8 +201,7 @@ function NotesHub() {
       order: index
     }));
 
-    setScheduleBoxes(updatedBoxes);
-    storage.save(updatedBoxes);
+    dispatch(setNotes(updatedBoxes));
     setDraggedBox(null);
   };
   
@@ -221,24 +216,23 @@ function NotesHub() {
               <div className="searcher">
                 <SearchBar />
               </div>
-              {/* <EditableTitle /> */}
               <div className="icons">
                 <Grid3x3 
                   onClick={() => setBoxStyle(stateNotes.box)} 
                   size={35} 
-                  color={`${theme.colors.common.white}`}
+                  color={theme.colors.common.white}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 <Columns3 
                   onClick={() => setBoxStyle(stateNotes.large)} 
                   size={35} 
-                  color={`${theme.colors.common.white}`}
+                  color={theme.colors.common.white}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 <Rows3 
                   onClick={() => setBoxStyle(stateNotes.compressed)} 
                   size={35} 
-                  color={`${theme.colors.common.white}`}
+                  color={theme.colors.common.white}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
               </div>

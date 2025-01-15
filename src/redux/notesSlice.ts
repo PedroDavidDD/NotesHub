@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { NotesState, ScheduleBox } from "../types/schedule";
-
+import { storage } from "../utils/storage";
 
 const initialState: NotesState = {
     listNotes: [],
@@ -11,44 +11,55 @@ export const notesSlice = createSlice({
     name: "notes",
     initialState, 
     reducers: {
-        addNote: (state, action: PayloadAction<ScheduleBox>) => {
+        addNotes: (state, action: PayloadAction<ScheduleBox>) => {
             state.listNotes = [ ...state.listNotes, action.payload ];
+            storage.save(state.listNotes);
+
         },
-        editNote: (state, action: PayloadAction<ScheduleBox>) => {
+        editNotes: (state, action: PayloadAction<ScheduleBox>) => {
             const index = state.listNotes.findIndex(note => note.id === action.payload.id);
             if (index !== -1) {
-              // Reemplazar la caja editada utilizando el spread operator para mantener la inmutabilidad
-              state.listNotes = state.listNotes.map((note, i) =>
-                i === index ? action.payload : note
-              );
+                // Reemplazar el elemento en la posición correspondiente de manera inmutable
+                state.listNotes[index] = action.payload;
             }
-        },
-        deleteNote: (state, action: PayloadAction<string>) => {
+        },        
+        deleteNotes: (state, action: PayloadAction<string>) => {
             // Filtramos sin mutar el estado
             state.listNotes = state.listNotes.filter(note => note.id !== action.payload);
+            storage.save(state.listNotes);
         },
         // Búsqueda por título 
         setSearchTerm: (state, action: PayloadAction<string>) => {
             state.searchTerm = action.payload.toLowerCase();
+        },
+        setNotes: (state, action: PayloadAction<ScheduleBox[]>) => {
+          state.listNotes = action.payload;
+          storage.save(state.listNotes);
         },
     }}) 
 
 // Selector para obtener las notas filtradas
 export const selectFilteredNotes = (state: { notes: NotesState }) => {
     const { listNotes, searchTerm } = state.notes;
-    return listNotes.filter(note =>
+  
+    // Si no hay término de búsqueda, devolvemos todas las notas
+    if (!searchTerm) return listNotes;
+  
+    // Si hay un término de búsqueda, filtramos las notas
+    return listNotes.filter(
+      (note) =>
         note.title.toLowerCase().includes(searchTerm) ||
         note.description?.toLowerCase().includes(searchTerm)
     );
-};
-
+  };
 
 // Exportar acciones de manera correcta
     export const { 
-        addNote,
-        editNote,
-        deleteNote,
+        addNotes,
+        editNotes,
+        deleteNotes,
         setSearchTerm,
+        setNotes,
     } = notesSlice.actions;
     
 // Exportar el reducer
