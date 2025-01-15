@@ -94,13 +94,6 @@ function NotesHub() {
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isConfigVisible, setIsConfigVisible] = useState(false);
 
-  useEffect(() => {
-    const savedBoxes = storage.load();
-    if (savedBoxes.length > 0) {
-      dispatch(setNotes(savedBoxes));
-    }
-  }, []);
-
   const handleSubmit = () => {
 
     if (editingBox) {

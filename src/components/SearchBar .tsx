@@ -18,7 +18,7 @@ const SearchBar = () => {
   };
 
   return (
-    <div>
+    <>
       <button
         onClick={handleSearchSubmit}
         className="text-gray-400 hover:border-red-500 hover:text-red-500 focus:outline-none rounded-none transition duration-300"
@@ -46,7 +46,7 @@ const SearchBar = () => {
         placeholder="Buscar..."
         className="w-full pl-10 pr-4 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 transition duration-300 text-gray-700"
       />
-    </div>
+    </>
   );
 };
 

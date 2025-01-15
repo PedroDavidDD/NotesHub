@@ -3,7 +3,7 @@ import { NotesState, ScheduleBox } from "../types/schedule";
 import { storage } from "../utils/storage";
 
 const initialState: NotesState = {
-    listNotes: [],
+    listNotes: storage.load() || [],
     searchTerm: "",
 }
 
@@ -13,7 +13,6 @@ export const notesSlice = createSlice({
     reducers: {
         addNotes: (state, action: PayloadAction<ScheduleBox>) => {
             state.listNotes = [ ...state.listNotes, action.payload ];
-            storage.save(state.listNotes);
 
         },
         editNotes: (state, action: PayloadAction<ScheduleBox>) => {
@@ -26,7 +25,6 @@ export const notesSlice = createSlice({
         deleteNotes: (state, action: PayloadAction<string>) => {
             // Filtramos sin mutar el estado
             state.listNotes = state.listNotes.filter(note => note.id !== action.payload);
-            storage.save(state.listNotes);
         },
         // Búsqueda por título 
         setSearchTerm: (state, action: PayloadAction<string>) => {
@@ -34,7 +32,6 @@ export const notesSlice = createSlice({
         },
         setNotes: (state, action: PayloadAction<ScheduleBox[]>) => {
           state.listNotes = action.payload;
-          storage.save(state.listNotes);
         },
     }}) 
 
