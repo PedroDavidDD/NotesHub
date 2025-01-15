@@ -137,15 +137,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
                 onChange={(e) => onChange('backgroundOpacity', (parseInt(e.target.value) / 100).toString())}
                 className="w-full"
               />
-              <input
-                type="text"
-                value={Math.round((box.backgroundOpacity || 0.5) * 100)}
-                className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
-                placeholder="valor de opacidad"
-                style={{
-                  background: theme.form.input,
-                }}
-              />
+              <span>{ Math.round((box.backgroundOpacity || 0.5) * 100) }</span>
             </div>
           </div>
 
