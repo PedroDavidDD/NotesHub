@@ -43,12 +43,14 @@ export const selectFilteredNotes = (state: { notes: NotesState }) => {
     if (!searchTerm) return listNotes;
   
     // Si hay un término de búsqueda, filtramos las notas
-    return listNotes.filter(
-      (note) =>
-        note.title.toLowerCase().includes(searchTerm) ||
-        note.description?.toLowerCase().includes(searchTerm)
-    );
+    return listNotes.filter((note) => {
+      const titleMatch = note.title.toLowerCase().includes(searchTerm);
+      const descriptionMatch = note.description?.toLowerCase().includes(searchTerm);
+
+      return titleMatch || descriptionMatch;
+    });
   };
+  
 
 // Exportar acciones de manera correcta
     export const { 

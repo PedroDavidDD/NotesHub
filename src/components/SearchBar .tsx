@@ -7,14 +7,12 @@ const SearchBar = () => {
   const [localSearchTerm, setLocalSearchTerm] = useState(""); 
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length == 0){
-      dispatch(setSearchTerm(localSearchTerm)); 
-    }
-    setLocalSearchTerm(e.target.value);  
+    setLocalSearchTerm(e.target.value.toLowerCase());  
+    dispatch(setSearchTerm(localSearchTerm.toLowerCase())); 
   };
 
   const handleSearchSubmit = () => {
-    dispatch(setSearchTerm(localSearchTerm)); 
+    dispatch(setSearchTerm(localSearchTerm.toLowerCase())); 
   };
 
   return (
