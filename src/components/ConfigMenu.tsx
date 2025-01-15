@@ -9,10 +9,9 @@ interface ConfigMenuProps {
   onImport: (boxes: ScheduleBox[]) => void;
   isVisible: boolean;
   onClose: () => void;
-  onShowForm: () => void;
 }
 
-export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: ConfigMenuProps) {
+export function ConfigMenu({ boxes, onImport, isVisible, onClose }: ConfigMenuProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = () => {
@@ -64,14 +63,6 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
         >Gestión de Datos</h2>
 
         <div className="space-y-4">
-          <button
-            onClick={onShowForm}
-            className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white p-3 rounded transition-colors hover:border-white"
-          >
-            <Settings size={20} />
-            Agregar/Editar Nota
-          </button>
-
           <button
             onClick={handleSave}
             className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded transition-colors hover:border-white"

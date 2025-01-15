@@ -13,7 +13,7 @@ import { ScheduleForm } from "./components/ScheduleForm";
 import { ConfigMenu } from "./components/ConfigMenu";
 import { ConfigButton } from "./components/ConfigButton";
 import { theme } from "./css/theme";
-import { Columns3, Grid3x3, Rows3 } from "lucide-react";
+import { CirclePlus, Columns3, Grid3x3, Rows3 } from "lucide-react";
 import SearchBar from "./components/SearchBar ";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -199,6 +199,11 @@ function NotesHub() {
   };
   
   const sortedBoxes = [...scheduleBoxes].sort((a, b) => a.order - b.order);
+  
+  const onShowForm = () => {
+    setIsFormVisible(true);
+    setIsConfigVisible(false);
+  }
 
   return (
     <>
@@ -210,6 +215,12 @@ function NotesHub() {
                 <SearchBar />
               </div>
               <div className="icons">
+                <CirclePlus                 
+                  onClick={onShowForm}
+                  size={35} 
+                  color={theme.navbar.background}
+                  className={`hover:scale-110 transition-all duration-300`}
+                />
                 <Grid3x3 
                   onClick={() => setBoxStyle(stateNotes.box)} 
                   size={35} 
@@ -280,10 +291,6 @@ function NotesHub() {
             onImport={handleImport}
             isVisible={isConfigVisible}
             onClose={() => setIsConfigVisible(false)}
-            onShowForm={() => {
-              setIsFormVisible(true);
-              setIsConfigVisible(false);
-            }}
           />
           {/* El boton de configuraciones */}
           <ConfigButton onClick={() => {

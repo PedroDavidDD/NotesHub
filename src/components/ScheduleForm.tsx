@@ -19,16 +19,16 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
       isVisible ? 'translate-y-0' : 'translate-y-full'
     } overflow-y-auto max-h-screen`}
     style={{
-      background: theme.transparent[80],
+      background: theme.transparent[90],
       color: theme.colors.common.white,      
     }}
     >
       <div className="max-w-md mx-auto p-6">
         <button
           onClick={onClose}
-          className={`absolute top-6 right-6 p-6 rounded-full transition-colors text-[${theme.colors.common.white}]`}
+          className={`absolute top-6 right-6 p-6 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
           style={{
-            backgroundColor: theme.form.button
+            backgroundColor: theme.navbar.background
           }}
         >
           <X size={20} />
@@ -36,7 +36,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
         
         <h2 className="text-2xl font-bold mb-4"
           style={{
-            color: theme.form.button,
+            color: theme.navbar.background,
           }}
         >
           {isEditing ? 'Editar Nota' : 'Agregar Nueva Nota'}
@@ -45,7 +45,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
         <div className="space-y-4">
           <div>
             <label className="block text-sm mb-1"
-            style={{color: theme.colors.error }}>Fecha</label>
+            style={{color: theme.form.button }}>Fecha</label>
             <input
               type="date"
               value={box.date}
@@ -60,7 +60,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
 
           <div>
             <label className="block text-sm mb-1"
-            style={{color: theme.colors.error }}>Título</label>
+            style={{color: theme.form.button }}>Título</label>
             <input
               type="text"
               value={box.title}
@@ -103,7 +103,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           
           <div>
             <label className="block text-sm mb-1"
-            style={{color: theme.colors.error }}>Hora</label>
+            style={{color: theme.form.button }}>Hora</label>
             <input
               type="text"
               value={box.time}
@@ -232,7 +232,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             onClick={onSubmit}
             className="w-full text-white font-bold py-2 px-4 rounded transition-colors hover:border-white"
             style={{
-              background: theme.form.button,
+              background: theme.navbar.background,
             }}
           >
             {isEditing ? 'Guardar Cambios' : 'Agregar Nota'}
