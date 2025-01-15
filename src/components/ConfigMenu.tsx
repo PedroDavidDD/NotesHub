@@ -66,7 +66,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
         <div className="space-y-4">
           <button
             onClick={onShowForm}
-            className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white p-3 rounded transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-pink-500 hover:bg-pink-600 text-white p-3 rounded transition-colors hover:border-white"
           >
             <Settings size={20} />
             Agregar/Editar Nota
@@ -74,7 +74,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
 
           <button
             onClick={handleSave}
-            className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded transition-colors hover:border-white"
           >
             <Save size={20} />
             Guardar en Almacenamiento Local
@@ -82,7 +82,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
 
           <button
             onClick={handleExport}
-            className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white p-3 rounded transition-colors"
+            className="w-full flex items-center justify-center gap-2 bg-green-500 hover:bg-green-600 text-white p-3 rounded transition-colors hover:border-white"
           >
             <Download size={20} />
             Descargar Nota
@@ -99,7 +99,7 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose, onShowForm }: 
             />
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white p-3 rounded transition-colors"
+              className="w-full flex items-center justify-center gap-2 bg-purple-500 hover:bg-purple-600 text-white p-3 rounded transition-colors hover:border-white"
             >
               <Upload size={20} />
               Importar Nota
