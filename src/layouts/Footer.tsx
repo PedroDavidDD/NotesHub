@@ -8,29 +8,11 @@ export function Footer() {
         {/* Links */}
         <div className="flex flex-wrap justify-center space-x-4">
           <a
-            href="/"
+            href="https://www.paypal.me/donacionesmaxdiaz"
             className="text-white hover:text-gray-300 transition duration-300 transform hover:scale-110"
             onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
             onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}
-            
-          >
-            Privacy Policy
-          </a>
-          <a
-            href="/"
-            className="text-white hover:text-gray-300 transition duration-300 transform hover:scale-110"
-            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
-            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}
-
-          >
-            Terms of Service
-          </a>
-          <a
-            href="/"
-            className="text-white hover:text-gray-300 transition duration-300 transform hover:scale-110"
-            onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
-            onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}
-
+            target='_blank'
           >
             Support
           </a>

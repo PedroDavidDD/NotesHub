@@ -79,12 +79,24 @@
   font-size: 1.75rem; /* 28px */
 }
 
-.calendar__title .icons {
+.calendar__title, .calendar__title .searcher {
   display: flex;
-  gap: 1rem; /* 16px */
   align-items: center;
-  justify-content: end;
-  /* padding: 2rem 0 0 0; */
+}
+
+.calendar__title {
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.calendar__title .searcher {
+  justify-content: center;
+}
+
+  .calendar__title .icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
   margin: 1rem;
 }
 

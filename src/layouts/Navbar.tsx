@@ -56,28 +56,6 @@ export function Navbar() {
               Home
             </Link>
             <Link
-              to="/about"
-              className={`transition duration-300 transform hover:scale-110`}              
-              style={{
-                color: theme.colors.common.white,
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}  
-            >
-              About
-            </Link>
-            <Link
-              to="/services"
-              className={`transition duration-300 transform hover:scale-110`}              
-              style={{
-                color: theme.colors.common.white,
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}  
-            >
-              Services
-            </Link>
-            <Link
               to="/contact"
               className={`transition duration-300 transform hover:scale-110`}              
               style={{

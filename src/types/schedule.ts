@@ -18,3 +18,9 @@ export interface ScheduleBox {
   particleColor: string;
   accentColor: string;
 }
+
+export interface NotesState {
+  listNotes: ScheduleBox[];
+  searchTerm: string;
+}
+

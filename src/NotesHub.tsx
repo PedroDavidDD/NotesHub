@@ -15,6 +15,7 @@ import { ConfigButton } from "./components/ConfigButton";
 import { theme } from "./css/theme";
 import { Columns3, Grid3x3, Rows3 } from "lucide-react";
 import EditableTitle from "./components/EditableTitle";
+import SearchBar from "./components/SearchBar ";
 
 function NotesHub() {
 
@@ -114,7 +115,7 @@ function NotesHub() {
       setScheduleBoxes(updatedBoxes);
       storage.save(updatedBoxes);
       // Resetea para el proximo default
-      setNewBox({    
+      setNewBox({
         date: "",
         title: "Nuevo Evento",
         time: "Hora no definida",
@@ -199,7 +200,7 @@ function NotesHub() {
     newBoxes.splice(draggedIndex, 1);
     newBoxes.splice(targetIndex, 0, draggedBox);
 
-    const updatedBoxes = newBoxes.map((box, index) => ({
+    const updatedBoxes = newBoxes.map((box, index)  => ({
       ...box,
       order: index
     }));
@@ -217,7 +218,10 @@ function NotesHub() {
         <div className={`box__calendar`}> 
         {/* Titulo y navs */}
           <div className="calendar__title" >
-              <EditableTitle />
+              <div className="searcher">
+                <SearchBar />
+              </div>
+              {/* <EditableTitle /> */}
               <div className="icons">
                 <Grid3x3 
                   onClick={() => setBoxStyle(stateNotes.box)} 
@@ -238,6 +242,7 @@ function NotesHub() {
                   className={`hover:scale-110 transition-all duration-300`}
                 />
               </div>
+              
           </div>
         {/* Cajas */}
           <div className={`calendar__notes`}>
