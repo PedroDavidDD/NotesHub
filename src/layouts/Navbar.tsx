@@ -56,8 +56,9 @@ export function Navbar() {
               Home
             </Link>
             <Link
-              to="/contact"
-              className={`transition duration-300 transform hover:scale-110`}              
+              to="https://www.paypal.me/donacionesmaxdiaz"
+              className={`transition duration-300 transform hover:scale-110`}
+              target='_blank'
               style={{
                 color: theme.colors.common.white,
               }}
