@@ -19,7 +19,7 @@ const SearchBar = () => {
     <>
       <button
         onClick={handleSearchSubmit}
-        className="text-gray-400 hover:border-red-500 hover:text-red-500 focus:outline-none rounded-none transition duration-300"
+        className="text-gray-400 hover:border-red-500 hover:text-red-500 focus:outline-none rounded-none transition duration-300 bg-black border-1"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +42,7 @@ const SearchBar = () => {
         value={localSearchTerm}  
         onChange={handleSearchChange} 
         placeholder="Buscar..."
-        className="w-full pl-10 pr-4 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 transition duration-300 text-gray-700"
+        className="w-full pl-10 pr-4 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 transition duration-300 text-black bg-white"
       />
     </>
   );
