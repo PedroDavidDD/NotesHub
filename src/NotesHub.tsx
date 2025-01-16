@@ -17,7 +17,7 @@ import { CirclePlus, Columns3, Grid3x3, Rows3 } from "lucide-react";
 import SearchBar from "./components/SearchBar ";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addNotes, deleteNotes, editNotes, selectFilteredNotes, setNotes, setSearchTerm } from "./redux/notesSlice";
+import { addNotes, deleteNotes, editNotes, selectFilteredNotes, setBackgroundColor, setBackgroundImage, setBackgroundSize, setNotes } from "./redux/notesSlice";
 
 function NotesHub() {
   const dispatch = useDispatch();
@@ -143,6 +143,7 @@ function NotesHub() {
       setNewBox({ ...newBox, [field]: processed });
     }
   };
+
 // Editar la carta
   const handleEdit = (box: ScheduleBoxType) => {
     setEditingBox(box);
@@ -214,6 +215,16 @@ function NotesHub() {
     setIsFormVisible(true);
     setIsConfigVisible(false);
   }
+
+  const handleBgChange = (key, value) => {
+    if (key === 'color') {
+      dispatch(setBackgroundColor(value));
+    } else if (key === 'image') {
+      dispatch(setBackgroundImage(value));
+    } else if (key === 'size') {
+      dispatch(setBackgroundSize(value));
+    }
+  };
 
   return (
     <>
@@ -299,6 +310,7 @@ function NotesHub() {
           <ConfigMenu
             boxes={scheduleBoxes}
             onImport={handleImport}
+            onChange={handleBgChange}
             isVisible={isConfigVisible}
             onClose={() => setIsConfigVisible(false)}
           />

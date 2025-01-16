@@ -10,7 +10,7 @@
 .background {
   width: 100%;
   height: 100%;
-  background: #bbb url('./images/00011.jpeg') no-repeat center/cover;  
+  /* background: #bbb url('./images/00011.jpeg') no-repeat center/cover;   */
   background-attachment: fixed;
 }
 

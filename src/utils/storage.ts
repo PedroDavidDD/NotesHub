@@ -1,16 +1,23 @@
 import { listNotes } from '../Scripts/listNotes';
-import type { ScheduleBox } from '../types/schedule';
+import type { backgroundNotes, ScheduleBox } from '../types/schedule';
 
 const STORAGE_KEY = 'stream-schedule';
+const STORAGE_BG_KEY = 'stream-background';
 
 export const storage = {
-  save: (boxes: ScheduleBox[]) => {
+  save: (boxes: ScheduleBox[], bgData?: backgroundNotes) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(boxes));
+    localStorage.setItem(STORAGE_BG_KEY, JSON.stringify(bgData));
   },
 
   load: (): ScheduleBox[] => {
     const data = localStorage.getItem(STORAGE_KEY);
     return data ? JSON.parse(data) : listNotes;
+  },
+
+  loadBackground: (): backgroundNotes => {
+    const data = localStorage.getItem(STORAGE_BG_KEY);
+    return data ? JSON.parse(data) : { color: "#000000", image: "", size: "contain"} ;
   },
 
   exportToFile: (boxes: ScheduleBox[]) => {

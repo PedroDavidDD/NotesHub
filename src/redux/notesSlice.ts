@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { NotesState, ScheduleBox } from "../types/schedule";
+import { backgroundNotes, NotesState, ScheduleBox } from "../types/schedule";
 import { storage } from "../utils/storage";
 
 const initialState: NotesState = {
     listNotes: storage.load(),
     searchTerm: "",
+    background: storage.loadBackground(),
 }
 
 export const notesSlice = createSlice({
@@ -33,6 +34,15 @@ export const notesSlice = createSlice({
         setNotes: (state, action: PayloadAction<ScheduleBox[]>) => {
           state.listNotes = action.payload;
         },
+        setBackgroundColor: (state, action) => {
+          state.background.color = action.payload;
+        },
+        setBackgroundImage: (state, action) => {
+          state.background.image = action.payload;
+        },
+        setBackgroundSize: (state, action) => {
+          state.background.size = action.payload;
+        },
     }}) 
 
 // Selector para obtener las notas filtradas
@@ -50,7 +60,11 @@ export const selectFilteredNotes = (state: { notes: NotesState }) => {
       return titleMatch || descriptionMatch;
     });
   };
-  
+
+export const selectBackgroundNotes = (state: { notes: NotesState }) => {
+    const { background } = state.notes;
+    return background;
+};
 
 // Exportar acciones de manera correcta
     export const { 
@@ -59,6 +73,10 @@ export const selectFilteredNotes = (state: { notes: NotesState }) => {
         deleteNotes,
         setSearchTerm,
         setNotes,
+
+        setBackgroundColor,
+        setBackgroundImage,
+        setBackgroundSize,
     } = notesSlice.actions;
     
 // Exportar el reducer

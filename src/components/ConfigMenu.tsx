@@ -3,19 +3,25 @@ import { Save, Download, Upload, X, Settings } from 'lucide-react';
 import type { ScheduleBox } from '../types/schedule';
 import { storage } from '../utils/storage';
 import { theme } from '../css/theme';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectBackgroundNotes } from '../redux/notesSlice';
 
 interface ConfigMenuProps {
   boxes: ScheduleBox[];
   onImport: (boxes: ScheduleBox[]) => void;
+  onChange: (key: string, value: string ) => void;
   isVisible: boolean;
   onClose: () => void;
 }
 
-export function ConfigMenu({ boxes, onImport, isVisible, onClose }: ConfigMenuProps) {
+export function ConfigMenu({ boxes, onImport, onChange, isVisible, onClose }: ConfigMenuProps) {
+
+  const bgData = useSelector( selectBackgroundNotes );
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSave = () => {
-    storage.save(boxes);
+    storage.save(boxes, bgData);
     alert('Nota guardado exitosamente');
   };
 
@@ -63,6 +69,39 @@ export function ConfigMenu({ boxes, onImport, isVisible, onClose }: ConfigMenuPr
         >Gestión de Datos</h2>
 
         <div className="space-y-4">
+            <div className='text-white'>
+              <label className="block text-sm mb-1">Background color - Imagen de Fondo (URL)</label>
+              <div className='flex gap-5'>
+                <input
+                  type="color"
+                  value={bgData.color || ''}
+                  onChange={(e) => onChange('color', e.target.value)}
+                  className="w-full h-10 rounded cursor-pointer"
+                />
+                <input
+                  type="url"
+                  value={bgData.image || ''}
+                  onChange={(e) => onChange('image', e.target.value)}
+                  className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                  placeholder="https://ejemplo.com/imagen.jpg"
+                  style={{
+                    background: theme.form.input,
+                  }}
+                />                
+                <select
+                  value={bgData.size || ''}
+                  onChange={(e) => onChange('size', e.target.value)}
+                  className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                  style={{
+                    background: theme.form.input,
+                  }}
+                >
+                  <option value="contain">Contain</option>
+                  <option value="cover">Cover</option>
+                </select>
+              </div>
+            </div>
+
           <button
             onClick={handleSave}
             className="w-full flex items-center justify-center gap-2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded transition-colors hover:border-white"
