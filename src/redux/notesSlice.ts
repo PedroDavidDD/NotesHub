@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { backgroundNotes, NotesState, ScheduleBox } from "../types/schedule";
 import { storage } from "../utils/storage";
 
+const initialData = storage.load();
+
 const initialState: NotesState = {
-    listNotes: storage.load(),
+    listNotes: initialData.listNotes,
     searchTerm: "",
-    background: storage.loadBackground(),
+    background: initialData.background,
 }
 
 export const notesSlice = createSlice({

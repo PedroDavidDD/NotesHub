@@ -125,6 +125,8 @@ function NotesHub() {
   };
 
   const handleChange = (field: string, value: string | boolean) => {
+
+    
     const processValue = (field: string, value: string | boolean) => {
       if (field === 'tags' && typeof value === 'string') {
         return value.split(',').map(tag => tag.trim());
@@ -310,7 +312,7 @@ function NotesHub() {
           <ConfigMenu
             boxes={scheduleBoxes}
             onImport={handleImport}
-            onChange={handleBgChange}
+            onBgChange={handleBgChange}
             isVisible={isConfigVisible}
             onClose={() => setIsConfigVisible(false)}
           />

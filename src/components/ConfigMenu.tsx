@@ -9,12 +9,12 @@ import { selectBackgroundNotes } from '../redux/notesSlice';
 interface ConfigMenuProps {
   boxes: ScheduleBox[];
   onImport: (boxes: ScheduleBox[]) => void;
-  onChange: (key: string, value: string ) => void;
+  onBgChange: (key: string, value: string ) => void;
   isVisible: boolean;
   onClose: () => void;
 }
 
-export function ConfigMenu({ boxes, onImport, onChange, isVisible, onClose }: ConfigMenuProps) {
+export function ConfigMenu({ boxes, onImport, onBgChange, isVisible, onClose }: ConfigMenuProps) {
 
   const bgData = useSelector( selectBackgroundNotes );
 
@@ -22,11 +22,12 @@ export function ConfigMenu({ boxes, onImport, onChange, isVisible, onClose }: Co
 
   const handleSave = () => {
     storage.save(boxes, bgData);
-    alert('Nota guardado exitosamente');
+    alert('Notas guardadas');
   };
 
   const handleExport = () => {
-    storage.exportToFile(boxes);
+    storage.exportToFile(boxes, bgData);
+    alert('Notas descargadas');
   };
 
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,9 +35,13 @@ export function ConfigMenu({ boxes, onImport, onChange, isVisible, onClose }: Co
     if (!file) return;
 
     try {
-      const importedBoxes = await storage.importFromFile(file);
-      onImport(importedBoxes);
-      alert('Nota importado exitosamente');
+      const { listNotes, background } = await storage.importFromFile(file);
+      onImport(listNotes);
+
+      onBgChange('color', background.color);  // Actualizar color de fondo
+      onBgChange('image', background.image);  // Actualizar imagen de fondo
+      onBgChange('size', background.size);  // Actualizar tamaño de fondo
+      alert('Datos importados exitosamente');
     } catch (error) {
       alert('Error al importar el archivo');
     }
@@ -75,13 +80,13 @@ export function ConfigMenu({ boxes, onImport, onChange, isVisible, onClose }: Co
                 <input
                   type="color"
                   value={bgData.color || ''}
-                  onChange={(e) => onChange('color', e.target.value)}
+                  onChange={(e) => onBgChange('color', e.target.value)}
                   className="w-full h-10 rounded cursor-pointer"
                 />
                 <input
                   type="url"
                   value={bgData.image || ''}
-                  onChange={(e) => onChange('image', e.target.value)}
+                  onChange={(e) => onBgChange('image', e.target.value)}
                   className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
                   placeholder="https://ejemplo.com/imagen.jpg"
                   style={{
@@ -90,7 +95,7 @@ export function ConfigMenu({ boxes, onImport, onChange, isVisible, onClose }: Co
                 />                
                 <select
                   value={bgData.size || ''}
-                  onChange={(e) => onChange('size', e.target.value)}
+                  onChange={(e) => onBgChange('size', e.target.value)}
                   className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
                   style={{
                     background: theme.form.input,
