@@ -50,10 +50,12 @@ export const Notes = ({
         backgroundColor: box.backgroundColor + '33',
         backgroundImage: box.image ? `linear-gradient(rgba(0,0,0,${backgroundOpacity}), rgba(0,0,0,${backgroundOpacity})), url(${box.image})` : 'none',
         backgroundRepeat: 'no-repeat', /* No repetir la imagen */
-        backgroundPosition: 'center', /* Centrar la imagen */
+        backgroundPosition: box.backgroundPosition || 'center',
         backgroundSize: 'cover', /* Ajustar la imagen para cubrir todo el contenedor */
         filter: 'saturate(120%)',
         border:`${box.borderColor} ${box.borderStyle} ${box.borderWidth}px`,        
+        alignItems: box.alignItem || "start",
+        justifyContent: box.justifyContent || "center",
       }}
     >
       <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
@@ -83,9 +85,9 @@ export const Notes = ({
         </button>
       </div>
 
-      <div className={`note__date ${boxStyle} `}><span>{ box.date }</span></div>
-      <div className={`note__title ${boxStyle} `}><span>{ box.title }</span></div>
-      <div className={`note__datetime ${boxStyle} `}>
+      <div className={`note__date ${boxStyle} text-white`}><span>{ box.date }</span></div>
+      <div className={`note__title ${boxStyle} text-white`}><span>{ box.title }</span></div>
+      <div className={`note__datetime ${boxStyle} text-white`}>
         <Clock size={14} className="mr-1" />
         { box.time }
       </div>

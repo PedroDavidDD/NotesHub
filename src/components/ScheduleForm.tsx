@@ -127,12 +127,26 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           
           <div>
             <label className="block text-sm mb-1">Background color</label>
-            <input
-              type="color"
-              value={box.backgroundColor}
-              onChange={(e) => onChange('backgroundColor', e.target.value)}
-              className="w-full h-10 rounded cursor-pointer"
-            />
+            <div className='flex gap-5'>
+              <input
+                type="color"
+                value={box.backgroundColor}
+                onChange={(e) => onChange('backgroundColor', e.target.value)}
+                className="w-full h-10 rounded cursor-pointer"
+              />
+              <select
+                  value={box.backgroundPosition || 'center'}
+                  onChange={(e) => onChange('backgroundPosition', e.target.value)}
+                  className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                  style={{
+                    background: theme.form.input,
+                  }}
+                >
+                  <option value="top">Superior</option>
+                  <option value="center">Centro</option>
+                  <option value="bottom">Inferior</option>
+                </select>
+            </div>
           </div>
           
           <div>
@@ -232,19 +246,36 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           </div>
 
           <div>
-            <label className="block text-sm mb-1">Alineación del Texto</label>
-            <select
-              value={box.textAlign || 'left'}
-              onChange={(e) => onChange('textAlign', e.target.value)}
-              className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
-              style={{
-                background: theme.form.input,
-              }}
-            >
-              <option value="left">Izquierda</option>
-              <option value="center">Centro</option>
-              <option value="right">Derecha</option>
-            </select>
+            <label className="block text-sm mb-1">Alineación del Texto (H-V)</label>
+            <div className='flex gap-5'>
+              <select
+                value={box.alignItem || 'start'}
+                onChange={(e) => onChange('alignItem', e.target.value)}
+                className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                style={{
+                  background: theme.form.input,
+                }}
+              >
+                <option value="start">Izquierda</option>
+                <option value="center">Centro</option>
+                <option value="end">Derecha</option>
+              </select>
+              <select
+                value={box.justifyContent || 'center'}
+                onChange={(e) => onChange('justifyContent', e.target.value)}
+                className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                style={{
+                  background: theme.form.input,
+                }}
+              >
+                <option value="start">Superior</option>
+                <option value="center">Centro</option>
+                <option value="end">Inferior</option>
+                <option value="space-around">Space-around</option>
+                <option value="space-between">Space-between</option>
+                <option value="space-evenly">Space-evenly</option>
+              </select>
+            </div>
           </div>
           
           <button

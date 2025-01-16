@@ -1,3 +1,4 @@
+import { listNotes } from '../Scripts/listNotes';
 import type { ScheduleBox } from '../types/schedule';
 
 const STORAGE_KEY = 'stream-schedule';
@@ -9,7 +10,7 @@ export const storage = {
 
   load: (): ScheduleBox[] => {
     const data = localStorage.getItem(STORAGE_KEY);
-    return data ? JSON.parse(data) : [];
+    return data ? JSON.parse(data) : listNotes;
   },
 
   exportToFile: (boxes: ScheduleBox[]) => {

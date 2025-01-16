@@ -3,7 +3,7 @@ import { NotesState, ScheduleBox } from "../types/schedule";
 import { storage } from "../utils/storage";
 
 const initialState: NotesState = {
-    listNotes: storage.load() || [],
+    listNotes: storage.load(),
     searchTerm: "",
 }
 
