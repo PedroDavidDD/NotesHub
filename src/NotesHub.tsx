@@ -55,8 +55,10 @@ function NotesHub() {
     borderColor: "",
     textAlign: "left",
     image: "",
+    particleState: false,
     particleColor: "",
     accentColor: "",
+    state: true,
   };
   const [dataSelected, setDataSelected] = useState<ScheduleBoxType>(defaultScheduleBox);
   
@@ -86,8 +88,10 @@ function NotesHub() {
     backgroundColor: '#50c8c8',
     image: "",
     textAlign: 'left',
+    particleState: false,
     particleColor: '#50c8c8',
     accentColor: '#50c8c8',
+    state: true,
   });
   
 
@@ -114,17 +118,22 @@ function NotesHub() {
         backgroundColor: '#50c8c8',
         image: "",
         textAlign: 'left',
+        particleState: false,
         particleColor: '#50c8c8',
         accentColor: '#50c8c8',
+        state: true,
       });
     }
     setIsFormVisible(false);
   };
 
-  const handleChange = (field: string, value: string) => {
-    const processValue = (field: string, value: string) => {
-      if (field === 'tags') {
+  const handleChange = (field: string, value: string | boolean) => {
+    const processValue = (field: string, value: string | boolean) => {
+      if (field === 'tags' && typeof value === 'string') {
         return value.split(',').map(tag => tag.trim());
+      }
+      if (typeof value === 'boolean'){
+        return value;
       }
       return value;
     };
@@ -150,8 +159,10 @@ function NotesHub() {
       tags: box.tags || [],
       borderColor: box.borderColor || '#5FF',
       textAlign: box.textAlign || 'left',  
+      particleState: box.particleState || false,
       particleColor: box.particleColor || '#ff5',
       accentColor: box.accentColor || '#ff5',
+      state: box.state || true,
     });
     setIsFormVisible(true);
     setIsConfigVisible(false);

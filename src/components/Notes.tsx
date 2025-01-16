@@ -1,9 +1,8 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { BookOpenText, Clock, Edit, Trash2 } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
 import { ParticleEffect } from './ParticleEffect';
-import { theme } from '../css/theme';
 
 interface ScheduleBoxProps {
   box: ScheduleBoxType;
@@ -91,8 +90,7 @@ export const Notes = ({
         { box.time }
       </div>
 
-      {/* <div className={`plus icon ${boxStyle}`}></div> */}
-      <ParticleEffect color={box.particleColor} />
+      { box.particleState && (<ParticleEffect color={box.particleColor} />) }
 
       {/* Decoracion de bordes */}
       <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 rounded-tl-lg opacity-80"

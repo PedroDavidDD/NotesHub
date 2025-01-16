@@ -15,8 +15,11 @@ export interface ScheduleBox {
   textAlign: string;
   
   order: number;
+  particleState?: boolean;
   particleColor: string;
   accentColor: string;
+
+  state: boolean;
 }
 
 export interface NotesState {

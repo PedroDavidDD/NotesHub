@@ -6,7 +6,7 @@ import { theme } from '../css/theme';
 interface ScheduleFormProps {
   box: Omit<ScheduleBox, 'id' | 'order'>;
   onSubmit: () => void;
-  onChange: (field: string, value: string) => void;
+  onChange: (field: string, value: string | boolean) => void;
   isEditing: boolean;
   isVisible: boolean;
   onClose: () => void;
@@ -34,13 +34,22 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           <X size={20} />
         </button>
         
-        <h2 className="text-2xl font-bold mb-4"
-          style={{
-            color: theme.navbar.background,
-          }}
-        >
-          {isEditing ? 'Editar Nota' : 'Agregar Nueva Nota'}
-        </h2>
+        <div className='flex justify-between'>
+          <h2 className="text-2xl font-bold mb-4"
+            style={{
+              color: theme.navbar.background,
+            }}
+          >
+            {isEditing ? 'Editar Nota' : 'Agregar Nueva Nota'}
+          </h2>
+          {/* <input 
+            id="001"  
+            type="checkbox" 
+            name="state" 
+            checked={ true }
+            className={`w-7`}
+          /> */}
+        </div>
         
         <div className="space-y-4">
           <div>
@@ -190,12 +199,22 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
 
           <div>
             <label className="block text-sm mb-1">Color de partículas</label>
-            <input
-              type="color"
-              value={box.particleColor}
-              onChange={(e) => onChange('particleColor', e.target.value)}
-              className="w-full h-10 rounded cursor-pointer"
-            />
+            <div className='flex justify-between'>
+              <input
+                type="color"
+                value={box.particleColor}
+                onChange={(e) => onChange('particleColor', e.target.value)}
+                className="w-full h-10 rounded cursor-pointer"
+              />
+              <input 
+                  id="001"  
+                  type="checkbox" 
+                  name="particleState" 
+                  checked={ box.particleState || false }
+                  onChange={(e) => onChange('particleState', e.target.checked)}
+                  className={`w-10 ml-5`}
+                />
+            </div>
           </div>
 
           <div>
