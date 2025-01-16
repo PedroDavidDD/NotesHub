@@ -13,7 +13,7 @@ import { ScheduleForm } from "./components/ScheduleForm";
 import { ConfigMenu } from "./components/ConfigMenu";
 import { ConfigButton } from "./components/ConfigButton";
 import { theme } from "./css/theme";
-import { CirclePlus, Columns3, Grid3x3, Rows3 } from "lucide-react";
+import { CirclePlus, Columns3, Eye, EyeOff, Grid3x3, Rows3 } from "lucide-react";
 import SearchBar from "./components/SearchBar ";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -34,6 +34,9 @@ function NotesHub() {
     large: 'typeLarge',
     compressed: 'typeShort',
   }
+  
+  const [seeNotes, setSeeNotes] = useState( true ); 
+
   // ---------------------------------------------------
   // -----------TIPOS DE ESTILO DE LAS CAJAS------------
   // ---------------------------------------------------
@@ -244,6 +247,22 @@ function NotesHub() {
                   color={theme.navbar.background}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
+                { seeNotes ? (
+                  <Eye 
+                    onClick={() => setSeeNotes( false )} 
+                    size={35} 
+                    color={theme.colors.border}
+                    className={`hover:scale-110 transition-all duration-300`}
+                  />)
+                  : (
+                  <EyeOff 
+                    onClick={() => setSeeNotes( true )} 
+                    size={35} 
+                    color={theme.colors.border}
+                    className={`hover:scale-110 transition-all duration-300`}
+                  />)
+                }
+
                 <Grid3x3 
                   onClick={() => setBoxStyle(stateNotes.box)} 
                   size={35} 
@@ -268,7 +287,7 @@ function NotesHub() {
         {/* Cajas */}
           <div className={`calendar__notes`}>
             {
-              sortedBoxes.map( (data) => {
+              seeNotes && sortedBoxes.map( (data) => {
                 return (
                   <Notes 
                     key={data.id}  
