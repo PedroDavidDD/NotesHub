@@ -26,7 +26,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
       <div className="max-w-md mx-auto p-6">
         <button
           onClick={onClose}
-          className={`absolute top-6 right-6 p-6 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
+          className={`absolute top-6 right-6 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
           style={{
             backgroundColor: theme.navbar.background
           }}

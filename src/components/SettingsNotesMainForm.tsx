@@ -26,7 +26,7 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
       <div className="max-w-md mx-auto p-6">
         <button
           onClick={onClose}
-          className={`absolute top-6 right-6 p-6 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
+          className={`absolute top-6 right-6 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
           style={{
             backgroundColor: theme.navbar.background
           }}
@@ -47,6 +47,11 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
         <div className="space-y-4"> 
 
           <div className='text-white'>
+            <label className="block mb-1"
+            style={{
+              color: theme.navbar.background
+            }}
+            >Fondo de pantalla</label>
             <label className="block text-sm mb-1">Background color - Imagen de Fondo (URL) - Tamaño</label>
             <div className='flex gap-5'>
               <input
