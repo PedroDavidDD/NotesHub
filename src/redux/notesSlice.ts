@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { backgroundNotes, NotesState, ScheduleBox } from "../types/schedule";
+import { SettingsNotesMain, NotesState, ScheduleBox } from "../types/schedule";
 import { storage } from "../utils/storage";
 
 const initialData = storage.load();
@@ -36,15 +36,9 @@ export const notesSlice = createSlice({
         setNotes: (state, action: PayloadAction<ScheduleBox[]>) => {
           state.listNotes = action.payload;
         },
-        setBackgroundColor: (state, action) => {
-          state.background.color = action.payload;
-        },
-        setBackgroundImage: (state, action) => {
-          state.background.image = action.payload;
-        },
-        setBackgroundSize: (state, action) => {
-          state.background.size = action.payload;
-        },
+        setUpdSettingsNotesMain: (state, action: PayloadAction<any>) => {
+          state.background = action.payload;
+        },     
     }}) 
 
 // Selector para obtener las notas filtradas
@@ -76,9 +70,7 @@ export const selectBackgroundNotes = (state: { notes: NotesState }) => {
         setSearchTerm,
         setNotes,
 
-        setBackgroundColor,
-        setBackgroundImage,
-        setBackgroundSize,
+        setUpdSettingsNotesMain,
     } = notesSlice.actions;
     
 // Exportar el reducer

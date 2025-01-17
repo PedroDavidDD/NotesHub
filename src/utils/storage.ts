@@ -1,16 +1,27 @@
+import { theme } from '../css/theme';
 import { listNotes } from '../Scripts/listNotes';
-import type { backgroundNotes, ScheduleBox } from '../types/schedule';
+import type { SettingsNotesMain, ScheduleBox } from '../types/schedule';
 
 const STORAGE_KEY = 'stream-schedule';
 const STORAGE_BG_KEY = 'stream-background';
+const DEFAULT_SETTINGS_NOTES_MAIN = {
+  color: theme.colors.common.black,
+  image: "",
+  size: "contain",
+  nav:{
+    backgroundColor: theme.colors.common.black,
+    textColor: theme.colors.common.black,
+    colorIcons: theme.colors.common.white,
+  }
+}
 
 export const storage = {
-  save: (boxes: ScheduleBox[], bgData?: backgroundNotes) => {
+  save: (boxes: ScheduleBox[], bgData?: SettingsNotesMain) => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(boxes));
     localStorage.setItem(STORAGE_BG_KEY, JSON.stringify(bgData));
   },
 
-  load: (): { listNotes: ScheduleBox[]; background: backgroundNotes } => {
+  load: (): { listNotes: ScheduleBox[]; background: SettingsNotesMain } => {
     const notesData  = localStorage.getItem(STORAGE_KEY);
     const backgroundData  = localStorage.getItem(STORAGE_BG_KEY);
 
@@ -18,14 +29,14 @@ export const storage = {
       listNotes: notesData ? JSON.parse(notesData) : listNotes,
       background: backgroundData
         ? JSON.parse(backgroundData)
-        : { color: "#000000", image: "", size: "contain" },
+        : DEFAULT_SETTINGS_NOTES_MAIN,
     };
   },
 
-  exportToFile: (boxes: ScheduleBox[], bgData?: backgroundNotes) => {
+  exportToFile: (boxes: ScheduleBox[], bgData?: SettingsNotesMain) => {
     const data = {
       boxes,
-      background: bgData || { color: "#000000", image: "", size: "contain" },
+      background: bgData || DEFAULT_SETTINGS_NOTES_MAIN,
     };
     const jsonData = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonData], { type: 'application/json' });
@@ -40,7 +51,7 @@ export const storage = {
     URL.revokeObjectURL(url);
   },
 
-  importFromFile: (file: File): Promise<{ listNotes: ScheduleBox[]; background: backgroundNotes }> => {
+  importFromFile: (file: File): Promise<{ listNotes: ScheduleBox[]; background: SettingsNotesMain }> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.onload = (e) => {

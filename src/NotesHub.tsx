@@ -7,7 +7,7 @@ import './css/iconsAnimated.css'
 import { Notes } from "./components/Notes";
 import { CardModal } from "./components/CardModal";
 
-import type { ScheduleBox as ScheduleBoxType } from './types/schedule';
+import type { ScheduleBox as ScheduleBoxType, SettingsNotesMain } from './types/schedule';
 import { storage } from "./utils/storage";
 import { ScheduleForm } from "./components/ScheduleForm";
 import { ConfigMenu } from "./components/ConfigMenu";
@@ -17,11 +17,13 @@ import { CirclePlus, Columns3, Eye, EyeOff, Grid3x3, Rows3 } from "lucide-react"
 import SearchBar from "./components/SearchBar ";
 
 import { useSelector, useDispatch } from "react-redux";
-import { addNotes, deleteNotes, editNotes, selectFilteredNotes, setBackgroundColor, setBackgroundImage, setBackgroundSize, setNotes } from "./redux/notesSlice";
+import { addNotes, deleteNotes, editNotes, selectBackgroundNotes, selectFilteredNotes, setNotes, setUpdSettingsNotesMain } from "./redux/notesSlice";
+import { SettingsNotesMainForm } from "./components/SettingsNotesMainForm";
 
 function NotesHub() {
   const dispatch = useDispatch();
   const scheduleBoxes = useSelector( selectFilteredNotes );
+  const bgData = useSelector( selectBackgroundNotes );
   
   interface StateNotesProps {
     box: string,
@@ -97,6 +99,7 @@ function NotesHub() {
   
 
   const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isSettingsFormVisible, setIsSettingsFormVisible] = useState(false);
   const [isConfigVisible, setIsConfigVisible] = useState(false);
 
   const handleSubmit = () => {
@@ -221,22 +224,49 @@ function NotesHub() {
     setIsConfigVisible(false);
   }
 
-  const handleBgChange = (key, value) => {
-    if (key === 'color') {
-      dispatch(setBackgroundColor(value));
-    } else if (key === 'image') {
-      dispatch(setBackgroundImage(value));
-    } else if (key === 'size') {
-      dispatch(setBackgroundSize(value));
+  const handleBgChange = (field: string, value: string) => {
+    // Segundo Nivel: Recive la key del 1ro y la key del 2do.
+    const isNavFiled = field.includes("nav.");
+    if (isNavFiled){
+      const [parentField, childField] = field.split(".");
+
+      dispatch(
+        setUpdSettingsNotesMain({
+          ...bgData,
+          [parentField]: {
+            ...bgData[parentField],
+            [childField]: value,
+          },
+        })
+      );
+      return;
     }
+    // Primer nivel 
+    dispatch(
+      setUpdSettingsNotesMain({
+        ...bgData,
+        [field]: value,
+      })
+    );
+
   };
+  
+  const onSettingsNotesMain = () => {
+    setIsSettingsFormVisible(true);
+    setIsConfigVisible(false);
+  }
+
 
   return (
     <>
       <div className="box">
         <div className={`box__calendar`}> 
         {/* Titulo y navs */}
-          <div className="calendar__title bg-black rounded-full m-4 p-7" >
+          <div className="calendar__title bg-black rounded-full m-4 p-7"
+          style={{
+            background: bgData.nav.backgroundColor,
+          }} 
+          >
               <div className="searcher">
                 <SearchBar />
               </div>
@@ -244,41 +274,41 @@ function NotesHub() {
                 <CirclePlus                 
                   onClick={onShowForm}
                   size={35} 
-                  color={theme.navbar.background}
+                  color={bgData.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 { seeNotes ? (
                   <Eye 
                     onClick={() => setSeeNotes( false )} 
                     size={35} 
-                    color={theme.colors.border}
+                    color={bgData.nav.colorIcons}
                     className={`hover:scale-110 transition-all duration-300`}
                   />)
                   : (
                   <EyeOff 
                     onClick={() => setSeeNotes( true )} 
                     size={35} 
-                    color={theme.colors.border}
+                    color={bgData.nav.colorIcons}
                     className={`hover:scale-110 transition-all duration-300`}
                   />)
                 }
-
+                <span className="text-white select-none font-bold text-2xl">|</span>
                 <Grid3x3 
                   onClick={() => setBoxStyle(stateNotes.box)} 
                   size={35} 
-                  color={theme.colors.common.white}
+                  color={bgData.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 <Columns3 
                   onClick={() => setBoxStyle(stateNotes.large)} 
                   size={35} 
-                  color={theme.colors.common.white}
+                  color={bgData.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 <Rows3 
                   onClick={() => setBoxStyle(stateNotes.compressed)} 
                   size={35} 
-                  color={theme.colors.common.white}
+                  color={bgData.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
               </div>
@@ -318,7 +348,7 @@ function NotesHub() {
             stateNotes = { stateNotes }
           />
       
-            {/* opciones de las configuraciones */}
+            {/* opciones de las configuraciones notes */}
           <ScheduleForm
             box={editingBox || newBox}
             onSubmit={handleSubmit}
@@ -327,18 +357,29 @@ function NotesHub() {
             isVisible={isFormVisible}
             onClose={() => setIsFormVisible(false)}
           />
+          
+          {/* opciones de las configuraciones Main */}
+          <SettingsNotesMainForm
+            onBgChange={handleBgChange}
+
+            isVisible={isSettingsFormVisible}
+            onClose={() => setIsSettingsFormVisible(false)}
+          />
+
           {/* Abrir las configuraciones */}
           <ConfigMenu
             boxes={scheduleBoxes}
             onImport={handleImport}
             onBgChange={handleBgChange}
             isVisible={isConfigVisible}
-            onClose={() => setIsConfigVisible(false)}
+            onClose={() => setIsConfigVisible(false) }
+            handleSettingsNotesMain={onSettingsNotesMain}
           />
           {/* El boton de configuraciones */}
           <ConfigButton onClick={() => {
             setIsConfigVisible(true);
-            setIsFormVisible(false);
+            setIsFormVisible(false);            
+            setIsSettingsFormVisible(false);
           }} />
       
       

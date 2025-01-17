@@ -28,12 +28,20 @@ export interface ScheduleBox {
 export interface NotesState {
   listNotes: ScheduleBox[];
   searchTerm: string;
-  background: backgroundNotes;
+  background: SettingsNotesMain;
 }
 
-export interface backgroundNotes {
+export interface SettingsNotesMain {
   color: string;
   image: string;
   size: string;
+  nav: SettingsNav
 }
+
+export interface SettingsNav {
+  backgroundColor: string;
+  textColor: string;
+  colorIcons: string;
+}
+
 

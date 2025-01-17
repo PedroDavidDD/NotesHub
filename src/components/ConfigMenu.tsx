@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Save, Download, Upload, X, Settings } from 'lucide-react';
+import { Save, Download, Upload, X, Settings, Brush, PaintRoller, PaintbrushVertical } from 'lucide-react';
 import type { ScheduleBox } from '../types/schedule';
 import { storage } from '../utils/storage';
 import { theme } from '../css/theme';
@@ -12,9 +12,17 @@ interface ConfigMenuProps {
   onBgChange: (key: string, value: string ) => void;
   isVisible: boolean;
   onClose: () => void;
+  handleSettingsNotesMain: () => void;
 }
 
-export function ConfigMenu({ boxes, onImport, onBgChange, isVisible, onClose }: ConfigMenuProps) {
+export function ConfigMenu({ 
+  boxes,
+  onImport, 
+  onBgChange, 
+  isVisible, 
+  onClose,
+  handleSettingsNotesMain,
+  }: ConfigMenuProps) {
 
   const bgData = useSelector( selectBackgroundNotes );
 
@@ -74,38 +82,14 @@ export function ConfigMenu({ boxes, onImport, onBgChange, isVisible, onClose }: 
         >Gestión de Datos</h2>
 
         <div className="space-y-4">
-            <div className='text-white'>
-              <label className="block text-sm mb-1">Background color - Imagen de Fondo (URL)</label>
-              <div className='flex gap-5'>
-                <input
-                  type="color"
-                  value={bgData.color || ''}
-                  onChange={(e) => onBgChange('color', e.target.value)}
-                  className="w-full h-10 rounded cursor-pointer"
-                />
-                <input
-                  type="url"
-                  value={bgData.image || ''}
-                  onChange={(e) => onBgChange('image', e.target.value)}
-                  className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
-                  placeholder="https://ejemplo.com/imagen.jpg"
-                  style={{
-                    background: theme.form.input,
-                  }}
-                />                
-                <select
-                  value={bgData.size || ''}
-                  onChange={(e) => onBgChange('size', e.target.value)}
-                  className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
-                  style={{
-                    background: theme.form.input,
-                  }}
-                >
-                  <option value="contain">Contain</option>
-                  <option value="cover">Cover</option>
-                </select>
-              </div>
-            </div>
+
+          <button
+            onClick={handleSettingsNotesMain}
+            className="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white p-3 rounded transition-colors hover:border-white"
+          >
+            <PaintbrushVertical size={20} />
+            Abrir configuraciones
+          </button>
 
           <button
             onClick={handleSave}

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { setSearchTerm } from "../redux/notesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { selectBackgroundNotes, setSearchTerm } from "../redux/notesSlice";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const [localSearchTerm, setLocalSearchTerm] = useState(""); 
+  const bgData = useSelector( selectBackgroundNotes );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalSearchTerm(e.target.value.toLowerCase());  
@@ -19,7 +20,11 @@ const SearchBar = () => {
     <>
       <button
         onClick={handleSearchSubmit}
-        className="text-gray-400 hover:border-red-500 hover:text-red-500 focus:outline-none rounded-none transition duration-300 bg-black border-1"
+        className="text-gray-400 focus:outline-none rounded-none transition duration-300 border-none"
+        style={{
+          backgroundColor: bgData.nav.backgroundColor,
+          color: bgData.nav.colorIcons,
+        }}  
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +36,7 @@ const SearchBar = () => {
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            strokeWidth={2}
+            strokeWidth={5}
             d="M21 21l-4.35-4.35M16.65 10.85A5.5 5.5 0 1110.85 5.5 5.5 5.5 0 0116.65 10.85z"
           />
         </svg>
@@ -42,7 +47,10 @@ const SearchBar = () => {
         value={localSearchTerm}  
         onChange={handleSearchChange} 
         placeholder="Buscar..."
-        className="w-full pl-10 pr-4 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 transition duration-300 text-black bg-white"
+        className="w-full pl-10 pr-4 py-2 border border-gray-300 shadow-sm focus:outline-none transition duration-300 bg-white"
+        style={{
+          color: bgData.nav.textColor,
+        }}
       />
     </>
   );
