@@ -198,24 +198,32 @@ function NotesHub() {
 
   const handleDrop = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
     e.preventDefault();
-    
+    // Validar que haya un elemento arrastrado y que no se suelte sobre sí mismo.
     if (!draggedBox || draggedBox.id === targetBox.id) return;
-
-    const newBoxes = [...scheduleBoxes];
-    const draggedIndex = newBoxes.findIndex(box => box.id === draggedBox.id);
-    const targetIndex = newBoxes.findIndex(box => box.id === targetBox.id);
-
-    newBoxes.splice(draggedIndex, 1);
-    newBoxes.splice(targetIndex, 0, draggedBox);
-
-    const updatedBoxes = newBoxes.map((box, index)  => ({
+  
+    const updatedBoxes = [...scheduleBoxes];
+  
+    const draggedIndex = updatedBoxes.findIndex(box => box.id === draggedBox.id);
+    const targetIndex = updatedBoxes.findIndex(box => box.id === targetBox.id);
+    // Obtenemos los indices para 
+    if (draggedIndex !== -1 && targetIndex !== -1) {
+      const draggedItem = updatedBoxes[draggedIndex];
+      const targetItem = updatedBoxes[targetIndex];
+  
+      updatedBoxes.splice(draggedIndex, 1, targetItem);
+      updatedBoxes.splice(targetIndex, 1, draggedItem);
+    }
+  
+    // Actualizar los valores de "order" para reflejar el nuevo orden.
+    const reorderedBoxes = updatedBoxes.map((box, index) => ({
       ...box,
-      order: index
+      order: index,
     }));
-
-    dispatch(setNotes(updatedBoxes));
+  
+    dispatch(setNotes(reorderedBoxes));
     setDraggedBox(null);
   };
+  
   
   const sortedBoxes = [...scheduleBoxes].sort((a, b) => a.order - b.order);
   
@@ -334,6 +342,7 @@ function NotesHub() {
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
                     isDragging={draggedBox?.id === data.id}
+                    
                   />
                   )
               })
