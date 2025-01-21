@@ -9,7 +9,7 @@ export const validateImage = async (url: string): Promise<boolean> => {
         img.onerror = reject;
       });
   
-      // Verifica las dimensiones y tamaño (en este caso, por ejemplo, 2MB máx)
+      // Verifica las dimensiones y tamaño [MB <- Kilobyte (KB) <- Byte]
       const maxFileSize = 2 * 1024 * 1024; // 2MB
       const response = await fetch(url);
       const blob = await response.blob();
@@ -20,7 +20,7 @@ export const validateImage = async (url: string): Promise<boolean> => {
       }
   
       const maxWidth = 1920; // Máxima anchura permitida
-      const maxHeight = 1080; // Máxima altura permitida
+      const maxHeight = 1280; // Máxima altura permitida
   
       if (img.width > maxWidth || img.height > maxHeight) {
         alert("Las dimensiones de la imagen son demasiado grandes.");

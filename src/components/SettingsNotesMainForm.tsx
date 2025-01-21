@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { theme } from '../css/theme';
 import { useSelector } from 'react-redux';
@@ -15,6 +15,48 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
 
   const bgData = useSelector( selectBackgroundNotes );
 
+  const [currentUrl, setCurrentUrl] = useState<string>(''); // Para manejar el valor del input
+  const [isValidImageUrl, setIsValidImageUrl] = useState<boolean | null>(null); // null -> aún no validado, true/false -> validado
+
+   // Manejar el cambio del input URL
+  const handleUrlChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const newUrl = e.target.value;
+    setCurrentUrl(newUrl);
+    setIsValidImageUrl(null); // Resetear el estado mientras se escribe
+  }, []);
+
+  // Validar la URL
+  const validateUrl = useCallback(async () => {
+    if (currentUrl.trim() === '') {
+      setIsValidImageUrl(null); // No hay URL para validar
+      onBgChange('image', '');
+      return;
+    }
+
+    const isValid = await validateImage(currentUrl);
+    setIsValidImageUrl(isValid);
+
+    if (isValid) onBgChange('image', currentUrl);
+    
+  }, [currentUrl]);
+
+  const validationStates = {
+    "true": {
+      color: 'green',
+      message: 'URL válida.',
+    },
+    "false": {
+      color: 'red',
+      message: 'URL no válida.',
+    },
+    "null": {
+      color: 'yellow',
+      message: 'Validando URL...',
+    },
+  };
+  
+  const validationState = currentUrl.trim() ? validationStates[String(isValidImageUrl)] : null;
+
   return (
     <div className={`w-full h-full z-10 fixed bottom-0 left-0 right-0 transition-transform duration-300 ease-in-out ${
       isVisible ? 'translate-y-0' : 'translate-y-full'
@@ -24,7 +66,7 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
       color: theme.colors.common.white,      
     }}
     >
-      <div className="max-w-md mx-auto p-6">
+      <div className="max-w-md mx-auto py-6">
         <button
           onClick={onClose}
           className={`absolute top-6 right-6 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
@@ -63,20 +105,28 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
               />
               <input
                 type="url"
-                value={bgData.image || ''}
-                onChange={async (e) => {
-                  const url = e.target.value;
-                  const isValid = await validateImage(url);
-                  if (isValid) {
-                    onBgChange('image', url);
-                  }
+                value={currentUrl}
+                onChange={handleUrlChange}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') validateUrl();
                 }}
                 className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
                 placeholder="https://ejemplo.com/imagen.jpg"
                 style={{
                   background: theme.form.input,
                 }}
-              />                
+              />
+              <button
+                onClick={validateUrl}
+                className={`
+                  px-4 py-2 rounded transition-colors hover:border-transparent
+                  ${validationState ? `bg-${validationState.color}-500 hover:bg-${validationState.color}-600` : 'bg-gray-500 hover:bg-gray-600'}
+                  text-white
+                `}
+              >
+                Validar
+              </button>
+
               <select
                 value={bgData.size || ''}
                 onChange={(e) => onBgChange('size', e.target.value)}
