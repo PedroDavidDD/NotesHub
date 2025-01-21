@@ -20,7 +20,7 @@ export const validateImage = async (url: string): Promise<boolean> => {
       }
   
       const maxWidth = 1920; // Máxima anchura permitida
-      const maxHeight = 1280; // Máxima altura permitida
+      const maxHeight = 1380; // Máxima altura permitida
   
       if (img.width > maxWidth || img.height > maxHeight) {
         alert("Las dimensiones de la imagen son demasiado grandes.");
