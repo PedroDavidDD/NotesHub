@@ -15,7 +15,7 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
 
   const bgData = useSelector( selectBackgroundNotes );
 
-  const [currentUrl, setCurrentUrl] = useState<string>(''); // Para manejar el valor del input
+  const [currentUrl, setCurrentUrl] = useState<string>(bgData.image || ''); // Para manejar el valor del input
   const [isValidImageUrl, setIsValidImageUrl] = useState<boolean | null>(null); // null -> aún no validado, true/false -> validado
 
    // Manejar el cambio del input URL
