@@ -96,8 +96,13 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
               <input
                 type="url"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 value={bgData.image || ''}
                 onChange={(e) => onBgChange('image', e.target.value)}
+=======
+                value={currentUrl}
+                onChange={handleUrlChange}
+>>>>>>> Stashed changes
 =======
                 value={currentUrl}
                 onChange={handleUrlChange}
