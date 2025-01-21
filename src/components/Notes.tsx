@@ -50,18 +50,48 @@ export const Notes = ({
         hover:scale-[1.02]`}
       style={{ 
         backgroundColor: box.backgroundColor + '33',
-        backgroundImage: isImageLoading ? `linear-gradient(rgba(0,0,0,${backgroundOpacity}), rgba(0,0,0,${backgroundOpacity})), url(${box.image})` : 'none',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: box.backgroundPosition || 'center',
-        backgroundSize: 'cover',
-        filter: 'saturate(120%)',
         border:`${box.borderColor} ${box.borderStyle} ${box.borderWidth}px`,
-        alignItems: box.alignItem || "start",
-        justifyContent: box.justifyContent || "center",
       }}
-    >     
+    >      
+      
+      {/* Contenedor de la imagen y gradiente */}
+      {box.image && (
+        <div className="absolute inset-0 w-full h-full">
+          {/* Imagen de fondo */}
+          <img
+            className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
+              isImageLoading ? 'opacity-0' : 'opacity-100'
+            }`}
+            src={box.image}
+            alt="imagen de nota"
+            onLoad={() => setIsImageLoading(false)}
+            onError={() => setIsImageLoading(false)}
+            style={{
+              objectPosition: box.backgroundPosition || 'center',
+              objectFit: 'cover', // Ajusta la imagen al contenedor
+              filter: 'saturate(120%)',
+            }}
+          />
 
-      <div className="relative z-20">
+          {/* Gradiente sobre la imagen */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0,0,0,${backgroundOpacity}), rgba(0,0,0,${backgroundOpacity}))`,
+              zIndex: 1,
+            }}
+          ></div>
+        </div>
+      )}
+
+      {/* Contenedor de texto */}
+      <div 
+        className="z-20 w-full h-full flex flex-col"
+        style={{
+          alignItems: box.alignItem || "start",
+          justifyContent: box.justifyContent || "center",
+        }}
+      >
         <div className={`note__date ${boxStyle} text-white`}><span>{ box.date }</span></div>
         <div className={`note__title ${boxStyle} text-white`}><span>{ box.title }</span></div>
         <div className={`note__datetime ${boxStyle} text-white`}>
