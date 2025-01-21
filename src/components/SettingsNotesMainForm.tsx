@@ -3,6 +3,7 @@ import { X } from 'lucide-react';
 import { theme } from '../css/theme';
 import { useSelector } from 'react-redux';
 import { selectBackgroundNotes } from '../redux/notesSlice';
+import { validateImage } from '../utils/minificador';
 
 interface SettingsNotesMainForm {
   onBgChange: (field: string, value: string) => void;
@@ -63,7 +64,13 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
               <input
                 type="url"
                 value={bgData.image || ''}
-                onChange={(e) => onBgChange('image', e.target.value)}
+                onChange={async (e) => {
+                  const url = e.target.value;
+                  const isValid = await validateImage(url);
+                  if (isValid) {
+                    onBgChange('image', url);
+                  }
+                }}
                 className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
                 placeholder="https://ejemplo.com/imagen.jpg"
                 style={{

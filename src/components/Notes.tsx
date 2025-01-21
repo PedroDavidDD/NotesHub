@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { BookOpenText, Clock, Edit, Trash2 } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
@@ -31,6 +31,8 @@ export const Notes = ({
   isDragging 
  }: ScheduleBoxProps) => {
 
+  const [isImageLoading, setIsImageLoading] = useState<boolean>(!!box.image);
+
   const backgroundOpacity = box.backgroundOpacity || 0.5;
 
   return (
@@ -43,21 +45,38 @@ export const Notes = ({
       onDragOver={onDragOver}
       onDrop={(e) => onDrop(e, box)}      
 
-      className={`note grid-item ${boxStyle} relative group rounded-lg p-6 cursor-pointer transition-all duration-300 ease-in-out
+      className={`note grid-item ${boxStyle} relative group rounded-lg p-6 cursor-pointer transition-all duration-300 ease-in-out overflow-hidden
         ${isDragging ? 'scale-105 opacity-50 rotate-2' : 'scale-100 opacity-100 rotate-0'}
         hover:scale-[1.02]`}
       style={{ 
         backgroundColor: box.backgroundColor + '33',
-        backgroundImage: box.image ? `linear-gradient(rgba(0,0,0,${backgroundOpacity}), rgba(0,0,0,${backgroundOpacity})), url(${box.image})` : 'none',
-        backgroundRepeat: 'no-repeat', /* No repetir la imagen */
+        backgroundImage: isImageLoading ? `linear-gradient(rgba(0,0,0,${backgroundOpacity}), rgba(0,0,0,${backgroundOpacity})), url(${box.image})` : 'none',
+        backgroundRepeat: 'no-repeat',
         backgroundPosition: box.backgroundPosition || 'center',
-        backgroundSize: 'cover', /* Ajustar la imagen para cubrir todo el contenedor */
+        backgroundSize: 'cover',
         filter: 'saturate(120%)',
-        border:`${box.borderColor} ${box.borderStyle} ${box.borderWidth}px`,        
+        border:`${box.borderColor} ${box.borderStyle} ${box.borderWidth}px`,
         alignItems: box.alignItem || "start",
         justifyContent: box.justifyContent || "center",
       }}
-    >
+    >     
+
+      <div className="relative z-20">
+        <div className={`note__date ${boxStyle} text-white`}><span>{ box.date }</span></div>
+        <div className={`note__title ${boxStyle} text-white`}><span>{ box.title }</span></div>
+        <div className={`note__datetime ${boxStyle} text-white`}>
+          <Clock size={14} className="mr-1" />
+          { box.time }
+        </div>
+      </div>
+
+      {/* Spinner de carga */}
+      {isImageLoading && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-10 h-10 border-4 border-t-transparent border-white rounded-full animate-spin"></div>
+        </div>
+      )}
+
       <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
         <button
           // onClick={ (e) => handleOpen( box.id ) }
@@ -83,13 +102,6 @@ export const Notes = ({
         >
           <Trash2 size={16} />
         </button>
-      </div>
-
-      <div className={`note__date ${boxStyle} text-white`}><span>{ box.date }</span></div>
-      <div className={`note__title ${boxStyle} text-white`}><span>{ box.title }</span></div>
-      <div className={`note__datetime ${boxStyle} text-white`}>
-        <Clock size={14} className="mr-1" />
-        { box.time }
       </div>
 
       { box.particleState && (<ParticleEffect color={box.particleColor} />) }
