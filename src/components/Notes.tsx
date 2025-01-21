@@ -3,6 +3,8 @@ import { BookOpenText, Clock, Edit, Trash2 } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
 import { ParticleEffect } from './ParticleEffect';
+import { theme } from '../css/theme';
+import { formatDate } from '../utils/dataUtils';
 
 interface ScheduleBoxProps {
   box: ScheduleBoxType;
@@ -86,15 +88,16 @@ export const Notes = ({
 
       {/* Contenedor de texto */}
       <div 
-        className="z-20 w-full h-full flex flex-col"
+        className="z-10 w-full h-full flex flex-col"
         style={{
           alignItems: box.alignItem || "start",
           justifyContent: box.justifyContent || "center",
+          color: theme.colors.common.white,
         }}
       >
-        <div className={`note__date ${boxStyle} text-white`}><span>{ box.date }</span></div>
-        <div className={`note__title ${boxStyle} text-white`}><span>{ box.title }</span></div>
-        <div className={`note__datetime ${boxStyle} text-white`}>
+        <div className={`note__date ${boxStyle} `}><span>{ formatDate(box.date).longFormattedDate }</span></div>
+        <div className={`note__title ${boxStyle} `}><span>{ box.title }</span></div>
+        <div className={`note__datetime ${boxStyle} `}>
           <Clock size={14} className="mr-1" />
           { box.time }
         </div>
@@ -107,7 +110,7 @@ export const Notes = ({
         </div>
       )}
 
-      <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
+      <div className="z-10 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
         <button
           // onClick={ (e) => handleOpen( box.id ) }
           className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
@@ -137,13 +140,13 @@ export const Notes = ({
       { box.particleState && (<ParticleEffect color={box.particleColor} />) }
 
       {/* Decoracion de bordes */}
-      <div className="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 rounded-tl-lg opacity-80"
+      <div className="z-10 absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 rounded-tl-lg opacity-80"
       style={{ borderColor: box.accentColor }} />
-      <div className="absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 rounded-tr-lg opacity-80"
+      <div className="z-10 absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 rounded-tr-lg opacity-80"
       style={{ borderColor: box.accentColor }} />
-      <div className="absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 rounded-bl-lg opacity-80"
+      <div className="z-10 absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 rounded-bl-lg opacity-80"
       style={{ borderColor: box.accentColor }} />
-      <div className="absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 rounded-br-lg opacity-80"
+      <div className="z-10 absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 rounded-br-lg opacity-80"
       style={{ borderColor: box.accentColor }} />   
     </div>
   )

@@ -2,6 +2,7 @@ import React from 'react';
 import { X } from 'lucide-react';
 import type { ScheduleBox } from '../types/schedule';
 import { theme } from '../css/theme';
+import { formatDate } from '../utils/dataUtils';
 
 interface ScheduleFormProps {
   box: Omit<ScheduleBox, 'id' | 'order'>;
@@ -57,7 +58,8 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             style={{color: theme.form.button }}>Fecha</label>
             <input
               type="date"
-              value={box.date}
+              value={formatDate(box.date).isoFormattedDate}
+              required
               onChange={(e) => onChange('date', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="LUN"
@@ -73,6 +75,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             <input
               type="text"
               value={box.title}
+              required
               onChange={(e) => onChange('title', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="Nombre del Stream"
@@ -116,6 +119,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             <input
               type="text"
               value={box.time}
+              required
               onChange={(e) => onChange('time', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="5PM CDMX"
