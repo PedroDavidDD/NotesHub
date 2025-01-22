@@ -29,10 +29,14 @@ export const theme = {
       800: "#424242",
       900: "#212121",
     },
+    floodlight: {
+      on: "#eab308",
+      off: "#3b82f6",
+    }
   },
   form: {
     input: "#212121",
-    button: "#d4af37",
+    button: "#ffc800",
     text: "#f00"
   },
   navbar:{

@@ -38,6 +38,7 @@ function NotesHub() {
   }
   
   const [seeNotes, setSeeNotes] = useState( true ); 
+  const [seeNoteBox, setSeeNoteBox] = useState( true ); 
 
   // ---------------------------------------------------
   // -----------TIPOS DE ESTILO DE LAS CAJAS------------
@@ -61,7 +62,8 @@ function NotesHub() {
     image: "",
     particleState: false,
     particleColor: "",
-    accentColor: "",
+    accentColor: "",    
+    accentBorderWidth: '',
     state: true,
   };
   const [dataSelected, setDataSelected] = useState<ScheduleBoxType>(defaultScheduleBox);
@@ -94,6 +96,7 @@ function NotesHub() {
     particleState: false,
     particleColor: '#50c8c8',
     accentColor: '#50c8c8',
+    accentBorderWidth: '2',
     state: true,
   });
   
@@ -124,6 +127,7 @@ function NotesHub() {
         particleState: false,
         particleColor: '#50c8c8',
         accentColor: '#50c8c8',
+        accentBorderWidth: '2',
         state: true,
       });
     }
@@ -131,7 +135,7 @@ function NotesHub() {
   };
 
   const handleChange = (field: string, value: string | boolean) => {
-
+    console.log(field + " - " + value)
     
     const processValue = (field: string, value: string | boolean) => {
       if (field === 'tags' && typeof value === 'string') {
@@ -168,6 +172,7 @@ function NotesHub() {
       particleState: box.particleState || false,
       particleColor: box.particleColor || '#ff5',
       accentColor: box.accentColor || '#ff5',
+      accentBorderWidth: box.accentBorderWidth || '2',
       alignItem: box.alignItem || 'start',  
       justifyContent: box.justifyContent || 'center',  
       state: box.state || true,
@@ -264,7 +269,6 @@ function NotesHub() {
     setIsConfigVisible(false);
   }
 
-
   return (
     <>
       <div className="box">
@@ -326,14 +330,14 @@ function NotesHub() {
           <div className={`calendar__notes`}>
             {
               seeNotes && sortedBoxes.map( (data) => {
-                return (
+                return data.state ? (
                   <Notes 
                     key={data.id}  
                     box={data}
                     // Estilo de la caja
-                    boxStyle={boxStyle} 
+                    boxStyle={boxStyle}
                     // Abrir CardModal
-                    handleOpen={handleOpen}                      
+                    handleOpen={handleOpen}
                     // CRUD
                     onEdit={handleEdit}
                     onDelete={handleDelete}
@@ -344,7 +348,7 @@ function NotesHub() {
                     isDragging={draggedBox?.id === data.id}
                     
                   />
-                  )
+                  ) : ''
               })
             }
           </div>

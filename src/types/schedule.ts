@@ -17,7 +17,9 @@ export interface ScheduleBox {
   order: number;
   particleState?: boolean;
   particleColor: string;
+
   accentColor: string;
+  accentBorderWidth: string;
 
   alignItem?: string;
   justifyContent?: string;

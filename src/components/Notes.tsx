@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from 'react'
-import { BookOpenText, Clock, Edit, Trash2 } from 'lucide-react';
+import { BookOpenText, Clock, Edit, Trash2, Zap } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
 import { ParticleEffect } from './ParticleEffect';
 import { theme } from '../css/theme';
 import { formatDate } from '../utils/dataUtils';
+import { useDispatch } from 'react-redux';
+import { setStateNote } from '../redux/notesSlice';
 
 interface ScheduleBoxProps {
   box: ScheduleBoxType;
   boxStyle: string;
   handleOpen: any;
+
   onEdit: (box: ScheduleBoxType) => void;
   onDelete: (id: string) => void;
   onDragStart: (e: React.DragEvent, box: ScheduleBoxType) => void;
@@ -32,15 +35,21 @@ export const Notes = ({
   onDrop,
   isDragging 
  }: ScheduleBoxProps) => {
+  const dispatch = useDispatch();
 
   const [isImageLoading, setIsImageLoading] = useState<boolean>(!!box.image);
-
+  const [isNoteState, setIsNoteState] = useState<boolean>(box.state);
+  
   const backgroundOpacity = box.backgroundOpacity || 0.5;
+  
+  const handlerStateNote =()=>{
+    dispatch(setStateNote(box))
+  }
 
   return (
     <div 
       key={ box.id } 
-      onClick={ (e) => handleOpen( box.id ) }
+      // onClick={ (e) => handleOpen( box.id ) }
 
       draggable
       onDragStart={(e) => onDragStart(e, box)}
@@ -58,7 +67,7 @@ export const Notes = ({
       
       {/* Contenedor de la imagen y gradiente */}
       {box.image && (
-        <div className="absolute inset-0 w-full h-full">
+        <div className="absolute inset-0 w-full h-full ">
           {/* Imagen de fondo */}
           <img
             className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${
@@ -110,9 +119,24 @@ export const Notes = ({
         </div>
       )}
 
-      <div className="z-10 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">
+      <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">          
         <button
-          // onClick={ (e) => handleOpen( box.id ) }
+          onClick={handlerStateNote}
+          className={`p-2 rounded-full transition-colors border-black hover:border-black`}
+          style={{
+            backgroundColor: isNoteState ? theme.colors.floodlight.on : theme.colors.floodlight.off,
+          }}
+        >
+          <Zap 
+            size={16} 
+            color={theme.colors.common.black}
+          />
+        </button>
+        <button
+          onClick={ (e) => {            
+            e.stopPropagation()
+            handleOpen( box.id )
+          }}
           className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
         >
           <BookOpenText size={16} />
@@ -140,14 +164,30 @@ export const Notes = ({
       { box.particleState && (<ParticleEffect color={box.particleColor} />) }
 
       {/* Decoracion de bordes */}
-      <div className="z-10 absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 rounded-tl-lg opacity-80"
-      style={{ borderColor: box.accentColor }} />
-      <div className="z-10 absolute top-2 right-2 w-8 h-8 border-t-2 border-r-2 rounded-tr-lg opacity-80"
-      style={{ borderColor: box.accentColor }} />
-      <div className="z-10 absolute bottom-2 left-2 w-8 h-8 border-b-2 border-l-2 rounded-bl-lg opacity-80"
-      style={{ borderColor: box.accentColor }} />
-      <div className="z-10 absolute bottom-2 right-2 w-8 h-8 border-b-2 border-r-2 rounded-br-lg opacity-80"
-      style={{ borderColor: box.accentColor }} />   
+      <div className={`z-10 absolute top-2 left-2 w-8 h-8 rounded-tl-lg opacity-80`}
+      style={{ 
+        borderColor: box.accentColor,
+        borderTopWidth: `${box.accentBorderWidth}px`,
+        borderLeftWidth: `${box.accentBorderWidth}px`,
+      }} />
+      <div className={`z-10 absolute top-2 right-2 w-8 h-8 rounded-tr-lg opacity-80`}
+      style={{ 
+        borderColor: box.accentColor,        
+        borderTopWidth: `${box.accentBorderWidth}px`,
+        borderRightWidth: `${box.accentBorderWidth}px`,        
+      }} />
+      <div className={`z-10 absolute bottom-2 left-2 w-8 h-8 rounded-bl-lg opacity-80`}
+      style={{ 
+        borderColor: box.accentColor,        
+        borderBottomWidth: `${box.accentBorderWidth}px`,
+        borderLeftWidth: `${box.accentBorderWidth}px`,        
+      }} />
+      <div className={`z-10 absolute bottom-2 right-2 w-8 h-8 rounded-br-lg opacity-80`}
+      style={{ 
+        borderColor: box.accentColor,        
+        borderBottomWidth: `${box.accentBorderWidth}px`,
+        borderRightWidth: `${box.accentBorderWidth}px`,        
+      }} />   
     </div>
   )
 }

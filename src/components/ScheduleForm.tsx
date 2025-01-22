@@ -43,13 +43,14 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           >
             {isEditing ? 'Editar Nota' : 'Agregar Nueva Nota'}
           </h2>
-          {/* <input 
+          <input 
             id="001"  
             type="checkbox" 
             name="state" 
-            checked={ true }
-            className={`w-7`}
-          /> */}
+            checked={ box.state || false }
+            onChange={(e) => onChange('state', e.target.checked)}
+            className="p-5 w-6 h-6 hover:bg-white rounded-full transition-colors border-black hover:border-black"
+          />
         </div>
         
         <div className="space-y-4">
@@ -78,7 +79,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
               required
               onChange={(e) => onChange('title', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
-              placeholder="Nombre del Stream"
+              placeholder="Nombre"
               style={{
                 background: theme.form.input,
               }}
@@ -134,7 +135,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             <div className='flex gap-5'>
               <input
                 type="color"
-                value={box.backgroundColor}
+                value={box.backgroundColor || theme.colors.common.black}
                 onChange={(e) => onChange('backgroundColor', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />
@@ -154,7 +155,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           </div>
           
           <div>
-            <label className="block text-sm mb-1">Opacidad del Fondo</label>
+            <label className="block text-sm mb-1">Opacidad del Gradiente</label>
             <div className='flex gap-5'>
               <input
                 type="range"
@@ -173,7 +174,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             <div className='flex gap-5'>
               <input
                 type="color"
-                value={box.borderColor}
+                value={box.borderColor || theme.form.button}
                 onChange={(e) => onChange('borderColor', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />
@@ -191,7 +192,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
               </select>
               <input
                 type="number"
-                value={box.borderWidth}
+                value={box.borderWidth || 0}
                 min={0}
                 max={10}
                 onChange={(e) => onChange('borderWidth', e.target.value)}
@@ -207,12 +208,26 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
 
           <div>
             <label className="block text-sm mb-1">Color de marcas</label>
-            <input
-              type="color"
-              value={box.accentColor}
-              onChange={(e) => onChange('accentColor', e.target.value)}
-              className="w-full h-10 rounded cursor-pointer"
-            />
+            <div className='flex gap-5'>
+              <input
+                type="color"
+                value={box.accentColor || theme.colors.common.black}
+                onChange={(e) => onChange('accentColor', e.target.value)}
+                className="w-full h-10 rounded cursor-pointer"
+              />
+              <input
+                type="number"
+                value={box.accentBorderWidth || 2}
+                min={0}
+                max={10}
+                onChange={(e) => onChange('accentBorderWidth', e.target.value)}
+                className="rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                placeholder="Tamaño"         
+                style={{
+                  background: theme.form.input,
+                }}
+              />
+            </div>
           </div>
 
           <div>
@@ -220,7 +235,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             <div className='flex justify-between'>
               <input
                 type="color"
-                value={box.particleColor}
+                value={box.particleColor || theme.colors.common.white}
                 onChange={(e) => onChange('particleColor', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />

@@ -20,8 +20,7 @@ export const notesSlice = createSlice({
         },
         editNotes: (state, action: PayloadAction<ScheduleBox>) => {
             const index = state.listNotes.findIndex(note => note.id === action.payload.id);
-            if (index !== -1) {
-                // Reemplazar el elemento en la posición correspondiente de manera inmutable
+            if (index !== -1) {                
                 state.listNotes[index] = action.payload;
             }
         },        
@@ -38,7 +37,14 @@ export const notesSlice = createSlice({
         },
         setUpdSettingsNotesMain: (state, action: PayloadAction<any>) => {
           state.background = action.payload;
-        },     
+        },
+        setStateNote: (state, action: PayloadAction<ScheduleBox>) => {
+            const index = state.listNotes.findIndex(note => note.id === action.payload.id);
+            if (index !== -1) {                
+                state.listNotes[index] = { ...action.payload, state: false } ;
+            }
+            
+        },
     }}) 
 
 // Selector para obtener las notas filtradas
@@ -69,6 +75,7 @@ export const selectBackgroundNotes = (state: { notes: NotesState }) => {
         deleteNotes,
         setSearchTerm,
         setNotes,
+        setStateNote,
 
         setUpdSettingsNotesMain,
     } = notesSlice.actions;
