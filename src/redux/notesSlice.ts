@@ -41,7 +41,7 @@ export const notesSlice = createSlice({
         setStateNote: (state, action: PayloadAction<ScheduleBox>) => {
             const index = state.listNotes.findIndex(note => note.id === action.payload.id);
             if (index !== -1) {                
-                state.listNotes[index] = { ...action.payload, state: false } ;
+                state.listNotes[index] = { ...action.payload, state: !action.payload.state } ;
             }
             
         },

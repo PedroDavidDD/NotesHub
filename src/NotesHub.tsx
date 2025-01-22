@@ -13,7 +13,7 @@ import { ScheduleForm } from "./components/ScheduleForm";
 import { ConfigMenu } from "./components/ConfigMenu";
 import { ConfigButton } from "./components/ConfigButton";
 import { theme } from "./css/theme";
-import { CirclePlus, Columns3, Eye, EyeOff, Grid3x3, Rows3 } from "lucide-react";
+import { CirclePlus, Columns3, Eye, EyeOff, Grid3x3, Rows3, X } from "lucide-react";
 import SearchBar from "./components/SearchBar ";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -268,6 +268,23 @@ function NotesHub() {
     setIsConfigVisible(false);
   }
 
+  const [isOpen, setIsOpen] = useState(false);
+  const [isVisibleHidden, setIsVisibleHidden] = useState(true);
+  const handleVisibleOptions = () => setIsOpen(true)
+  const handleVisibleCancel = () => setIsOpen(false)
+
+  const handleConfirmDelete = () => {
+    setIsVisibleHidden(!isVisibleHidden);
+    setIsOpen(false);
+  };
+
+  const handleSeeNotes = () => {
+    setSeeNotes(false)
+    setIsOpen(false);
+  };
+
+  const currentNotesState = sortedBoxes.filter(box => box.state === !isVisibleHidden) 
+
   return (
     <>
       <div className="box">
@@ -290,7 +307,7 @@ function NotesHub() {
                 />
                 { seeNotes ? (
                   <Eye 
-                    onClick={() => setSeeNotes( false )} 
+                    onClick={handleVisibleOptions} 
                     size={35} 
                     color={bgData.nav.colorIcons}
                     className={`hover:scale-110 transition-all duration-300`}
@@ -329,7 +346,7 @@ function NotesHub() {
           <div className={`calendar__notes`}>
             {
               seeNotes && sortedBoxes.map( (data) => {
-                return data.state ? (
+                return data.state == isVisibleHidden ? (
                   <Notes 
                     key={data.id}  
                     box={data}
@@ -347,12 +364,12 @@ function NotesHub() {
                     isDragging={draggedBox?.id === data.id}
                     
                   />
-                  ) : ''
+                  ) : null
               })
             }
           </div>
       
-        {/* Abrir Cajas */}
+          {/* Abrir Cajas */}
           <CardModal 
             open={ open } 
             handleClose={ handleClose }
@@ -387,13 +404,52 @@ function NotesHub() {
             onClose={() => setIsConfigVisible(false) }
             handleSettingsNotesMain={onSettingsNotesMain}
           />
+
           {/* El boton de configuraciones */}
           <ConfigButton onClick={() => {
             setIsConfigVisible(true);
             setIsFormVisible(false);            
             setIsSettingsFormVisible(false);
           }} />
-      
+
+          {/* Panel de confirmación */}
+          {isOpen && (
+              <div className="z-10 absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                
+                <div className="relative bg-white p-12 rounded-lg shadow-lg text-center">
+                  <button
+                    onClick={handleVisibleCancel}
+                    className={`absolute top-2 right-2 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
+                    style={{
+                      backgroundColor: theme.navbar.background
+                    }}
+                  >
+                    <X size={20} />
+                  </button>
+                  <p className="text-2xl">Opciones de visualización:</p>
+                  <div className="mt-4 flex flex-col gap-3">
+                    <div className="w-full flex items-center">
+                      <button
+                        onClick={handleConfirmDelete}
+                        className="w-10/12 px-4 py-2 text-white rounded-lg border-none"
+                        style={{
+                          backgroundColor: !isVisibleHidden ? theme.colors.floodlight.on : theme.colors.floodlight.off,
+                        }}
+                      >
+                      {isVisibleHidden ? 'Ver ocultos' : 'Ver visibles'}
+                      </button>
+                      <span className="w-2/12 text-xl">{ currentNotesState.length }</span>
+                    </div>
+                    <button
+                      onClick={handleSeeNotes}
+                      className="w-full px-4 py-2 bg-red-600 text-white rounded-lg border-none"
+                    >
+                    Ocultar todo
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
       
         </div>
       </div>
