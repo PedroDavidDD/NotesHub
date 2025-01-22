@@ -55,7 +55,7 @@ export const Notes = ({
   return (
     <div 
       key={ box.id } 
-      // onClick={ (e) => handleOpen( box.id ) }
+      onClick={ (e) => handleOpen( box.id ) }
 
       draggable
       onDragStart={(e) => onDragStart(e, box)}
@@ -127,7 +127,10 @@ export const Notes = ({
 
       <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">          
         <button
-          onClick={handlerStateNote}
+          onClick={ (e) => {
+            e.stopPropagation()
+            handlerStateNote()
+          }}
           className={`p-2 rounded-full transition-colors border-black hover:border-black`}
           style={{
             backgroundColor: isNoteState ? theme.colors.floodlight.on : theme.colors.floodlight.off,
@@ -203,13 +206,19 @@ export const Notes = ({
               <p>¿Estás seguro de eliminar?</p>
               <div className="mt-4">
                 <button
-                  onClick={handleConfirmDelete}
+                  onClick={ (e) => {
+                    e.stopPropagation()
+                    handleConfirmDelete()
+                  }}
                   className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 mr-4 border-none"
                 >
                   Eliminar
                 </button>
                 <button
-                  onClick={handleCancel}
+                  onClick={ (e) => {
+                    e.stopPropagation()
+                    handleCancel()
+                  }}
                   className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 border-none"
                 >
                   Cancelar
