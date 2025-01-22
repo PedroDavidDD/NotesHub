@@ -37,8 +37,7 @@ function NotesHub() {
     compressed: 'typeShort',
   }
   
-  const [seeNotes, setSeeNotes] = useState( true ); 
-  const [seeNoteBox, setSeeNoteBox] = useState( true ); 
+  const [seeNotes, setSeeNotes] = useState( true );
 
   // ---------------------------------------------------
   // -----------TIPOS DE ESTILO DE LAS CAJAS------------

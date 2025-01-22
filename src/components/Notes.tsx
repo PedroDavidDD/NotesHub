@@ -39,12 +39,21 @@ export const Notes = ({
 
   const [isImageLoading, setIsImageLoading] = useState<boolean>(!!box.image);
   const [isNoteState, setIsNoteState] = useState<boolean>(box.state);
+  const [isOpen, setIsOpen] = useState(false);
   
   const backgroundOpacity = box.backgroundOpacity || 0.5;
   
   const handlerStateNote =()=>{
     dispatch(setStateNote(box))
   }
+
+  const handleDelete = () => setIsOpen(true)
+  const handleCancel = () => setIsOpen(false)
+
+  const handleConfirmDelete = () => {
+    onDelete(box.id);
+    setIsOpen(false);
+  };
 
   return (
     <div 
@@ -121,7 +130,7 @@ export const Notes = ({
 
       <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">          
         <button
-          onClick={handlerStateNote}
+          onClick={(handlerStateNote)}
           className={`p-2 rounded-full transition-colors border-black hover:border-black`}
           style={{
             backgroundColor: isNoteState ? theme.colors.floodlight.on : theme.colors.floodlight.off,
@@ -153,12 +162,13 @@ export const Notes = ({
         <button
           onClick={(e) => {
             e.stopPropagation()
-            onDelete(box.id)
+            handleDelete(); 
           }}
           className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
         >
           <Trash2 size={16} />
         </button>
+        {/* <DeleteBox onDelete={onDelete} boxId={box.id} /> */}
       </div>
 
       { box.particleState && (<ParticleEffect color={box.particleColor} />) }
@@ -188,6 +198,29 @@ export const Notes = ({
         borderBottomWidth: `${box.accentBorderWidth}px`,
         borderRightWidth: `${box.accentBorderWidth}px`,        
       }} />   
+      
+      {/* Panel de confirmación */}
+      {isOpen && (
+          <div className="z-10 absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+              <p>¿Estás seguro de eliminar?</p>
+              <div className="mt-4">
+                <button
+                  onClick={handleConfirmDelete}
+                  className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 mr-4 border-none"
+                >
+                  Eliminar
+                </button>
+                <button
+                  onClick={handleCancel}
+                  className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 border-none"
+                >
+                  Cancelar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
     </div>
   )
 }
