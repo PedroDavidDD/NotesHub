@@ -22,7 +22,7 @@ import PaginationRounded from "./components/PaginationRounded";
 function NotesHub() {
   const dispatch = useDispatch();
   const scheduleBoxes = useSelector( selectFilteredNotes );
-  const bgData = useSelector( selectBackgroundNotes );
+  const settingsMain = useSelector( selectBackgroundNotes );
   
   interface StateNotesProps {
     box: string,
@@ -240,9 +240,9 @@ function NotesHub() {
 
       dispatch(
         setUpdSettingsNotesMain({
-          ...bgData,
+          ...settingsMain,
           [parentField]: {
-            ...bgData[parentField],
+            ...settingsMain[parentField],
             [childField]: value,
           },
         })
@@ -252,7 +252,7 @@ function NotesHub() {
     // Primer nivel 
     dispatch(
       setUpdSettingsNotesMain({
-        ...bgData,
+        ...settingsMain,
         [field]: value,
       })
     );
@@ -311,7 +311,7 @@ function NotesHub() {
         {/* Titulo y navs */}
           <div className="calendar__title bg-black rounded-full m-4 p-7"
           style={{
-            background: bgData.nav.backgroundColor,
+            background: settingsMain.nav.backgroundColor,
           }} 
           >
               <div className="searcher">
@@ -321,21 +321,21 @@ function NotesHub() {
                 <CirclePlus                 
                   onClick={onShowForm}
                   size={35} 
-                  color={bgData.nav.colorIcons}
+                  color={settingsMain.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 { seeNotes ? (
                   <Eye 
                     onClick={handleVisibleOptions} 
                     size={35} 
-                    color={bgData.nav.colorIcons}
+                    color={settingsMain.nav.colorIcons}
                     className={`hover:scale-110 transition-all duration-300`}
                   />)
                   : (
                   <EyeOff 
                     onClick={() => setSeeNotes( true )} 
                     size={35} 
-                    color={bgData.nav.colorIcons}
+                    color={settingsMain.nav.colorIcons}
                     className={`hover:scale-110 transition-all duration-300`}
                   />)
                 }
@@ -343,19 +343,19 @@ function NotesHub() {
                 <Grid3x3 
                   onClick={() => setBoxStyle(stateNotes.box)} 
                   size={35} 
-                  color={bgData.nav.colorIcons}
+                  color={settingsMain.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 <Columns3 
                   onClick={() => setBoxStyle(stateNotes.large)} 
                   size={35} 
-                  color={bgData.nav.colorIcons}
+                  color={settingsMain.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
                 <Rows3 
                   onClick={() => setBoxStyle(stateNotes.compressed)} 
                   size={35} 
-                  color={bgData.nav.colorIcons}
+                  color={settingsMain.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
               </div>

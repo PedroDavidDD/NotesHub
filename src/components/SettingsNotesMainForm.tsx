@@ -13,9 +13,9 @@ interface SettingsNotesMainForm {
 
 export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: SettingsNotesMainForm) {
 
-  const bgData = useSelector( selectBackgroundNotes );
+  const settingsMain = useSelector( selectBackgroundNotes );
 
-  const [currentUrl, setCurrentUrl] = useState<string>(bgData.image || ''); // Para manejar el valor del input
+  const [currentUrl, setCurrentUrl] = useState<string>(settingsMain.image || ''); // Para manejar el valor del input
   const [isValidImageUrl, setIsValidImageUrl] = useState<boolean | null>(null); // null -> aún no validado, true/false -> validado
 
    // Manejar el cambio del input URL
@@ -99,7 +99,7 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
             <div className='flex gap-5'>
               <input
                 type="color"
-                value={bgData.color || ''}
+                value={settingsMain.color || ''}
                 onChange={(e) => onBgChange('color', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />
@@ -121,14 +121,14 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
                 className={`
                   px-4 py-2 rounded transition-colors hover:border-transparent
                   ${validationState ? `bg-${validationState.color}-500 hover:bg-${validationState.color}-600` : 'bg-gray-500 hover:bg-gray-600'}
-                  text-white
+                  text-black
                 `}
               >
                 Validar
               </button>
 
               <select
-                value={bgData.size || ''}
+                value={settingsMain.size || ''}
                 onChange={(e) => onBgChange('size', e.target.value)}
                 className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
                 style={{
@@ -151,19 +151,19 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
             <div className='flex gap-5'>
               <input
                 type="color"
-                value={bgData.nav.backgroundColor || ''}
+                value={settingsMain.nav.backgroundColor || ''}
                 onChange={(e) => onBgChange('nav.backgroundColor', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />
               <input
                 type="color"
-                value={bgData.nav.textColor || ''}
+                value={settingsMain.nav.textColor || ''}
                 onChange={(e) => onBgChange('nav.textColor', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />
               <input
                 type="color"
-                value={bgData.nav.colorIcons || ''}
+                value={settingsMain.nav.colorIcons || ''}
                 onChange={(e) => onBgChange('nav.colorIcons', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />

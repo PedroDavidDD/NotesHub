@@ -6,7 +6,7 @@ import { selectBackgroundNotes } from '../redux/notesSlice';
 import { useSelector } from 'react-redux';
 
 export default function PaginationRounded({ totalPages, page, setPage }) {
-  const bgData = useSelector( selectBackgroundNotes );
+  const settingsMain = useSelector( selectBackgroundNotes );
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
@@ -30,7 +30,7 @@ export default function PaginationRounded({ totalPages, page, setPage }) {
             backgroundColor: theme.colors.common.white,
           },
           '& .MuiPaginationItem-root:hover': {
-            backgroundColor: bgData.nav.colorIcons,
+            backgroundColor: settingsMain.nav.colorIcons,
           },
           // Modificar el contenedor
           '& .MuiPagination-ul': {
@@ -38,7 +38,7 @@ export default function PaginationRounded({ totalPages, page, setPage }) {
           },
           // Estilo adicional para el estado seleccionado
           '& .Mui-selected': {
-            backgroundColor: bgData.nav.colorIcons,
+            backgroundColor: settingsMain.nav.colorIcons,
             color: theme.colors.common.black,
           },
         }}

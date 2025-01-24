@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { theme } from '../css/theme';
+import { selectBackgroundNotes } from '../redux/notesSlice';
+import { useSelector } from 'react-redux';
 
 export function Navbar() {
+  const settingsMain = useSelector( selectBackgroundNotes );
+
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,7 +20,8 @@ export function Navbar() {
         <div className={`text-2xl font-bold transition duration-300 mr-5`}>
           <Link to="/"
           style={{
-            color: theme.navbar.background,
+            // color: theme.navbar.background,
+            color: settingsMain.nav.colorIcons,
           }}
           >NoteHub</Link>
         </div>
