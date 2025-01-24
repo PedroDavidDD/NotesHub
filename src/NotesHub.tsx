@@ -195,6 +195,11 @@ function NotesHub() {
     setDraggedBox(box);
   };
 
+  const handleDragEnd = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDraggedBox(null) 
+  };
+
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
   };
@@ -386,6 +391,7 @@ function NotesHub() {
                     onDelete={handleDelete}
                     // DRAG AND DROP
                     onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
                     isDragging={draggedBox?.id === data.id}

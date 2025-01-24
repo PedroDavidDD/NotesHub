@@ -16,6 +16,7 @@ interface ScheduleBoxProps {
   onEdit: (box: ScheduleBoxType) => void;
   onDelete: (id: string) => void;
   onDragStart: (e: React.DragEvent, box: ScheduleBoxType) => void;
+  onDragEnd: (e: React.DragEvent) => void;
   onDragOver: (e: React.DragEvent) => void;
   onDrop: (e: React.DragEvent, box: ScheduleBoxType) => void;
   isDragging: boolean;
@@ -31,6 +32,7 @@ export const Notes = ({
   onDelete, 
 
   onDragStart, 
+  onDragEnd, 
   onDragOver, 
   onDrop,
   isDragging,
@@ -59,6 +61,7 @@ export const Notes = ({
 
       draggable
       onDragStart={(e) => onDragStart(e, box)}
+      onDragEnd={onDragEnd}
       onDragOver={onDragOver}
       onDrop={(e) => onDrop(e, box)}      
 
