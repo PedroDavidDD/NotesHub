@@ -362,11 +362,13 @@ function NotesHub() {
               
           </div>
           
-          <PaginationRounded
-            page={page}
-            setPage={setPage}
-            totalPages={totalPages}  
-          />
+          { totalPages > 0 &&
+            (<PaginationRounded
+              page={page}
+              setPage={setPage}
+              totalPages={totalPages}  
+            />)
+          }
 
         {/* Cajas */}
           <div className={`calendar__notes`}>
