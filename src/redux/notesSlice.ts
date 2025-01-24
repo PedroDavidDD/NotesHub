@@ -62,7 +62,7 @@ export const selectFilteredNotes = (state: { notes: NotesState }) => {
       return titleMatch || descriptionMatch;
     });
   };
-
+// Seleccion del bgMain
 export const selectBackgroundNotes = (state: { notes: NotesState }) => {
     const { background } = state.notes;
     return background;

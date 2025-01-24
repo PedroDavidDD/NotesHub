@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { BookOpenText, Clock, Edit, Trash2, Zap } from 'lucide-react';
 import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 
@@ -33,7 +33,7 @@ export const Notes = ({
   onDragStart, 
   onDragOver, 
   onDrop,
-  isDragging 
+  isDragging,
  }: ScheduleBoxProps) => {
   const dispatch = useDispatch();
 

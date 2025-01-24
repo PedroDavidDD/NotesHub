@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { listNotes } from './Scripts/listNotes'
 
 import './NotesHub.css'
 import './css/iconsAnimated.css'
@@ -7,8 +6,7 @@ import './css/iconsAnimated.css'
 import { Notes } from "./components/Notes";
 import { CardModal } from "./components/CardModal";
 
-import type { ScheduleBox as ScheduleBoxType, SettingsNotesMain } from './types/schedule';
-import { storage } from "./utils/storage";
+import type { ScheduleBox as ScheduleBoxType } from './types/schedule';
 import { ScheduleForm } from "./components/ScheduleForm";
 import { ConfigMenu } from "./components/ConfigMenu";
 import { ConfigButton } from "./components/ConfigButton";
@@ -19,6 +17,7 @@ import SearchBar from "./components/SearchBar ";
 import { useSelector, useDispatch } from "react-redux";
 import { addNotes, deleteNotes, editNotes, selectBackgroundNotes, selectFilteredNotes, setNotes, setUpdSettingsNotesMain } from "./redux/notesSlice";
 import { SettingsNotesMainForm } from "./components/SettingsNotesMainForm";
+import PaginationRounded from "./components/PaginationRounded";
 
 function NotesHub() {
   const dispatch = useDispatch();
@@ -68,7 +67,7 @@ function NotesHub() {
   const [dataSelected, setDataSelected] = useState<ScheduleBoxType>(defaultScheduleBox);
   
   const handleOpen = (copyId: string) => {
-    const idOrigen: ScheduleBoxType | undefined = sortedBoxes.find((it) => it.id === copyId);
+    const idOrigen: ScheduleBoxType | undefined = scheduleBoxes.find((it) => it.id === copyId);
   
     if (!idOrigen) {
       alert(`No se encontró una caja con el ID: ${copyId}`);
@@ -227,10 +226,7 @@ function NotesHub() {
     dispatch(setNotes(reorderedBoxes));
     setDraggedBox(null);
   };
-  
-  
-  const sortedBoxes = [...scheduleBoxes].sort((a, b) => a.order - b.order);
-  
+
   const onShowForm = () => {
     setIsFormVisible(true);
     setIsConfigVisible(false);
@@ -276,6 +272,9 @@ function NotesHub() {
   const handleConfirmDelete = () => {
     setIsVisibleHidden(!isVisibleHidden);
     setIsOpen(false);
+
+    // setea al cambiar entre las cajas visibles y ocultas; Pone la paginación al primero
+    setPage(1);
   };
 
   const handleSeeNotes = () => {
@@ -283,12 +282,32 @@ function NotesHub() {
     setIsOpen(false);
   };
 
-  const currentNotesState = sortedBoxes.filter(box => box.state === !isVisibleHidden) 
+  // Contar por Cajas actuales segun su estado
+  const countNotesStateNotVisible = scheduleBoxes.filter(box => box.state == !isVisibleHidden)
+
+  // Pagination
+  const currentListNotes = scheduleBoxes.filter(box => box.state == isVisibleHidden)  
+  const itemsForPage = 5;
+  const [page, setPage] = useState(1);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+  
+  useEffect(() => {
+    const newStartIndex = (page - 1) * itemsForPage;
+    const newEndIndex = newStartIndex + itemsForPage;
+    const newTotalPages = Math.ceil(currentListNotes.length / itemsForPage);
+  
+    setStartIndex(newStartIndex);
+    setEndIndex(newEndIndex);
+    setTotalPages(newTotalPages);
+  }, [currentListNotes, isVisibleHidden]);
+  
 
   return (
     <>
       <div className="box">
-        <div className={`box__calendar`}> 
+        <div className={`box__calendar w-full min-h-[100vh]`}> 
         {/* Titulo y navs */}
           <div className="calendar__title bg-black rounded-full m-4 p-7"
           style={{
@@ -342,12 +361,18 @@ function NotesHub() {
               </div>
               
           </div>
+          
+          <PaginationRounded
+            page={page}
+            setPage={setPage}
+            totalPages={totalPages}  
+          />
+
         {/* Cajas */}
           <div className={`calendar__notes`}>
             {
-              seeNotes && sortedBoxes.map( (data) => {
-                return data.state == isVisibleHidden ? (
-                  <Notes 
+              seeNotes && currentListNotes.slice(startIndex, endIndex).map( (data) => {
+                return (data.state == isVisibleHidden) && (<Notes 
                     key={data.id}  
                     box={data}
                     // Estilo de la caja
@@ -362,9 +387,7 @@ function NotesHub() {
                     onDragOver={handleDragOver}
                     onDrop={handleDrop}
                     isDragging={draggedBox?.id === data.id}
-                    
-                  />
-                  ) : null
+                  />)
               })
             }
           </div>
@@ -438,7 +461,7 @@ function NotesHub() {
                       >
                       {isVisibleHidden ? 'Ver ocultos' : 'Ver visibles'}
                       </button>
-                      <span className="w-2/12 text-xl">{ currentNotesState.length }</span>
+                      <span className="w-2/12 text-xl">{ countNotesStateNotVisible.length }</span>
                     </div>
                     <button
                       onClick={handleSeeNotes}
