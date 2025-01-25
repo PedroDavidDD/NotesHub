@@ -190,6 +190,7 @@ function NotesHub() {
   // -----------DRAG AND DROP------------
   // ---------------------------------------------------
   const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
+  const [previewBoxes, setPreviewBoxes] = useState<ScheduleBoxType[]>(scheduleBoxes); // Actualizar vista previa
 
   const handleDragStart = (e: React.DragEvent, box: ScheduleBoxType) => {
     setDraggedBox(box);
@@ -197,23 +198,37 @@ function NotesHub() {
 
   const handleDragEnd = (e: React.DragEvent) => {
     e.preventDefault();
-    setDraggedBox(null) 
+    setDraggedBox(null)
   };
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
     e.preventDefault();
+    // if (!draggedBox || draggedBox.id === targetBox.id) return;
+  
+    // const updatedBoxes = [...previewBoxes];
+    // const draggedIndex = updatedBoxes.findIndex(box => box.id === draggedBox.id);
+    // const targetIndex = updatedBoxes.findIndex(box => box.id === targetBox.id);
+  
+    // if (draggedIndex !== -1 && targetIndex !== -1) {
+    //   const draggedItem = updatedBoxes[draggedIndex];
+    //   const targetItem = updatedBoxes[targetIndex];
+  
+    //   updatedBoxes.splice(draggedIndex, 1, targetItem);
+    //   updatedBoxes.splice(targetIndex, 1, draggedItem);
+    // }
+  
+    // setPreviewBoxes(updatedBoxes); 
   };
-
+  
   const handleDrop = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
     e.preventDefault();
     // Validar que haya un elemento arrastrado y que no se suelte sobre sí mismo.
     if (!draggedBox || draggedBox.id === targetBox.id) return;
   
-    const updatedBoxes = [...scheduleBoxes];
-  
+    const updatedBoxes = [...previewBoxes];
     const draggedIndex = updatedBoxes.findIndex(box => box.id === draggedBox.id);
     const targetIndex = updatedBoxes.findIndex(box => box.id === targetBox.id);
-    // Obtenemos los indices para 
+  
     if (draggedIndex !== -1 && targetIndex !== -1) {
       const draggedItem = updatedBoxes[draggedIndex];
       const targetItem = updatedBoxes[targetIndex];
@@ -221,13 +236,14 @@ function NotesHub() {
       updatedBoxes.splice(draggedIndex, 1, targetItem);
       updatedBoxes.splice(targetIndex, 1, draggedItem);
     }
-  
+
     // Actualizar los valores de "order" para reflejar el nuevo orden.
     const reorderedBoxes = updatedBoxes.map((box, index) => ({
       ...box,
       order: index,
     }));
-  
+
+    setPreviewBoxes(reorderedBoxes); // Actualizar vista previa
     dispatch(setNotes(reorderedBoxes));
     setDraggedBox(null);
   };
@@ -378,7 +394,7 @@ function NotesHub() {
         {/* Cajas */}
           <div className={`calendar__notes`}>
             {
-              seeNotes && currentListNotes.slice(startIndex, endIndex).map( (data) => {
+              seeNotes && previewBoxes.slice(startIndex, endIndex).map( (data) => {
                 return (data.state == isVisibleHidden) && (<Notes 
                     key={data.id}  
                     box={data}

@@ -17,8 +17,9 @@ interface ScheduleBoxProps {
   onDelete: (id: string) => void;
   onDragStart: (e: React.DragEvent, box: ScheduleBoxType) => void;
   onDragEnd: (e: React.DragEvent) => void;
-  onDragOver: (e: React.DragEvent) => void;
+  onDragOver: (e: React.DragEvent, box: ScheduleBoxType) => void;
   onDrop: (e: React.DragEvent, box: ScheduleBoxType) => void;
+
   isDragging: boolean;
 }
 
@@ -35,6 +36,7 @@ export const Notes = ({
   onDragEnd, 
   onDragOver, 
   onDrop,
+
   isDragging,
  }: ScheduleBoxProps) => {
   const dispatch = useDispatch();
@@ -62,11 +64,11 @@ export const Notes = ({
       draggable
       onDragStart={(e) => onDragStart(e, box)}
       onDragEnd={onDragEnd}
-      onDragOver={onDragOver}
-      onDrop={(e) => onDrop(e, box)}      
+      onDragOver={(e) => onDragOver(e, box)}
+      onDrop={(e) => onDrop(e, box)}
 
       className={`note grid-item ${boxStyle} relative group rounded-lg p-6 cursor-pointer transition-all duration-300 ease-in-out overflow-hidden
-        ${isDragging ? 'scale-105 opacity-50 rotate-2' : 'scale-100 opacity-100 rotate-0'}
+        ${isDragging ? 'scale-105 opacity-50 rotate-2 dragging' : 'scale-100 opacity-100 rotate-0'}
         hover:scale-[1.02]`}
       style={{ 
         backgroundColor: box.backgroundColor + '33',
