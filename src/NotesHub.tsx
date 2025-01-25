@@ -87,14 +87,15 @@ function NotesHub() {
   const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
   const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>({
     date: "",
-    title: "Nuevo Evento",
-    time: "Hora no definida",
-    backgroundColor: '#50c8c8',
+    title: "",
+    time: "",
+    backgroundColor: '',
     image: "",
+    textColor: '',
     particleState: false,
-    particleColor: '#50c8c8',
-    accentColor: '#50c8c8',
-    accentBorderWidth: '2',
+    particleColor: '',
+    accentColor: '',
+    accentBorderWidth: '',
     state: true,
   });
   

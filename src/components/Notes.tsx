@@ -112,7 +112,7 @@ export const Notes = ({
         style={{
           alignItems: box.alignItem || "start",
           justifyContent: box.justifyContent || "center",
-          color: theme.colors.common.white,
+          color: box.textColor || theme.colors.common.white,
         }}
       >
         <div className={`note__date ${boxStyle} `}><span>{ formatDate(box.date).longFormattedDate }</span></div>

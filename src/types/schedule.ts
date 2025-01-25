@@ -9,6 +9,7 @@ export interface ScheduleBox {
   backgroundPosition?: string;
   image?: string;
   tags?: string[];
+  textColor?: string;
 
   borderColor?: string;
   borderStyle?: string;

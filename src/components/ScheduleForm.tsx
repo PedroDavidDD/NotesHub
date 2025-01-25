@@ -75,7 +75,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             style={{color: theme.form.button }}>Título</label>
             <input
               type="text"
-              value={box.title}
+              value={box.title || 'Nuevo Evento'}
               required
               onChange={(e) => onChange('title', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
@@ -119,7 +119,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             style={{color: theme.form.button }}>Hora</label>
             <input
               type="text"
-              value={box.time}
+              value={box.time || 'Hora no definida'}
               required
               onChange={(e) => onChange('time', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
@@ -135,22 +135,16 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
             <div className='flex gap-5'>
               <input
                 type="color"
-                value={box.backgroundColor || theme.colors.common.black}
+                value={box.backgroundColor || theme.colors.common.white}
                 onChange={(e) => onChange('backgroundColor', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />
-              <select
-                  value={box.backgroundPosition || 'center'}
-                  onChange={(e) => onChange('backgroundPosition', e.target.value)}
-                  className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
-                  style={{
-                    background: theme.form.input,
-                  }}
-                >
-                  <option value="top">Superior</option>
-                  <option value="center">Centro</option>
-                  <option value="bottom">Inferior</option>
-                </select>
+              <input
+                type="color"
+                value={box.textColor || theme.colors.common.black}
+                onChange={(e) => onChange('textColor', e.target.value)}
+                className="w-full h-10 rounded cursor-pointer"
+              />
             </div>
           </div>
           
@@ -252,16 +246,30 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
 
           <div>
             <label className="block text-sm mb-1">Imagen de Fondo (URL)</label>
-            <input
-              type="url"
-              value={box.image || ''}
-              onChange={(e) => onChange('image', e.target.value)}
-              className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
-              placeholder="https://ejemplo.com/imagen.jpg"
-              style={{
-                background: theme.form.input,
-              }}
-            />
+            <div className='flex gap-5'>
+              <input
+                type="url"
+                value={box.image || ''}
+                onChange={(e) => onChange('image', e.target.value)}
+                className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                placeholder="https://ejemplo.com/imagen.jpg"
+                style={{
+                  background: theme.form.input,
+                }}
+              />            
+              <select
+                  value={box.backgroundPosition || 'center'}
+                  onChange={(e) => onChange('backgroundPosition', e.target.value)}
+                  className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
+                  style={{
+                    background: theme.form.input,
+                  }}
+                >
+                  <option value="top">Superior</option>
+                  <option value="center">Centro</option>
+                  <option value="bottom">Inferior</option>
+                </select>
+            </div>
           </div>
 
           <div>

@@ -121,12 +121,7 @@
 }
 
 .calendar__title .calendar__title__text h2:first-child {
-  color: #ffffff;
   margin-right: 3.125rem; /* 50px */
-}
-
-.calendar__title .calendar__title__text h2:last-child {
-  color: #ffffff;
 }
 
 .calendar__notes .note.typeLarge {
@@ -156,12 +151,6 @@
 .calendar__notes .note.typeShort .note__datetime {
   font-size: 1rem; /* 16px */
 } 
-
-.note__date.typeShort span,
-.note__title.typeShort span,
-.note__datetime.typeShort {
-  color: #ffffff;  
-}
 
 @media screen and (max-width: 1536px) {
 }
