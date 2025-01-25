@@ -71,7 +71,7 @@ export const Notes = ({
         ${isDragging ? 'scale-105 opacity-50 rotate-2 dragging' : 'scale-100 opacity-100 rotate-0'}
         hover:scale-[1.02]`}
       style={{ 
-        backgroundColor: box.backgroundColor + '33',
+        backgroundColor: box.backgroundColor,
         border:`${box.borderColor} ${box.borderStyle} ${box.borderWidth}px`,
       }}
     >      
