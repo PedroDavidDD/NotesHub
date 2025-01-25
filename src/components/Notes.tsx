@@ -207,9 +207,9 @@ export const Notes = ({
       {/* Panel de confirmación */}
       {isOpen && (
           <div className="z-10 absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white p-6 rounded-lg shadow-lg text-center">
+            <div className="bg-white p-4 rounded-lg shadow-lg text-center text-black">
               <p>¿Estás seguro de eliminar?</p>
-              <div className="mt-4">
+              <div className="mt-4 flex">
                 <button
                   onClick={ (e) => {
                     e.stopPropagation()
