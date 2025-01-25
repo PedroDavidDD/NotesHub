@@ -121,7 +121,7 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
                 className={`
                   px-4 py-2 rounded transition-colors hover:border-transparent
                   ${validationState ? `bg-${validationState.color}-500 hover:bg-${validationState.color}-600` : 'bg-gray-500 hover:bg-gray-600'}
-                  text-black
+                  text-white
                 `}
               >
                 Validar

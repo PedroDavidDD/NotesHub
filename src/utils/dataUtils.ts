@@ -9,7 +9,7 @@
     const parsedDate = new Date(isoDate);
   
     if (isNaN(parsedDate.getTime())) {
-      return { isoFormattedDate: '-/-/-', longFormattedDate: '-/-/-' }; 
+      return { isoFormattedDate: '', longFormattedDate: '' }; 
     }
   
     // Si quieres mostrar la fecha en formato largo
@@ -27,4 +27,3 @@
       longFormattedDate: formattedDate 
     };
   };
-  

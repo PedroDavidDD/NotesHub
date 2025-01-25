@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
 import './NotesHub.css'
 import './css/iconsAnimated.css'
@@ -36,7 +36,7 @@ function NotesHub() {
     compressed: 'typeShort',
   }
   
-  const [seeNotes, setSeeNotes] = useState( true );
+  const [isNotesVisible, setIsNotesVisible] = useState( true );
 
   // ---------------------------------------------------
   // -----------TIPOS DE ESTILO DE LAS CAJAS------------
@@ -190,7 +190,6 @@ function NotesHub() {
   // -----------DRAG AND DROP------------
   // ---------------------------------------------------
   const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
-  const [previewBoxes, setPreviewBoxes] = useState<ScheduleBoxType[]>(scheduleBoxes); // Actualizar vista previa
 
   const handleDragStart = (e: React.DragEvent, box: ScheduleBoxType) => {
     setDraggedBox(box);
@@ -225,7 +224,7 @@ function NotesHub() {
     // Validar que haya un elemento arrastrado y que no se suelte sobre sí mismo.
     if (!draggedBox || draggedBox.id === targetBox.id) return;
   
-    const updatedBoxes = [...previewBoxes];
+    const updatedBoxes = [...scheduleBoxes];
     const draggedIndex = updatedBoxes.findIndex(box => box.id === draggedBox.id);
     const targetIndex = updatedBoxes.findIndex(box => box.id === targetBox.id);
   
@@ -243,7 +242,6 @@ function NotesHub() {
       order: index,
     }));
 
-    setPreviewBoxes(reorderedBoxes); // Actualizar vista previa
     dispatch(setNotes(reorderedBoxes));
     setDraggedBox(null);
   };
@@ -299,31 +297,39 @@ function NotesHub() {
   };
 
   const handleSeeNotes = () => {
-    setSeeNotes(false)
+    setIsNotesVisible(false)
     setIsOpen(false);
   };
 
-  // Contar por Cajas actuales segun su estado
-  const countNotesStateNotVisible = scheduleBoxes.filter(box => box.state == !isVisibleHidden)
-
   // Pagination
-  const currentListNotes = scheduleBoxes.filter(box => box.state == isVisibleHidden)  
-  const itemsForPage = 5;
   const [page, setPage] = useState(1);
+
+  const { visibleNotes, hiddenNotes } = useMemo(() => {
+    const visible = scheduleBoxes.filter(box => box.state === isVisibleHidden);
+    const hidden = scheduleBoxes.filter(box => box.state !== isVisibleHidden);
+  
+    return { visibleNotes: visible, hiddenNotes: hidden };
+  }, [scheduleBoxes, isVisibleHidden, page]);
+
+  const notesToPaginate = visibleNotes;
+  const itemsForPage = 5;
   const [startIndex, setStartIndex] = useState(0);
   const [endIndex, setEndIndex] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
-  
+
   useEffect(() => {
     const newStartIndex = (page - 1) * itemsForPage;
     const newEndIndex = newStartIndex + itemsForPage;
-    const newTotalPages = Math.ceil(currentListNotes.length / itemsForPage);
+    const newTotalPages = Math.ceil(notesToPaginate.length / itemsForPage);
   
     setStartIndex(newStartIndex);
     setEndIndex(newEndIndex);
     setTotalPages(newTotalPages);
-  }, [currentListNotes, isVisibleHidden]);
-  
+  }, [notesToPaginate, isVisibleHidden]);
+
+  const filteredNotes = (isNotesVisible && notesToPaginate?.length > 0) 
+    ? notesToPaginate.slice(startIndex, endIndex) 
+    : [];
 
   return (
     <>
@@ -345,7 +351,7 @@ function NotesHub() {
                   color={settingsMain.nav.colorIcons}
                   className={`hover:scale-110 transition-all duration-300`}
                 />
-                { seeNotes ? (
+                { isNotesVisible ? (
                   <Eye 
                     onClick={handleVisibleOptions} 
                     size={35} 
@@ -354,7 +360,7 @@ function NotesHub() {
                   />)
                   : (
                   <EyeOff 
-                    onClick={() => setSeeNotes( true )} 
+                    onClick={() => setIsNotesVisible( true )} 
                     size={35} 
                     color={settingsMain.nav.colorIcons}
                     className={`hover:scale-110 transition-all duration-300`}
@@ -390,29 +396,29 @@ function NotesHub() {
               totalPages={totalPages}  
             />)
           }
-
+          
         {/* Cajas */}
           <div className={`calendar__notes`}>
             {
-              seeNotes && previewBoxes.slice(startIndex, endIndex).map( (data) => {
-                return (data.state == isVisibleHidden) && (<Notes 
-                    key={data.id}  
-                    box={data}
-                    // Estilo de la caja
-                    boxStyle={boxStyle}
-                    // Abrir CardModal
-                    handleOpen={handleOpen}
-                    // CRUD
-                    onEdit={handleEdit}
-                    onDelete={handleDelete}
-                    // DRAG AND DROP
-                    onDragStart={handleDragStart}
-                    onDragEnd={handleDragEnd}
-                    onDragOver={handleDragOver}
-                    onDrop={handleDrop}
-                    isDragging={draggedBox?.id === data.id}
-                  />)
-              })
+              filteredNotes.map( (data) => (
+              <Notes 
+                key={data.id}  
+                box={data}
+                // Estilo de la caja
+                boxStyle={boxStyle}
+                // Abrir CardModal
+                handleOpen={handleOpen}
+                // CRUD
+                onEdit={handleEdit}
+                onDelete={handleDelete}
+                // DRAG AND DROP
+                onDragStart={handleDragStart}
+                onDragEnd={handleDragEnd}
+                onDragOver={handleDragOver}
+                onDrop={handleDrop}
+                isDragging={draggedBox?.id === data.id}
+              />)
+              )
             }
           </div>
       
@@ -473,9 +479,9 @@ function NotesHub() {
                   >
                     <X size={20} />
                   </button>
-                  <p className="text-2xl">Opciones de visualización:</p>
+                  <p className="text-2xl text-black">Opciones de visualización:</p>
                   <div className="mt-4 flex flex-col gap-3">
-                    <div className="w-full flex items-center">
+                    <div className="w-full flex items-center gap-5">
                       <button
                         onClick={handleConfirmDelete}
                         className="w-10/12 px-4 py-2 text-white rounded-lg border-none"
@@ -485,7 +491,13 @@ function NotesHub() {
                       >
                       {isVisibleHidden ? 'Ver ocultos' : 'Ver visibles'}
                       </button>
-                      <span className="w-2/12 text-xl">{ countNotesStateNotVisible.length }</span>
+                      <span className="w-2/12 py-[0.20rem] text-xl text-black border-2 border-solid rounded-lg select-none"
+                      style={{
+                        borderColor: !isVisibleHidden ? theme.colors.floodlight.on : theme.colors.floodlight.off,
+                        backgroundColor: !isVisibleHidden ? theme.colors.floodlight.on : theme.colors.floodlight.off,
+                        color: theme.colors.common.white,
+                      }}
+                      >{ hiddenNotes.length }</span>
                     </div>
                     <button
                       onClick={handleSeeNotes}

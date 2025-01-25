@@ -130,13 +130,13 @@ export const Notes = ({
         </div>
       )}
 
-      <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2">          
+      <div className="z-20 absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity space-x-2 flex text-black">          
         <button
           onClick={ (e) => {
             e.stopPropagation()
             handlerStateNote()
           }}
-          className={`p-2 rounded-full transition-colors border-black hover:border-black`}
+          className={`p-2 rounded-full transition-colors border-black`}
           style={{
             backgroundColor: isNoteState ? theme.colors.floodlight.on : theme.colors.floodlight.off,
           }}
@@ -151,7 +151,7 @@ export const Notes = ({
             e.stopPropagation()
             handleOpen( box.id )
           }}
-          className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
+          className="p-2 bg-white text-black rounded-full transition-colors border-black"
         >
           <BookOpenText size={16} />
         </button>
@@ -160,7 +160,7 @@ export const Notes = ({
             e.stopPropagation()
             onEdit(box)
           }}
-          className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
+          className="p-2 bg-white text-black rounded-full transition-colors border-black"
         >
           <Edit size={16} />
         </button>
@@ -169,7 +169,7 @@ export const Notes = ({
             e.stopPropagation()
             handleDelete(); 
           }}
-          className="p-2 hover:bg-white rounded-full transition-colors border-black hover:border-black"
+          className="p-2 bg-white text-black rounded-full transition-colors border-black"
         >
           <Trash2 size={16} />
         </button>

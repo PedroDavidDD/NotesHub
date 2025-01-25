@@ -70,7 +70,10 @@ export function ConfigMenu({
       <div className="max-w-md mx-auto p-6">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 rounded-full transition-colors hover:bg-red-500 hover:border-red-500"
+          className={`absolute top-4 right-4 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
+          style={{
+            backgroundColor: theme.navbar.background
+          }}
         >
           <X size={20} />
         </button>
