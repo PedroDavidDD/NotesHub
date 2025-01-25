@@ -38,7 +38,7 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
 
     if (isValid) onBgChange('image', currentUrl);
     
-  }, [currentUrl]);
+  }, [currentUrl, onBgChange]);
 
   const validationStates = {
     "true": {
