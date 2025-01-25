@@ -41,6 +41,10 @@ export default function PaginationRounded({ totalPages, page, setPage }) {
             backgroundColor: settingsMain.nav.colorIcons,
             color: theme.colors.common.black,
           },
+          '& .Mui-selected:hover': {
+            backgroundColor: settingsMain.nav.colorIcons,
+            color: theme.colors.common.black,
+          },
         }}
       />
     </Stack>
