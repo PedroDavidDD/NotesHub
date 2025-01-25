@@ -133,7 +133,6 @@ function NotesHub() {
   };
 
   const handleChange = (field: string, value: string | boolean) => {
-    console.log(field + " - " + value)
     
     const processValue = (field: string, value: string | boolean) => {
       if (field === 'tags' && typeof value === 'string') {
