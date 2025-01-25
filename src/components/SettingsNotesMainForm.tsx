@@ -15,6 +15,8 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
 
   const settingsMain = useSelector( selectBackgroundNotes );
 
+  const [isBackgroundForm, setIsBackgroundForm] = useState(true)
+
   const [currentUrl, setCurrentUrl] = useState<string>(settingsMain.image || ''); // Para manejar el valor del input
   const [isValidImageUrl, setIsValidImageUrl] = useState<boolean | null>(null); // null -> aún no validado, true/false -> validado
 
@@ -57,12 +59,16 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
   
   const validationState = currentUrl.trim() ? validationStates[String(isValidImageUrl)] : null;
 
+  const handleChangeColor = ()=>{
+    setIsBackgroundForm(!isBackgroundForm)
+  }
+
   return (
     <div className={`w-full h-full z-10 fixed bottom-0 left-0 right-0 transition-transform duration-300 ease-in-out ${
       isVisible ? 'translate-y-0' : 'translate-y-full'
     } overflow-y-auto max-h-screen`}
     style={{
-      background: theme.transparent[90],
+      background: isBackgroundForm ? theme.transparent[90] : 'transparent',
       color: theme.colors.common.white,      
     }}
     >
@@ -85,6 +91,15 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
           >
             Configuraciones
           </h2>
+          
+          <input 
+            id="001"  
+            type="checkbox" 
+            name="isBackgroundForm" 
+            checked={ isBackgroundForm }
+            onChange={ handleChangeColor }
+            className="p-5 w-6 h-6 hover:bg-white rounded-full transition-colors border-black hover:border-black"
+          />
         </div>
         
         <div className="space-y-4"> 

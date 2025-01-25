@@ -45,8 +45,8 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
           </h2>
           <input 
             id="001"  
-            type="checkbox" 
-            name="state" 
+            type="checkbox"
+            name="state"
             checked={ box.state || false }
             onChange={(e) => onChange('state', e.target.checked)}
             className="p-5 w-6 h-6 hover:bg-white rounded-full transition-colors border-black hover:border-black"

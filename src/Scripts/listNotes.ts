@@ -11,6 +11,7 @@ export const listNotes: ScheduleBoxType[] = [
         backgroundOpacity: 0,
         backgroundPosition: "top",
         image: "https://pbs.twimg.com/media/Gg22mV4aMAEGUNR?format=jpg&name=4096x4096",
+        textColor:"#000000",
         
         tags: ["acción", "aventura", "fantasía"],        
         borderColor: "transparent",
@@ -36,6 +37,7 @@ export const listNotes: ScheduleBoxType[] = [
         backgroundOpacity: 0,
         backgroundPosition: "center",
         image: "https://pbs.twimg.com/media/Gg3dHfqWQAAgnpS?format=jpg&name=small",        
+        textColor:"#000000",
         
         tags: ["eSports", "drama", "videojuegos"],        
         borderColor: "transparent",
@@ -59,6 +61,7 @@ export const listNotes: ScheduleBoxType[] = [
         description: "Una novela japonesa sobre un hombre sin rumbo que renace en un mundo de fantasía. Decide aprovechar esta segunda oportunidad y convertirse en un poderoso mago mientras enfrenta desafíos y crece como persona.",
         backgroundColor: "#CCFF99",
         image: "https://pbs.twimg.com/media/Gf7M6j3WQAAjs5k?format=jpg&name=small",
+        textColor:"#000000",
         backgroundOpacity: 0,
         backgroundPosition: "center",
         
@@ -84,6 +87,7 @@ export const listNotes: ScheduleBoxType[] = [
         description: "Kim Dokja es un lector ávido de novelas web. Todo cambia cuando el mundo se convierte en un escenario que sigue la trama de su novela favorita. Ahora debe usar su conocimiento para sobrevivir y moldear el destino del mundo.",
         backgroundColor: "#FF9999",
         image: "https://pbs.twimg.com/media/Gg22nKJaMAMjd52?format=jpg&name=4096x4096",
+        textColor:"#000000",
         backgroundOpacity: 0,
         backgroundPosition: "center",
         
@@ -109,6 +113,7 @@ export const listNotes: ScheduleBoxType[] = [
         description: "Un ingeniero moderno renace como un príncipe en un mundo medieval. Con su conocimiento de la ciencia, busca cambiar la era en la que vive mientras construye un reino basado en la lógica y el progreso.",
         backgroundColor: "#FFCCFF",
         image: "https://pbs.twimg.com/media/GhWh5OgWsAAtE-w?format=jpg&name=large",
+        textColor:"#000000",
         backgroundOpacity: 0,
         backgroundPosition: "top",
         
@@ -134,6 +139,7 @@ export const listNotes: ScheduleBoxType[] = [
         description: "Novela china oscura y compleja que sigue a Fang Yuan, un villano despiadado con mil años de experiencia que busca alcanzar la inmortalidad en un mundo lleno de conspiraciones y peligro.",
         backgroundColor: "#99FFCC",
         image: "https://pbs.twimg.com/media/GhWYP3mbMAACoxk?format=jpg&name=small",
+        textColor:"#000000",
         backgroundOpacity: 0,
         backgroundPosition: "center",
         
@@ -159,6 +165,7 @@ export const listNotes: ScheduleBoxType[] = [
         description: "Un clásico japonés de ciencia ficción. Kirito y otros jugadores quedan atrapados en un videojuego de realidad virtual. Para escapar, deben superar los desafíos del juego, pero la muerte en el juego significa la muerte en la vida real.",
         backgroundColor: "#CCCCFF",
         image: "https://pbs.twimg.com/media/GhOukQ8akAEfnJS?format=jpg&name=small",
+        textColor:"#000000",
         backgroundOpacity: 0,
         backgroundPosition: "center",
         
