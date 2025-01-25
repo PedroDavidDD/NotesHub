@@ -94,17 +94,17 @@ export const Notes = ({
               filter: 'saturate(120%)',
             }}
           />
-
-          {/* Gradiente sobre la imagen */}
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: `linear-gradient(rgba(0,0,0,${backgroundOpacity}), rgba(0,0,0,${backgroundOpacity}))`,
-              zIndex: 1,
-            }}
-          ></div>
         </div>
       )}
+
+      {/* Gradiente sobre la imagen */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `linear-gradient(rgba(0,0,0,${backgroundOpacity}), rgba(0,0,0,${backgroundOpacity}))`,
+          zIndex: 1,
+        }}
+      ></div>
 
       {/* Contenedor de texto */}
       <div 
