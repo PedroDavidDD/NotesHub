@@ -6,7 +6,7 @@ import './css/iconsAnimated.css'
 import { Notes } from "./components/Notes";
 import { CardModal } from "./components/CardModal";
 
-import type { ScheduleBox as ScheduleBoxType } from './types/schedule';
+import type { ScheduleBox as ScheduleBoxType, SettingsNotesMain } from './types/schedule';
 import { ScheduleForm } from "./components/ScheduleForm";
 import { ConfigMenu } from "./components/ConfigMenu";
 import { ConfigButton } from "./components/ConfigButton";
@@ -183,8 +183,9 @@ function NotesHub() {
     dispatch(deleteNotes(id));
   };
   // Importar el .txt
-  const handleImport = (boxes: ScheduleBoxType[]) => {
+  const handleImport = (boxes: ScheduleBoxType[], background: SettingsNotesMain ) => {
     dispatch(setNotes(boxes));
+    dispatch(setUpdSettingsNotesMain(background));
   };
   // ---------------------------------------------------
   // -----------DRAG AND DROP------------
@@ -256,7 +257,6 @@ function NotesHub() {
     const isNavFiled = field.includes("nav.");
     if (isNavFiled){
       const [parentField, childField] = field.split(".");
-
       dispatch(
         setUpdSettingsNotesMain({
           ...settingsMain,
@@ -268,6 +268,7 @@ function NotesHub() {
       );
       return;
     }
+    console.log("desde nethubChange= "+field+":"+value)
     // Primer nivel 
     dispatch(
       setUpdSettingsNotesMain({

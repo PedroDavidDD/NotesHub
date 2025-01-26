@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { Save, Download, Upload, X, Settings, Brush, PaintRoller, PaintbrushVertical } from 'lucide-react';
-import type { ScheduleBox } from '../types/schedule';
+import type { ScheduleBox, SettingsNotesMain } from '../types/schedule';
 import { storage } from '../utils/storage';
 import { theme } from '../css/theme';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,7 +8,7 @@ import { selectBackgroundNotes } from '../redux/notesSlice';
 
 interface ConfigMenuProps {
   boxes: ScheduleBox[];
-  onImport: (boxes: ScheduleBox[]) => void;
+  onImport: (boxes: ScheduleBox[], background: SettingsNotesMain) => void;
   onBgChange: (key: string, value: string ) => void;
   isVisible: boolean;
   onClose: () => void;
@@ -41,19 +41,16 @@ export function ConfigMenu({
   const handleImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
+  
     try {
       const { listNotes, background } = await storage.importFromFile(file);
-      onImport(listNotes);
-
-      onBgChange('color', background.color);  // Actualizar color de fondo
-      onBgChange('image', background.image);  // Actualizar imagen de fondo
-      onBgChange('size', background.size);  // Actualizar tamaño de fondo
+      onImport(listNotes, background);
+  
       alert('Datos importados exitosamente');
     } catch (error) {
       alert('Error al importar el archivo');
     }
-    
+  
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }

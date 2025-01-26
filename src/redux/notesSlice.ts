@@ -35,8 +35,11 @@ export const notesSlice = createSlice({
         setNotes: (state, action: PayloadAction<ScheduleBox[]>) => {
           state.listNotes = action.payload;
         },
-        setUpdSettingsNotesMain: (state, action: PayloadAction<any>) => {
-          state.background = action.payload;
+        setUpdSettingsNotesMain: (state, action: PayloadAction<Partial<SettingsNotesMain>>) => {
+            state.background = {
+            ...state.background, 
+            ...action.payload, 
+            };
         },
         setStateNote: (state, action: PayloadAction<ScheduleBox>) => {
             const index = state.listNotes.findIndex(note => note.id === action.payload.id);
