@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectBackgroundNotes, setSearchTerm } from "../redux/notesSlice";
 
-const SearchBar = () => {
+export const SearchBar = () => {
   const dispatch = useDispatch();
   const settingsMain = useSelector( selectBackgroundNotes );
   const [localSearchTerm, setLocalSearchTerm] = useState(""); 
@@ -17,7 +17,7 @@ const SearchBar = () => {
   };
 
   return (
-    <>
+    <div className="searcher">
       <button
         onClick={handleSearchSubmit}
         className="text-gray-400 focus:outline-none rounded-none transition duration-300 border-none"
@@ -52,8 +52,6 @@ const SearchBar = () => {
           color: settingsMain.nav.textColor,
         }}
       />
-    </>
+    </div>
   );
 };
-
-export default SearchBar;

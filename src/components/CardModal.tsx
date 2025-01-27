@@ -1,37 +1,30 @@
 import React from 'react'
 import { ScheduleBox as ScheduleBoxType } from '../types/schedule';
-
 import { X, Tag, Calendar, Clock } from 'lucide-react';
     
-    interface CardModalBoxProps {
-        open: boolean;
-        box: ScheduleBoxType;
-        handleClose: () => void;
-        stateNotes: {
-            box: string,
-            large: string,
-            compressed: string,
-        }
-    }
+interface CardModalBoxProps {
+    open: boolean;
+    box: ScheduleBoxType;
+    handleClose: () => void;
+}
 
 export const CardModal =({ 
     open, 
     handleClose, 
     box, 
-    stateNotes
 }: CardModalBoxProps )=> {
     if (!open) return null;
 
     function isValidURL(str: string | undefined): boolean {
         if (!str) return false; // Si es undefined o null, no es válido
-      
+        
         try {
-          new URL(str); // Intenta crear una URL con el valor dado
-          return true; // Si no lanza un error, es una URL válida
+            new URL(str); // Intenta crear una URL con el valor dado
+            return true; // Si no lanza un error, es una URL válida
         } catch (_) {
-          return false; // Si lanza un error, no es una URL válida
+            return false; // Si lanza un error, no es una URL válida
         }
-      }
+    }
       
     return (
         <>            
@@ -79,13 +72,6 @@ export const CardModal =({
                                 <span>{box.time}</span>
                             </div>
                             </div>
-                                                            
-                            {/* <button
-                                onClick={handleClose}
-                                className="p-2 bg-black/20 hover:bg-black/40 rounded-full transition-colors backdrop-blur-sm"
-                            >
-                                <X size={20} className="text-white" />
-                            </button> */}
                         </div>
 
                         {/* Description */}

@@ -5,7 +5,7 @@
   
   export const formatDate = (date: string): FormattedDate => {
     const [day, month, year] = date.split('-'); 
-    const isoDate = `${year}-${month}-${day}`;
+    const isoDate = `${day}-${month}-${year}`;
     const parsedDate = new Date(isoDate);
   
     if (isNaN(parsedDate.getTime())) {

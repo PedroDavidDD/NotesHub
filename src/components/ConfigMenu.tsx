@@ -10,7 +10,6 @@ import { ButtonClose } from './ButtonClose';
 interface ConfigMenuProps {
   boxes: ScheduleBox[];
   onImport: (boxes: ScheduleBox[], background: SettingsNotesMain) => void;
-  onBgChange: (key: string, value: string ) => void;
   isVisible: boolean;
   onClose: () => void;
   handleSettingsNotesMain: () => void;
@@ -19,7 +18,6 @@ interface ConfigMenuProps {
 export function ConfigMenu({ 
   boxes,
   onImport, 
-  onBgChange, 
   isVisible, 
   onClose,
   handleSettingsNotesMain,
@@ -81,7 +79,7 @@ export function ConfigMenu({
             className="w-full flex items-center justify-center gap-2 bg-red-500 hover:bg-red-600 text-white p-3 rounded transition-colors hover:border-white"
           >
             <PaintbrushVertical size={20} />
-            Abrir configuraciones
+            Abrir Configuraciones
           </button>
 
           <button

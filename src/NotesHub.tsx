@@ -3,69 +3,94 @@ import React, { useEffect, useMemo, useState } from "react";
 import './NotesHub.css'
 import './css/iconsAnimated.css'
 
-import { Notes } from "./components/Notes";
-import { CardModal } from "./components/CardModal";
+import { 
+  Notes, 
+  CardModal, 
+  ScheduleForm, 
+  ConfigMenu, 
+  ConfigButton, 
+  SettingsNotesMainForm, 
+  PaginationRounded, 
+  Icons, 
+  VisibilityOptionsModal, 
+  SearchBar 
+} from "./components";
 
 import type { ScheduleBox as ScheduleBoxType, SettingsNotesMain } from './types/schedule';
-import { ScheduleForm } from "./components/ScheduleForm";
-import { ConfigMenu } from "./components/ConfigMenu";
-import { ConfigButton } from "./components/ConfigButton";
-import { theme } from "./css/theme";
-import { CirclePlus, Columns3, Eye, EyeOff, Grid3x3, Rows3, X } from "lucide-react";
-import SearchBar from "./components/SearchBar ";
-
 import { useSelector, useDispatch } from "react-redux";
-import { addNotes, deleteNotes, editNotes, selectBackgroundNotes, selectFilteredNotes, setNotes, setUpdSettingsNotesMain } from "./redux/notesSlice";
-import { SettingsNotesMainForm } from "./components/SettingsNotesMainForm";
-import PaginationRounded from "./components/PaginationRounded";
+import { 
+  addNotes,
+  deleteNotes,
+  editNotes, 
+  selectBackgroundNotes, 
+  selectFilteredNotes, 
+  setNotes, 
+  setUpdSettingsNotesMain
+} from "./redux/notesSlice";
+
+const DEFAULT_SCHEDULEBOX: ScheduleBoxType = {
+  id: "",
+  date: "",
+  title: "",
+  time: "",
+  backgroundColor: "",
+  order: 0,
+  description: "",
+  tags: [],
+  borderColor: "",
+  image: "",
+  particleState: false,
+  particleColor: "",
+  accentColor: "",    
+  accentBorderWidth: '',
+  state: true,
+};
+
+const DEFAULT_SCHEDULE_NEWBOX: Omit<ScheduleBoxType, 'id' | 'order'> = {
+  date: "",
+  title: "",
+  time: "",
+  backgroundColor: '',
+  image: "",
+  textColor: '',
+  particleState: false,
+  particleColor: '',
+  accentColor: '',
+  accentBorderWidth: '',
+  state: true,
+}
+
+const stateNotes = {
+  BOX: 'typeBox',
+  LARGE: 'typeLarge',
+  COMPRESSED: 'typeShort',
+}
 
 function NotesHub() {
   const dispatch = useDispatch();
   const scheduleBoxes = useSelector( selectFilteredNotes );
   const settingsMain = useSelector( selectBackgroundNotes );
   
-  interface StateNotesProps {
-    box: string,
-    large: string,
-    compressed: string,
-  }
-
-  const stateNotes: StateNotesProps = {
-    box: 'typeBox',
-    large: 'typeLarge',
-    compressed: 'typeShort',
-  }
-  
+  const [boxStyle, setBoxStyle] = useState(stateNotes.BOX);
   const [isNotesVisible, setIsNotesVisible] = useState( true );
-
-  // ---------------------------------------------------
-  // -----------TIPOS DE ESTILO DE LAS CAJAS------------
-  // ---------------------------------------------------
-  const [boxStyle, setBoxStyle] = useState(stateNotes.box); 
-
-  // ---------------------------------------------------
-  // -----------MODAL: condicionar la logica------------
-  // ---------------------------------------------------
   const [open, setOpen] = useState(false);
-  const defaultScheduleBox: ScheduleBoxType = {
-    id: "",
-    date: "",
-    title: "",
-    time: "",
-    backgroundColor: "",
-    order: 0,
-    description: "",
-    tags: [],
-    borderColor: "",
-    image: "",
-    particleState: false,
-    particleColor: "",
-    accentColor: "",    
-    accentBorderWidth: '',
-    state: true,
-  };
-  const [dataSelected, setDataSelected] = useState<ScheduleBoxType>(defaultScheduleBox);
+  const [dataSelected, setDataSelected] = useState<ScheduleBoxType>( DEFAULT_SCHEDULEBOX );
+  const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
+  const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>( DEFAULT_SCHEDULE_NEWBOX );
+
+  const [isFormVisible, setIsFormVisible] = useState(false);
+  const [isSettingsFormVisible, setIsSettingsFormVisible] = useState(false);
+  const [isConfigVisible, setIsConfigVisible] = useState(false);
+  const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [isVisibleHidden, setIsVisibleHidden] = useState(true);
   
+  const [page, setPage] = useState(1);
+  const [startIndex, setStartIndex] = useState(0);
+  const [endIndex, setEndIndex] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
+
   const handleOpen = (copyId: string) => {
     const idOrigen: ScheduleBoxType | undefined = scheduleBoxes.find((it) => it.id === copyId);
   
@@ -74,36 +99,12 @@ function NotesHub() {
       return;
     }
   
-    // console.log("Se abre un panel para ver la info completa", idOrigen);
     setOpen(true);
     setDataSelected(idOrigen);
   };
 
   const handleClose = () => setOpen(false);
   
-  // ---------------------------------------------------
-  // -----------CRUD: Caja------------
-  // ---------------------------------------------------
-  const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
-  const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>({
-    date: "",
-    title: "",
-    time: "",
-    backgroundColor: '',
-    image: "",
-    textColor: '',
-    particleState: false,
-    particleColor: '',
-    accentColor: '',
-    accentBorderWidth: '',
-    state: true,
-  });
-  
-
-  const [isFormVisible, setIsFormVisible] = useState(false);
-  const [isSettingsFormVisible, setIsSettingsFormVisible] = useState(false);
-  const [isConfigVisible, setIsConfigVisible] = useState(false);
-
   const handleSubmit = () => {
 
     if (editingBox) {
@@ -182,15 +183,15 @@ function NotesHub() {
   const handleDelete = (id: string) => {
     dispatch(deleteNotes(id));
   };
-  // Importar el .txt
+  // Importar el .JSON
   const handleImport = (boxes: ScheduleBoxType[], background: SettingsNotesMain ) => {
     dispatch(setNotes(boxes));
     dispatch(setUpdSettingsNotesMain(background));
   };
+
   // ---------------------------------------------------
   // -----------DRAG AND DROP------------
-  // ---------------------------------------------------
-  const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
+  // ---------------------------------------------------  
 
   const handleDragStart = (e: React.DragEvent, box: ScheduleBoxType) => {
     setDraggedBox(box);
@@ -203,21 +204,6 @@ function NotesHub() {
 
   const handleDragOver = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
     e.preventDefault();
-    // if (!draggedBox || draggedBox.id === targetBox.id) return;
-  
-    // const updatedBoxes = [...previewBoxes];
-    // const draggedIndex = updatedBoxes.findIndex(box => box.id === draggedBox.id);
-    // const targetIndex = updatedBoxes.findIndex(box => box.id === targetBox.id);
-  
-    // if (draggedIndex !== -1 && targetIndex !== -1) {
-    //   const draggedItem = updatedBoxes[draggedIndex];
-    //   const targetItem = updatedBoxes[targetIndex];
-  
-    //   updatedBoxes.splice(draggedIndex, 1, targetItem);
-    //   updatedBoxes.splice(targetIndex, 1, draggedItem);
-    // }
-  
-    // setPreviewBoxes(updatedBoxes); 
   };
   
   const handleDrop = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
@@ -270,7 +256,6 @@ function NotesHub() {
       );
       return;
     }
-    console.log("desde nethubChange= "+field+":"+value)
     // Primer nivel 
     dispatch(
       setUpdSettingsNotesMain({
@@ -286,8 +271,6 @@ function NotesHub() {
     setIsConfigVisible(false);
   }
 
-  const [isOpen, setIsOpen] = useState(false);
-  const [isVisibleHidden, setIsVisibleHidden] = useState(true);
   const handleVisibleOptions = () => setIsOpen(true)
   const handleVisibleCancel = () => setIsOpen(false)
 
@@ -304,8 +287,9 @@ function NotesHub() {
     setIsOpen(false);
   };
 
-  // Pagination
-  const [page, setPage] = useState(1);
+  // ---------------------------------------------------
+  // -----------Pagination------------
+  // ---------------------------------------------------
 
   const { visibleNotes, hiddenNotes } = useMemo(() => {
     const visible = scheduleBoxes.filter(box => box.state === isVisibleHidden);
@@ -316,9 +300,6 @@ function NotesHub() {
 
   const notesToPaginate = visibleNotes;
   const itemsForPage = 5;
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     const newStartIndex = (page - 1) * itemsForPage;
@@ -330,6 +311,7 @@ function NotesHub() {
     setTotalPages(newTotalPages);
   }, [notesToPaginate, isVisibleHidden]);
 
+  // Filtro Principal para mostrar las cajas
   const filteredNotes = (isNotesVisible && notesToPaginate?.length > 0) 
     ? notesToPaginate.slice(startIndex, endIndex) 
     : [];
@@ -338,60 +320,24 @@ function NotesHub() {
     <>
       <div className="box">
         <div className={`box__calendar w-full min-h-[100vh]`}> 
-        {/* Titulo y navs */}
-          <div className="calendar__title bg-black rounded-full m-4 p-7"
-          style={{
-            background: settingsMain.nav.backgroundColor,
-          }} 
+          {/* Titulo y navs */}
+          <div 
+            className="calendar__title bg-black rounded-full m-4 p-7"
+            style={{
+              background: settingsMain.nav.backgroundColor,
+            }} 
           >
-              <div className="searcher">
-                <SearchBar />
-              </div>
-              <div className="icons">
-                <CirclePlus                 
-                  onClick={onShowForm}
-                  size={35} 
-                  color={settingsMain.nav.colorIcons}
-                  className={`hover:scale-110 transition-all duration-300`}
-                />
-                { isNotesVisible ? (
-                  <Eye 
-                    onClick={handleVisibleOptions} 
-                    size={35} 
-                    color={settingsMain.nav.colorIcons}
-                    className={`hover:scale-110 transition-all duration-300`}
-                  />)
-                  : (
-                  <EyeOff 
-                    onClick={() => setIsNotesVisible( true )} 
-                    size={35} 
-                    color={settingsMain.nav.colorIcons}
-                    className={`hover:scale-110 transition-all duration-300`}
-                  />)
-                }
-                <span className="text-white select-none font-bold text-2xl">|</span>
-                <Grid3x3 
-                  onClick={() => setBoxStyle(stateNotes.box)} 
-                  size={35} 
-                  color={settingsMain.nav.colorIcons}
-                  className={`hover:scale-110 transition-all duration-300`}
-                />
-                <Columns3 
-                  onClick={() => setBoxStyle(stateNotes.large)} 
-                  size={35} 
-                  color={settingsMain.nav.colorIcons}
-                  className={`hover:scale-110 transition-all duration-300`}
-                />
-                <Rows3 
-                  onClick={() => setBoxStyle(stateNotes.compressed)} 
-                  size={35} 
-                  color={settingsMain.nav.colorIcons}
-                  className={`hover:scale-110 transition-all duration-300`}
-                />
-              </div>
-              
+            <SearchBar />
+            <Icons
+              onShowForm={onShowForm} 
+              isNotesVisible={isNotesVisible} 
+              handleVisibleOptions={handleVisibleOptions} 
+              setBoxStyle={setBoxStyle}
+              setIsNotesVisible={setIsNotesVisible}
+              stateNotes={stateNotes}
+            />
           </div>
-          
+          {/* Comprobar paginacion */}
           { totalPages > 0 &&
             (<PaginationRounded
               page={page}
@@ -399,41 +345,39 @@ function NotesHub() {
               totalPages={totalPages}  
             />)
           }
-          
-        {/* Cajas */}
-          <div className={`calendar__notes`}>
+          {/* Cajas */}
+          { filteredNotes.length > 0 && (
+            <div className={`calendar__notes`}>
             {
-              filteredNotes.map( (data) => (
-              <Notes 
-                key={data.id}  
-                box={data}
-                // Estilo de la caja
-                boxStyle={boxStyle}
-                // Abrir CardModal
-                handleOpen={handleOpen}
-                // CRUD
-                onEdit={handleEdit}
-                onDelete={handleDelete}
-                // DRAG AND DROP
-                onDragStart={handleDragStart}
-                onDragEnd={handleDragEnd}
-                onDragOver={handleDragOver}
-                onDrop={handleDrop}
-                isDragging={draggedBox?.id === data.id}
-              />)
+              filteredNotes.map( data => (
+                <Notes
+                  key={data.id}
+                  box={data}
+                  // Estilo de la caja
+                  boxStyle={boxStyle}
+                  // Abrir CardModal
+                  handleOpen={handleOpen}
+                  // CRUD
+                  onEdit={handleEdit}
+                  onDelete={handleDelete}
+                  // DRAG AND DROP
+                  onDragStart={handleDragStart}
+                  onDragEnd={handleDragEnd}
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                  isDragging={draggedBox?.id === data.id}
+                />)
               )
             }
           </div>
-      
-          {/* Abrir Cajas */}
+          )}
+          {/* Abrir notas para ver mas detalles */}
           <CardModal 
             open={ open } 
             handleClose={ handleClose }
             box = { dataSelected }
-            stateNotes = { stateNotes }
           />
-      
-            {/* opciones de las configuraciones notes */}
+          {/* UPD-ADD: Configuraciones de las notas */}
           <ScheduleForm
             box={editingBox || newBox}
             onSubmit={handleSubmit}
@@ -442,77 +386,36 @@ function NotesHub() {
             isVisible={isFormVisible}
             onClose={() => setIsFormVisible(false)}
           />
-          
-          {/* opciones de las configuraciones Main */}
+          {/* UPD: Configuraciones del fondo */}
           <SettingsNotesMainForm
             onBgChange={handleBgChange}
-
             isVisible={isSettingsFormVisible}
             onClose={() => setIsSettingsFormVisible(false)}
           />
-
-          {/* Abrir las configuraciones */}
-          <ConfigMenu
-            boxes={scheduleBoxes}
-            onImport={handleImport}
-            onBgChange={handleBgChange}
-            isVisible={isConfigVisible}
-            onClose={() => setIsConfigVisible(false) }
-            handleSettingsNotesMain={onSettingsNotesMain}
-          />
-
-          {/* El boton de configuraciones */}
+          {/* Boton de configuraciones */}
           <ConfigButton onClick={() => {
             setIsConfigVisible(true);
             setIsFormVisible(false);            
             setIsSettingsFormVisible(false);
           }} />
-
+          {/* Modal del boton */}
+          <ConfigMenu
+            boxes={scheduleBoxes}
+            onImport={handleImport}
+            isVisible={isConfigVisible}
+            onClose={() => setIsConfigVisible(false) }
+            handleSettingsNotesMain={onSettingsNotesMain}
+          />
           {/* Panel de confirmación */}
           {isOpen && (
-              <div className="z-10 absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                
-                <div className="relative bg-white p-12 rounded-lg shadow-lg text-center">
-                  <button
-                    onClick={handleVisibleCancel}
-                    className={`absolute top-2 right-2 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
-                    style={{
-                      backgroundColor: theme.navbar.background
-                    }}
-                  >
-                    <X size={20} />
-                  </button>
-                  <p className="text-2xl text-black">Opciones de visualización:</p>
-                  <div className="mt-4 flex flex-col gap-3">
-                    <div className="w-full flex items-center gap-5">
-                      <button
-                        onClick={handleConfirmDelete}
-                        className="w-10/12 px-4 py-2 text-white rounded-lg border-none"
-                        style={{
-                          backgroundColor: !isVisibleHidden ? theme.colors.floodlight.on : theme.colors.floodlight.off,
-                        }}
-                      >
-                      {isVisibleHidden ? 'Ver ocultos' : 'Ver visibles'}
-                      </button>
-                      <span className="w-2/12 py-[0.20rem] text-xl text-black border-2 border-solid rounded-lg select-none"
-                      style={{
-                        borderColor: !isVisibleHidden ? theme.colors.floodlight.on : theme.colors.floodlight.off,
-                        backgroundColor: !isVisibleHidden ? theme.colors.floodlight.on : theme.colors.floodlight.off,
-                        color: theme.colors.common.white,
-                      }}
-                      >{ hiddenNotes.length }</span>
-                    </div>
-                    <button
-                      onClick={handleSeeNotes}
-                      className="w-full px-4 py-2 bg-red-600 text-white rounded-lg border-none"
-                    >
-                    Ocultar todo
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <VisibilityOptionsModal
+                handleVisibleCancel={handleVisibleCancel}
+                handleConfirmDelete={handleConfirmDelete}
+                isVisibleHidden={isVisibleHidden}
+                hiddenNotes={hiddenNotes}
+                handleSeeNotes={handleSeeNotes}
+              />
             )}
-      
         </div>
       </div>
     </>

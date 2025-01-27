@@ -3,7 +3,7 @@ import type { ScheduleBox as ScheduleBoxType } from '../types/schedule';
 export const listNotes: ScheduleBoxType[] = [
     {
         id: "1",
-        date: "02-01-2025",
+        date: "2025-01-02",
         title: "Solo Leveling",
         time: "7 p.m. - Seúl",
         description: "Una novela coreana que sigue la historia de Sung Jin-Woo, un cazador débil que se convierte en el cazador más poderoso del mundo gracias a un sistema único que lo convierte en un 'jugador'. Una mezcla emocionante de acción y crecimiento personal.",
@@ -29,7 +29,7 @@ export const listNotes: ScheduleBoxType[] = [
     },
     {
         id: "2",
-        date: "15-01-2025",
+        date: "2025-01-15",
         title: "The King's Avatar",
         time: "8 p.m. - Shanghái",
         description: "Novela china centrada en Ye Xiu, un jugador profesional del MMORPG 'Glory' que debe comenzar desde cero después de ser expulsado de su equipo. Con determinación y habilidades inigualables, busca recuperar su posición en el mundo competitivo.",
@@ -55,7 +55,7 @@ export const listNotes: ScheduleBoxType[] = [
     },
     {
         id: "3",
-        date: "30-01-2025",
+        date: "2025-01-30",
         title: "Mushoku Tensei: Jobless Reincarnation",
         time: "6 p.m. - Tokio",
         description: "Una novela japonesa sobre un hombre sin rumbo que renace en un mundo de fantasía. Decide aprovechar esta segunda oportunidad y convertirse en un poderoso mago mientras enfrenta desafíos y crece como persona.",
@@ -81,7 +81,7 @@ export const listNotes: ScheduleBoxType[] = [
     },
     {
         id: "4",
-        date: "10-02-2025",
+        date: "2025-02-10",
         title: "Omniscient Reader's Viewpoint",
         time: "9 p.m. - Busan",
         description: "Kim Dokja es un lector ávido de novelas web. Todo cambia cuando el mundo se convierte en un escenario que sigue la trama de su novela favorita. Ahora debe usar su conocimiento para sobrevivir y moldear el destino del mundo.",
@@ -107,7 +107,7 @@ export const listNotes: ScheduleBoxType[] = [
     },
     {
         id: "5",
-        date: "20-02-2025",
+        date: "2025-02-20",
         title: "Release That Witch",
         time: "5 p.m. - Pekín",
         description: "Un ingeniero moderno renace como un príncipe en un mundo medieval. Con su conocimiento de la ciencia, busca cambiar la era en la que vive mientras construye un reino basado en la lógica y el progreso.",
@@ -133,7 +133,7 @@ export const listNotes: ScheduleBoxType[] = [
     },
     {
         id: "6",
-        date: "05-03-2025",
+        date: "2025-03-05",
         title: "Reverend Insanity",
         time: "7 p.m. - Shenzhen",
         description: "Novela china oscura y compleja que sigue a Fang Yuan, un villano despiadado con mil años de experiencia que busca alcanzar la inmortalidad en un mundo lleno de conspiraciones y peligro.",
@@ -159,7 +159,7 @@ export const listNotes: ScheduleBoxType[] = [
     },
     {
         id: "7",
-        date: "20-03-2025",
+        date: "2025-03-20",
         title: "Sword Art Online",
         time: "8 p.m. - Tokio",
         description: "Un clásico japonés de ciencia ficción. Kirito y otros jugadores quedan atrapados en un videojuego de realidad virtual. Para escapar, deben superar los desafíos del juego, pero la muerte en el juego significa la muerte en la vida real.",

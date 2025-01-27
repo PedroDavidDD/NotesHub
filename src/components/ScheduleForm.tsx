@@ -13,7 +13,14 @@ interface ScheduleFormProps {
   onClose: () => void;
 }
 
-export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, onClose }: ScheduleFormProps) {
+export function ScheduleForm({ 
+  box, 
+  onSubmit, 
+  onChange, 
+  isEditing, 
+  isVisible, 
+  onClose
+}: ScheduleFormProps) {
 
   return (
     <div className={`w-full h-full z-10 fixed bottom-0 left-0 right-0 transition-transform duration-300 ease-in-out ${
@@ -86,6 +93,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
               placeholder="Descripción del stream..."
               rows={3}
+              maxLength={300}
               style={{
                 background: theme.form.input,
               }}

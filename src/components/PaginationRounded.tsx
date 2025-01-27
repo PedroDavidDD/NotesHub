@@ -5,7 +5,7 @@ import { theme } from '../css/theme';
 import { selectBackgroundNotes } from '../redux/notesSlice';
 import { useSelector } from 'react-redux';
 
-export default function PaginationRounded({ totalPages, page, setPage }) {
+export function PaginationRounded({ totalPages, page, setPage }) {
   const settingsMain = useSelector( selectBackgroundNotes );
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
