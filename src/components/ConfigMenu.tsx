@@ -1,10 +1,11 @@
 import React, { useRef } from 'react';
-import { Save, Download, Upload, X, Settings, Brush, PaintRoller, PaintbrushVertical } from 'lucide-react';
+import { Save, Download, Upload, PaintbrushVertical } from 'lucide-react';
 import type { ScheduleBox, SettingsNotesMain } from '../types/schedule';
 import { storage } from '../utils/storage';
 import { theme } from '../css/theme';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectBackgroundNotes } from '../redux/notesSlice';
+import { ButtonClose } from './ButtonClose';
 
 interface ConfigMenuProps {
   boxes: ScheduleBox[];
@@ -65,15 +66,7 @@ export function ConfigMenu({
     }}
     >
       <div className="max-w-md mx-auto p-6">
-        <button
-          onClick={onClose}
-          className={`absolute top-4 right-4 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
-          style={{
-            backgroundColor: theme.navbar.background
-          }}
-        >
-          <X size={20} />
-        </button>
+        <ButtonClose onClose={ onClose } />
 
         <h2 className="text-2xl font-bold mb-6"
         style={{

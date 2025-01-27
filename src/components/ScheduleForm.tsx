@@ -1,8 +1,8 @@
 import React from 'react';
-import { X } from 'lucide-react';
 import type { ScheduleBox } from '../types/schedule';
 import { theme } from '../css/theme';
 import { formatDate } from '../utils/dataUtils';
+import { ButtonClose } from './ButtonClose';
 
 interface ScheduleFormProps {
   box: Omit<ScheduleBox, 'id' | 'order'>;
@@ -25,15 +25,7 @@ export function ScheduleForm({ box, onSubmit, onChange, isEditing, isVisible, on
     }}
     >
       <div className="max-w-md mx-auto p-6">
-        <button
-          onClick={onClose}
-          className={`absolute top-6 right-6 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
-          style={{
-            backgroundColor: theme.navbar.background
-          }}
-        >
-          <X size={20} />
-        </button>
+        <ButtonClose onClose={ onClose } />
         
         <div className='flex justify-between'>
           <h2 className="text-2xl font-bold mb-4"

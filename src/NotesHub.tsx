@@ -248,6 +248,8 @@ function NotesHub() {
   };
 
   const onShowForm = () => {
+    setEditingBox(null);
+    
     setIsFormVisible(true);
     setIsConfigVisible(false);
   }

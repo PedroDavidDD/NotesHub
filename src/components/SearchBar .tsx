@@ -4,8 +4,8 @@ import { selectBackgroundNotes, setSearchTerm } from "../redux/notesSlice";
 
 const SearchBar = () => {
   const dispatch = useDispatch();
+  const settingsMain = useSelector( selectBackgroundNotes );
   const [localSearchTerm, setLocalSearchTerm] = useState(""); 
-  const bgData = useSelector( selectBackgroundNotes );
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLocalSearchTerm(e.target.value.toLowerCase());  
@@ -22,8 +22,8 @@ const SearchBar = () => {
         onClick={handleSearchSubmit}
         className="text-gray-400 focus:outline-none rounded-none transition duration-300 border-none"
         style={{
-          backgroundColor: bgData.nav.backgroundColor,
-          color: bgData.nav.colorIcons,
+          backgroundColor: settingsMain.nav.backgroundColor,
+          color: settingsMain.nav.colorIcons,
         }}  
       >
         <svg
@@ -49,7 +49,7 @@ const SearchBar = () => {
         placeholder="Buscar..."
         className="w-full pl-10 pr-4 py-2 border border-gray-300 shadow-sm focus:outline-none transition duration-300 bg-white"
         style={{
-          color: bgData.nav.textColor,
+          color: settingsMain.nav.textColor,
         }}
       />
     </>

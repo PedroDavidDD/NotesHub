@@ -5,13 +5,13 @@ import type { SettingsNotesMain, ScheduleBox } from '../types/schedule';
 const STORAGE_KEY = 'stream-schedule';
 const STORAGE_BG_KEY = 'stream-background';
 const DEFAULT_SETTINGS_NOTES_MAIN = {
-  color: theme.colors.common.black,
+  color: theme.colors.common.white,
   image: "",
   size: "contain",
   nav:{
-    backgroundColor: theme.colors.common.black,
+    backgroundColor: theme.colors.grey[200],
     textColor: theme.colors.common.black,
-    colorIcons: theme.colors.common.white,
+    colorIcons: theme.colors.floodlight.on,
   }
 }
 

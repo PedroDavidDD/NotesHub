@@ -1,9 +1,9 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { X } from 'lucide-react';
 import { theme } from '../css/theme';
 import { useSelector } from 'react-redux';
 import { selectBackgroundNotes } from '../redux/notesSlice';
 import { validateImage } from '../utils/minificador';
+import { ButtonClose } from './ButtonClose';
 
 interface SettingsNotesMainForm {
   onBgChange: (field: string, value: string) => void;
@@ -73,15 +73,7 @@ export function SettingsNotesMainForm({ onBgChange, isVisible, onClose }: Settin
     }}
     >
       <div className="max-w-md mx-auto py-6">
-        <button
-          onClick={onClose}
-          className={`absolute top-6 right-6 p-2 rounded-full transition-colors text-[${theme.colors.common.white}] hover:border-white`}
-          style={{
-            backgroundColor: theme.navbar.background
-          }}
-        >
-          <X size={20} />
-        </button>
+        <ButtonClose onClose={onClose}/>
         
         <div className='flex justify-between'>
           <h2 className="text-2xl font-bold mb-4"
