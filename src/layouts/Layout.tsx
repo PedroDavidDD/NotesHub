@@ -7,7 +7,7 @@ import { selectBackgroundNotes } from '../redux/notesSlice';
 
 export function Layout() {
   
-  const bgData = useSelector( selectBackgroundNotes );
+  const settingsMain = useSelector( selectBackgroundNotes );
   
   return (
     <div className="min-h-screen bg-[#1a0122]">
@@ -15,7 +15,7 @@ export function Layout() {
       <Navbar />
       <main className="background"
       style={{
-        background: `${bgData.color} url(${bgData.image}) no-repeat center/${bgData.size}`
+        background: `${settingsMain.color} url(${settingsMain.image}) no-repeat center/${settingsMain.size}`
       }}
       >
         <div className="max-w-6xl mx-auto">

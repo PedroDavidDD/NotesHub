@@ -86,6 +86,7 @@ export const Notes = ({
             }`}
             src={box.image}
             alt="imagen de nota"
+            loading='lazy'
             onLoad={() => setIsImageLoading(false)}
             onError={() => setIsImageLoading(false)}
             style={{
