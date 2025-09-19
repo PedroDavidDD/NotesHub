@@ -70,8 +70,35 @@ export function Navbar() {
               onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
               onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}  
             >
-              Contact
+              Paypal
             </Link>
+            <a
+              href="https://www.linkedin.com/in/pedro-david-de-la-cruz-díaz-0bbaa0249"
+              className="transition duration-300 transform hover:scale-110"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: theme.colors.common.white,
+              }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}
+            >
+              Linkedin
+            </a>
+            <a
+              href="CV_PedroDavid_DelacruzDíaz.pdf"
+              className="transition duration-300 transform hover:scale-110"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                color: theme.colors.common.white,
+              }}
+              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = theme.navbar.background)}
+              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = theme.colors.common.white)}
+            >
+              Curriculum Vitae
+            </a>
+
           </div>
         </div>
       </div>
