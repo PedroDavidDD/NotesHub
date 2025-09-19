@@ -10,7 +10,7 @@ export function Layout() {
   const settingsMain = useSelector( selectBackgroundNotes );
   
   return (
-    <div className="min-h-screen bg-[#1a0122]">
+    <div className="min-h-screen bg-[#000000]">
       
       <Navbar />
       <main className="background"
