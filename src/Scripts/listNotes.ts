@@ -14,7 +14,7 @@ export const listNotes: ScheduleBoxType[] = [
         textColor:"#ffffff",
         
         tags: ["acción", "aventura", "fantasía"],        
-        borderColor: "transparent",
+        borderColor: "#000000",
         borderStyle: "solid",
         borderWidth: "0",        
         order: 0,
@@ -40,7 +40,7 @@ export const listNotes: ScheduleBoxType[] = [
         textColor:"#ffffff",
         
         tags: ["eSports", "drama", "videojuegos"],        
-        borderColor: "transparent",
+        borderColor: "#000000",
         borderStyle: "solid",
         borderWidth: "0",        
         order: 1,
@@ -66,7 +66,7 @@ export const listNotes: ScheduleBoxType[] = [
         backgroundPosition: "center",
         
         tags: ["isekai", "fantasía", "superación"],        
-        borderColor: "transparent",
+        borderColor: "#000000",
         borderStyle: "solid",
         borderWidth: "0",        
         order: 2,
@@ -92,7 +92,7 @@ export const listNotes: ScheduleBoxType[] = [
         backgroundPosition: "center",
         
         tags: ["acción", "drama", "fantasía"],        
-        borderColor: "transparent",
+        borderColor: "#000000",
         borderStyle: "solid",
         borderWidth: "0",        
         order: 3,        
@@ -118,7 +118,7 @@ export const listNotes: ScheduleBoxType[] = [
         backgroundPosition: "top",
         
         tags: ["fantasía", "reencarnación", "construcción de reino"],        
-        borderColor: "transparent",
+        borderColor: "#000000",
         borderStyle: "solid",
         borderWidth: "0",        
         order: 4,        
@@ -144,7 +144,7 @@ export const listNotes: ScheduleBoxType[] = [
         backgroundPosition: "center",
         
         tags: ["acción", "estrategia", "anti-héroe"],        
-        borderColor: "transparent",
+        borderColor: "#000000",
         borderStyle: "solid",
         borderWidth: "0",        
         order: 5,        
@@ -170,7 +170,7 @@ export const listNotes: ScheduleBoxType[] = [
         backgroundPosition: "center",
         
         tags: ["ciencia ficción", "aventura", "videojuegos"],        
-        borderColor: "transparent",
+        borderColor: "#000000",
         borderStyle: "solid",
         borderWidth: "0",        
         order: 6,        

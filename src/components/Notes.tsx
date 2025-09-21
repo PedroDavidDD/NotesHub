@@ -72,7 +72,7 @@ export const Notes = ({
         hover:scale-[1.02]`}
       style={{ 
         backgroundColor: box.backgroundColor,
-        border:`${box.borderColor} ${box.borderStyle} ${box.borderWidth}px`,
+        border:`${box.borderWidth}px ${box.borderStyle} ${box.borderColor}`,
       }}
     >      
       
