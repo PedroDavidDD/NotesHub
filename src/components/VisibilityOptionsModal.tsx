@@ -1,6 +1,15 @@
 import React from 'react'
 import { theme } from '../css/theme'
 import { X } from 'lucide-react'
+import { ScheduleBox } from '../types/schedule'
+
+type visibilityOptionsModal = {
+    handleVisibleCancel: () => void,
+    handleConfirmDelete: () => void,
+    isVisibleHidden: boolean,
+    hiddenNotes: ScheduleBox[],
+    handleSeeNotes: () => void,
+}
 
 export const VisibilityOptionsModal = ({
     handleVisibleCancel,
@@ -8,7 +17,7 @@ export const VisibilityOptionsModal = ({
     isVisibleHidden,
     hiddenNotes,
     handleSeeNotes,
-}) => {
+}: visibilityOptionsModal) => {
 
   return (
     <div className="z-10 absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">                

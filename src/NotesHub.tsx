@@ -16,7 +16,7 @@ import {
   SearchBar 
 } from "./components";
 
-import type { ScheduleBox as ScheduleBoxType, SettingsNotesMain } from './types/schedule';
+import type { ScheduleBox, SettingsNav, SettingsNotesMain } from './types/schedule';
 import { useSelector, useDispatch } from "react-redux";
 import { 
   addNotes,
@@ -28,7 +28,7 @@ import {
   setUpdSettingsNotesMain
 } from "./redux/notesSlice";
 
-const DEFAULT_SCHEDULEBOX: ScheduleBoxType = {
+const DEFAULT_SCHEDULEBOX: ScheduleBox = {
   id: "",
   date: "",
   title: "",
@@ -46,7 +46,7 @@ const DEFAULT_SCHEDULEBOX: ScheduleBoxType = {
   state: true,
 };
 
-const DEFAULT_SCHEDULE_NEWBOX: Omit<ScheduleBoxType, 'id' | 'order'> = {
+const DEFAULT_SCHEDULE_NEWBOX: Omit<ScheduleBox, 'id' | 'order'> = {
   date: "",
   title: "",
   time: "",
@@ -74,14 +74,14 @@ function NotesHub() {
   const [boxStyle, setBoxStyle] = useState(stateNotes.BOX);
   const [isNotesVisible, setIsNotesVisible] = useState( true );
   const [open, setOpen] = useState(false);
-  const [dataSelected, setDataSelected] = useState<ScheduleBoxType>( DEFAULT_SCHEDULEBOX );
-  const [editingBox, setEditingBox] = useState<ScheduleBoxType | null>(null);
-  const [newBox, setNewBox] = useState<Omit<ScheduleBoxType, 'id' | 'order'>>( DEFAULT_SCHEDULE_NEWBOX );
+  const [dataSelected, setDataSelected] = useState<ScheduleBox>( DEFAULT_SCHEDULEBOX );
+  const [editingBox, setEditingBox] = useState<ScheduleBox | null>(null);
+  const [newBox, setNewBox] = useState<Omit<ScheduleBox, 'id' | 'order'>>( DEFAULT_SCHEDULE_NEWBOX );
 
   const [isFormVisible, setIsFormVisible] = useState(false);
   const [isSettingsFormVisible, setIsSettingsFormVisible] = useState(false);
   const [isConfigVisible, setIsConfigVisible] = useState(false);
-  const [draggedBox, setDraggedBox] = useState<ScheduleBoxType | null>(null);
+  const [draggedBox, setDraggedBox] = useState<ScheduleBox | null>(null);
 
   const [isOpen, setIsOpen] = useState(false);
   const [isVisibleHidden, setIsVisibleHidden] = useState(true);
@@ -92,7 +92,7 @@ function NotesHub() {
   const [totalPages, setTotalPages] = useState(0);
 
   const handleOpen = (copyId: string) => {
-    const idOrigen: ScheduleBoxType | undefined = scheduleBoxes.find((it) => it.id === copyId);
+    const idOrigen: ScheduleBox | undefined = scheduleBoxes.find((it) => it.id === copyId);
   
     if (!idOrigen) {
       alert(`No se encontró una caja con el ID: ${copyId}`);
@@ -111,7 +111,7 @@ function NotesHub() {
       dispatch(editNotes(editingBox));
       setEditingBox(null);
     } else if (newBox.date && newBox.title && newBox.time) {
-      const newBoxWithId: ScheduleBoxType = {
+      const newBoxWithId: ScheduleBox = {
         ...newBox,
         id: Date.now().toString(),
         order: scheduleBoxes.length
@@ -156,7 +156,7 @@ function NotesHub() {
   };
 
 // Editar la carta
-  const handleEdit = (box: ScheduleBoxType) => {
+  const handleEdit = (box: ScheduleBox) => {
     setEditingBox(box);
     setNewBox({ 
       date: box.date, 
@@ -184,7 +184,7 @@ function NotesHub() {
     dispatch(deleteNotes(id));
   };
   // Importar el .JSON
-  const handleImport = (boxes: ScheduleBoxType[], background: SettingsNotesMain ) => {
+  const handleImport = (boxes: ScheduleBox[], background: SettingsNotesMain ) => {
     dispatch(setNotes(boxes));
     dispatch(setUpdSettingsNotesMain(background));
   };
@@ -193,7 +193,7 @@ function NotesHub() {
   // -----------DRAG AND DROP------------
   // ---------------------------------------------------  
 
-  const handleDragStart = (e: React.DragEvent, box: ScheduleBoxType) => {
+  const handleDragStart = (e: React.DragEvent, box: ScheduleBox) => {
     setDraggedBox(box);
   };
 
@@ -202,11 +202,11 @@ function NotesHub() {
     setDraggedBox(null)
   };
 
-  const handleDragOver = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
+  const handleDragOver = (e: React.DragEvent, targetBox: ScheduleBox) => {
     e.preventDefault();
   };
   
-  const handleDrop = (e: React.DragEvent, targetBox: ScheduleBoxType) => {
+  const handleDrop = (e: React.DragEvent, targetBox: ScheduleBox) => {
     e.preventDefault();
     // Validar que haya un elemento arrastrado y que no se suelte sobre sí mismo.
     if (!draggedBox || draggedBox.id === targetBox.id) return;
@@ -242,25 +242,31 @@ function NotesHub() {
 
   const handleBgChange = (field: string, value: string) => {
     // Segundo Nivel: Recive la key del 1ro y la key del 2do.
-    const isNavFiled = field.includes("nav.");
+    const isNavFiled = field.includes(".");
     if (isNavFiled){
-      const [parentField, childField] = field.split(".");
-      dispatch(
-        setUpdSettingsNotesMain({
-          ...settingsMain,
-          [parentField]: {
-            ...settingsMain[parentField],
-            [childField]: value,
-          },
-        })
-      );
+      const [parentField, childField] = field.split(".") as [keyof SettingsNotesMain, keyof SettingsNav];
+
+      const parentValue = settingsMain[parentField];
+
+      if (typeof parentValue === "object" && parentValue !== null) {
+        dispatch(
+          setUpdSettingsNotesMain({
+            ...settingsMain,
+            [parentField]: {
+              ...parentValue,
+              [childField]: value,
+            },
+          })
+        );
+      }
+      
       return;
     }
     // Primer nivel 
     dispatch(
       setUpdSettingsNotesMain({
         ...settingsMain,
-        [field]: value,
+        [field as keyof SettingsNotesMain]: value,
       })
     );
 
