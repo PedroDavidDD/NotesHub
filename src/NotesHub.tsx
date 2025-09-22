@@ -158,24 +158,6 @@ function NotesHub() {
 // Editar la carta
   const handleEdit = (box: ScheduleBox) => {
     setEditingBox(box);
-    setNewBox({ 
-      date: box.date, 
-      title: box.title, 
-      time: box.time, 
-      description: box.description || '',
-      backgroundColor: box.backgroundColor || '',
-      backgroundPosition: box.backgroundPosition || 'center',
-      image: box.image || '',
-      tags: box.tags || [],
-      borderColor: box.borderColor || '#ffff55',
-      particleState: box.particleState || false,
-      particleColor: box.particleColor || '#ffff55',
-      accentColor: box.accentColor || '#ffff55',
-      accentBorderWidth: box.accentBorderWidth || '2',
-      alignItem: box.alignItem || 'start',  
-      justifyContent: box.justifyContent || 'center',  
-      state: box.state || true,
-    });
     setIsFormVisible(true);
     setIsConfigVisible(false);
   };
