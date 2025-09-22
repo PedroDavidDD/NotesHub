@@ -27,6 +27,8 @@ import {
   setNotes, 
   setUpdSettingsNotesMain
 } from "./redux/notesSlice";
+import { theme } from "./css/theme";
+import { formatDate } from "./utils/dataUtils";
 
 const DEFAULT_SCHEDULEBOX: ScheduleBox = {
   id: "",
@@ -47,16 +49,20 @@ const DEFAULT_SCHEDULEBOX: ScheduleBox = {
 };
 
 const DEFAULT_SCHEDULE_NEWBOX: Omit<ScheduleBox, 'id' | 'order'> = {
-  date: "",
-  title: "",
-  time: "",
-  backgroundColor: '',
+  date:  new Date().toISOString().split('T')[0],
+  title: "Nuevo Evento",
+  time: new Intl.DateTimeFormat('es-PE', {
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  }).format(new Date()),
+  backgroundColor: theme.colors.floodlight.on,
   image: "",
-  textColor: '',
+  textColor: theme.colors.common.white,
   particleState: false,
-  particleColor: '',
-  accentColor: '',
-  accentBorderWidth: '',
+  particleColor: theme.colors.common.white,
+  accentColor: theme.colors.floodlight.on,
+  accentBorderWidth: '2',
   state: true,
 }
 
@@ -118,18 +124,7 @@ function NotesHub() {
       };
       dispatch(addNotes(newBoxWithId));
       // Resetea para el proximo default
-      setNewBox({
-        date: "",
-        title: "Nuevo Evento",
-        time: "Hora no definida",
-        backgroundColor: '#ffff55',
-        image: "",
-        particleState: false,
-        particleColor: '#ffff55',
-        accentColor: '#ffff55',
-        accentBorderWidth: '2',
-        state: true,
-      });
+      setNewBox(DEFAULT_SCHEDULE_NEWBOX);
     }
     setIsFormVisible(false);
   };

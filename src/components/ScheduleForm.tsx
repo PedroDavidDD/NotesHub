@@ -168,7 +168,7 @@ export function ScheduleForm({
             <div className='flex gap-5'>
               <input
                 type="color"
-                value={box.borderColor || theme.form.button}
+                value={box.borderColor || theme.colors.common.white}
                 onChange={(e) => onChange('borderColor', e.target.value)}
                 className="w-full h-10 rounded cursor-pointer"
               />
