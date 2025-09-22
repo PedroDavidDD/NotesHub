@@ -242,13 +242,19 @@ function NotesHub() {
 
   const handleBgChange = (field: string, value: string) => {
     // Segundo Nivel: Recive la key del 1ro y la key del 2do.
-    const isNavFiled = field.includes(".");
-    if (isNavFiled){
+    const isNested = field.includes(".");
+
+    if (isNested){
       const [parentField, childField] = field.split(".") as [keyof SettingsNotesMain, keyof SettingsNav];
+
+      if (!childField) {
+        console.warn("Formato de campo invalido: falta la llave hija");
+        return;
+      }
 
       const parentValue = settingsMain[parentField];
 
-      if (typeof parentValue === "object" && parentValue !== null) {
+      if (typeof parentValue === "object" && parentValue !== null && childField in parentValue) {
         dispatch(
           setUpdSettingsNotesMain({
             ...settingsMain,
@@ -258,6 +264,8 @@ function NotesHub() {
             },
           })
         );
+      } else {
+        console.warn("Campo hijo no válido:", childField);
       }
       
       return;
