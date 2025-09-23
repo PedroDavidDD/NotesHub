@@ -49,13 +49,9 @@ const DEFAULT_SCHEDULEBOX: ScheduleBox = {
 };
 
 const DEFAULT_SCHEDULE_NEWBOX: Omit<ScheduleBox, 'id' | 'order'> = {
-  date:  new Date().toISOString().split('T')[0],
-  title: "Nuevo Evento",
-  time: new Intl.DateTimeFormat('es-PE', {
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  }).format(new Date()),
+  date:  "03-20-2025",
+  title: "Tarea",
+  time: "Lunes - 9:20 p.m.",
   backgroundColor: theme.colors.floodlight.on,
   image: "",
   textColor: theme.colors.common.white,

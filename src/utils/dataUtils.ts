@@ -12,18 +12,18 @@
       return { isoFormattedDate: '', longFormattedDate: '' }; 
     }
   
-    // Si quieres mostrar la fecha en formato largo
     const options: Intl.DateTimeFormatOptions = {
       day: '2-digit',
       month: 'long',
       year: 'numeric',
       timeZone: 'UTC',
+      hour12: true,
     };
-  
-    const formattedDate = parsedDate.toLocaleDateString('es-ES', options); 
+
+    const longFormattedDate = new Intl.DateTimeFormat('es-PE', options).format(parsedDate);
   
     return {
-      isoFormattedDate: isoDate, 
-      longFormattedDate: formattedDate 
+      isoFormattedDate: parsedDate.toISOString().split("T")[0], 
+      longFormattedDate
     };
   };

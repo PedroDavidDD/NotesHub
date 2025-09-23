@@ -74,7 +74,7 @@ export function ScheduleForm({
             style={{color: theme.form.button }}>Título</label>
             <input
               type="text"
-              value={box.title || 'Nuevo Evento'}
+              value={box.title || 'Tarea'}
               required
               onChange={(e) => onChange('title', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
@@ -119,7 +119,7 @@ export function ScheduleForm({
             style={{color: theme.form.button }}>Hora</label>
             <input
               type="text"
-              value={box.time || 'Hora no definida'}
+              value={box.time || 'Lunes - 9:20 p.m.'}
               required
               onChange={(e) => onChange('time', e.target.value)}
               className="w-full rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-white"
